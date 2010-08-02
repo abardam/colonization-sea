@@ -14,10 +14,12 @@ package southeastasia;
 public class SoutheastAsiaServer {
     
     private SoutheastAsiaServerStats stats;
+    private boolean gameStarted;
 
     public SoutheastAsiaServer()
     {
         stats=new SoutheastAsiaServerStats();
+        gameStarted=false;
     }
 
     /**
@@ -35,6 +37,10 @@ public class SoutheastAsiaServer {
      */
     public int startNewTurn(boolean override)
     {
+        if(gameStarted)
+        {
+            
+        }
         return 0;
     }
 
@@ -76,11 +82,43 @@ public class SoutheastAsiaServer {
      *
      * i guess kung wala pang action it returns something else
      *
-     * @param countryCode the country's number
+     * @param playerCode the player's number
      * @return the action in String format
      */
-    public String getAction(int countryCode)
+    public String getAction(int playerCode)
     {
-        return stats.getAction(countryCode).toString();
+        return stats.getAction(playerCode).toString();
+    }
+
+    /**
+     *
+     * call this method during country select
+     * 
+     * @param playerCode a number from 0-5 representing a player
+     * @param countryCode a number from 0-5 representing the country
+     * @return 1 if successful 0 if country already chosen -1 if playercode invalid -2 if countrycode invalid
+     */
+    public int chooseCountry(int playerCode, int countryCode)
+    {
+        return 0;
+    }
+    
+    /**
+     * call this method when done with country select
+     * 
+     * will not start if not all slots are filled and override is false
+     * will not start if 2+ players have the same country (probably shouldnt happen but whatever)
+     *
+     * sets gameStarted to true
+     * prepares ServerStats
+     * 
+     * @param override set to true if starting with incomplete players
+     * @return 0 if not all slots filled 1 if all slots filled 2 if country overlap
+     */
+    public int startGame(boolean override)
+    {
+        //put some code in here
+        //gameStarted=true;
+        return 0;
     }
 }
