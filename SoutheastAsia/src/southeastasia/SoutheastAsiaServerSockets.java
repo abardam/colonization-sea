@@ -12,9 +12,12 @@ package southeastasia;
 public class SoutheastAsiaServerSockets {
 
     int[] players;
+    Accepter accepter;
 
     public SoutheastAsiaServerSockets() {
-        players = new int[5];
+        players = new int[6];
+        accepter = new Accepter();
+
     }
 
     /**
@@ -29,4 +32,33 @@ public class SoutheastAsiaServerSockets {
     public int getPlayer() {
         return 1;
     }
+
+    class Accepter extends Thread
+    {
+        int i;
+        int max;
+
+        public Accepter() {
+         i = 0;
+         max = 6;
+        }
+
+        public void run()
+        {
+            while (i < max)
+            {
+                //wait for socket
+                //accept socket
+                //assign socket as i
+                i++;
+            }
+        }
+
+        public void setPlayers(int max)
+        {
+            this.max = max;
+        }
+        
+    }
+    
 }
