@@ -3,6 +3,8 @@
  * and open the template in the editor.
  */
 
+import java.util.ArrayList;
+
 package southeastasia;
 
 /**
@@ -15,13 +17,20 @@ package southeastasia;
 public class SoutheastAsiaServerStats {
 
     //to do: put an array for storing each country's stats (use CountryVariables)
+    private CountryVariables[] variables;
 
     //to do: chatlog (array siguro of strings)
+    private ArrayList<String> chatlog;
 
     //to do: put an array for storing each country's current actions (use Action)
     private Action[] actions;
 
-    //each country corresponds to a number (a slot in the arrays)
+    //to do: an array for storing each player's country
+    //in this array the index is the player and the number is the country
+    //so if countries[0]=1 that means player 0 has country 1 (whatever that is)
+    private int[] countries;
+
+    //each player corresponds to a number (a slot in the arrays)
 
     public SoutheastAsiaServerStats()
     {
@@ -42,9 +51,10 @@ public class SoutheastAsiaServerStats {
     //to do: update actions method
     //to do: get actions method
 
-    public Action getAction(int countryCode)
+    public Action getAction(int playerCode)
     {
-        return actions[countryCode];
+        return actions[playerCode];
     }
+
 
 }
