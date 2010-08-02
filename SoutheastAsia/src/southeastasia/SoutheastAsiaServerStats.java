@@ -14,15 +14,18 @@ package southeastasia;
  */
 public class SoutheastAsiaServerStats {
 
-    //to do: put a Dictionary for storing each country's stats (use CountryVariables)
+    //to do: put an array for storing each country's stats (use CountryVariables)
 
     //to do: chatlog (array siguro of strings)
 
-    //to do: put a Dictionary for storing each country's current actions (use Action)
+    //to do: put an array for storing each country's current actions (use Action)
+    private Action[] actions;
+
+    //each country corresponds to a number (a slot in the arrays)
 
     public SoutheastAsiaServerStats()
     {
-
+        //initialize arrays
     }
 
     //to do: update stats method
@@ -31,7 +34,17 @@ public class SoutheastAsiaServerStats {
     //to do: update chatlog method
     //to do: get chatlog method
 
+    public int updateChatlog(String chat)
+    {
+        return 1;
+    }
+
     //to do: update actions method
     //to do: get actions method
+
+    public Action getAction(int countryCode)
+    {
+        return actions[countryCode];
+    }
 
 }
