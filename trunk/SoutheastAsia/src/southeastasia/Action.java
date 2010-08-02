@@ -17,4 +17,15 @@ package southeastasia;
  */
 public class Action {
 
+    /**
+     * this method converts the action to a string
+     *
+     * for displaying to the teacher/student
+     *
+     * @return String representation of the action
+     */
+    public String toString()
+    {
+        return "";
+    }
 }
