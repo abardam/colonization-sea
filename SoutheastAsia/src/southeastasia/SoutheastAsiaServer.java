@@ -93,14 +93,34 @@ public class SoutheastAsiaServer {
     /**
      *
      * call this method during country select
+     *
+     * once picked, countries cannot be picked again unless overridden
      * 
      * @param playerCode a number from 0-5 representing a player
      * @param countryCode a number from 0-5 representing the country
+     * @param override if true, can replace country already picked
      * @return 1 if successful 0 if country already chosen -1 if playercode invalid -2 if countrycode invalid
      */
-    public int chooseCountry(int playerCode, int countryCode)
+    public int chooseCountry(int playerCode, int countryCode, boolean override)
     {
-        return 0;
+        if(override)
+        {
+            stats.replaceAllCountryChoices(countryCode); //all players who have picked the country will be reset
+            stats.setCountry(playerCode, countryCode);
+            return 1;
+        }
+        else
+        {
+            if(stats.countryIsAlreadySelected(countryCode))
+            {
+                return 0;
+            }
+            else
+            {
+                return stats.setCountry(playerCode, countryCode);
+            }
+
+        }
     }
     
     /**
@@ -120,5 +140,19 @@ public class SoutheastAsiaServer {
         //put some code in here
         //gameStarted=true;
         return 0;
+    }
+
+    /**
+     *
+     * generates the text log for this turn
+     *
+     * includes: stats at the start, problems generated, actions, whether the
+     * problem was solved, stats at the end
+     *
+     * @return the log for this turn
+     */
+    public String generateTurnLog()
+    {
+        return "";
     }
 }

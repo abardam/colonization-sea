@@ -16,6 +16,8 @@ import org.jdesktop.application.SingleFrameApplication;
  */
 public class SoutheastAsiaApp extends SingleFrameApplication {
 
+    public static final int MAX_PLAYERS=6;
+
     /**
      * At startup create and show the main frame of the application.
      */

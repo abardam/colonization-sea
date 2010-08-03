@@ -37,6 +37,10 @@ public class SoutheastAsiaServerStats {
     public SoutheastAsiaServerStats()
     {
         //initialize arrays
+        variables=new CountryVariables[SoutheastAsiaApp.MAX_PLAYERS];
+        chatlog=new ArrayList<String>();
+        actions=new Action[SoutheastAsiaApp.MAX_PLAYERS];
+        countries=new int[SoutheastAsiaApp.MAX_PLAYERS];
     }
 
     //to do: update stats method
@@ -47,6 +51,7 @@ public class SoutheastAsiaServerStats {
 
     public int updateChatlog(String chat)
     {
+        chatlog.add(chat);
         return 1;
     }
 
@@ -56,6 +61,64 @@ public class SoutheastAsiaServerStats {
     public Action getAction(int playerCode)
     {
         return actions[playerCode];
+    }
+
+    /**
+     * checks if the specified country is already selected
+     *
+     * @param countryCode the country to be checked
+     * @return true if selected, false otherwise
+     */
+    public boolean countryIsAlreadySelected(int countryCode)
+    {
+        for(int i=0;i<SoutheastAsiaApp.MAX_PLAYERS;i++)
+        {
+            if(countries[i]==countryCode)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * replaces all players who have picked a country with country -1
+     * @param countryCode the country code to be replaced with -1
+     * @return the number of countries replaced
+     */
+    public int replaceAllCountryChoices(int countryCode)
+    {
+        int number=0;
+
+        for(int i=0;i<SoutheastAsiaApp.MAX_PLAYERS;i++)
+        {
+            if(countries[i]==countryCode)
+            {
+                number++;
+                countries[i]=-1;
+            }
+        }
+
+        return number;
+    }
+
+    /**
+     * sets the country of a player
+     * @param playerCode the code of the player
+     * @param countryCode the code of the country
+     * @return 1 if successful, -1 if playercode invalid -2 if countrycode invalid
+     */
+    public int setCountry(int playerCode, int countryCode)
+    {
+        if(playerCode>=0&&playerCode<SoutheastAsiaApp.MAX_PLAYERS)
+        {
+            //to do: check if countrycode is valid
+            countries[playerCode]=countryCode;
+            return 1;
+        }
+
+        return -1;
     }
 
 
