@@ -15,7 +15,7 @@ public class SoutheastAsiaServerSockets {
     Accepter accepter;
 
     public SoutheastAsiaServerSockets() {
-        players = new int[6];
+        players = new int[SoutheastAsiaApp.MAX_PLAYERS];
         accepter = new Accepter();
 
     }
@@ -40,7 +40,7 @@ public class SoutheastAsiaServerSockets {
 
         public Accepter() {
          i = 0;
-         max = 6;
+         max = SoutheastAsiaApp.MAX_PLAYERS;
         }
 
         public void run()
