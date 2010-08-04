@@ -27,4 +27,16 @@ public class CountryVariables {
         this.name=name;
     }
 
+    /**
+     * modifies a country's stats (use with Action and Problem)
+     * @param stats the stats modifying the country
+     */
+    public void modifyStats(CountryVariables stats)
+    {
+        political+=stats.political;
+        cultural+=stats.cultural;
+        military+=stats.military;
+        economic+=stats.economic;
+    }
+
 }

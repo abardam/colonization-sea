@@ -39,7 +39,10 @@ public class SoutheastAsiaServer {
     {
         if(gameStarted)
         {
-            
+            if(stats.newTurn())
+            {
+                //game won! now check to see who won and in what category
+            }
         }
         return 0;
     }
@@ -153,6 +156,65 @@ public class SoutheastAsiaServer {
      */
     public String generateTurnLog()
     {
+        //stuff here
         return "";
+    }
+
+    /**
+     * solves the problem belonging to a player
+     * (called before the end of the turn)
+     * @param playerCode
+     * @return 1 if problem exists, 0 otherwise
+     */
+    public int solveProblem(int playerCode)
+    {
+        return stats.solveProblem(playerCode);
+        
+    }
+
+    /**
+     * gets the stats of a player
+     * @param playerCode the player to query
+     * @return the stats
+     */
+    public CountryVariables getStats(int playerCode)
+    {
+        return stats.getStats(playerCode);
+        
+    }
+
+    /**
+     * call this method to send in actions
+     * @param playerCode the player sending in an action
+     * @param actionCode the action in encoded string format
+     * @param override if set to false, will not change existing action
+     * @return 1 if action set, 0 if there is an existing action, 2 if there is an existing action but was overridden
+     */
+    public int setAction(int playerCode, String actionCode, boolean override)
+    {
+        if(stats.hasAction(playerCode))
+        {
+            if(override)
+            {
+                //parse actioncode, turn it into an action
+                //pass to serverstats
+
+                return 2;
+            }
+
+            return 0;
+        }
+        //parse actioncode, turn it into an action
+        //pass it to serverstats
+
+        //set action approval to false
+        stats.setApproval(playerCode, override);
+
+        return 1;
+    }
+
+    public static Problem generateProblem()
+    {
+        return Problem.noProblem();
     }
 }
