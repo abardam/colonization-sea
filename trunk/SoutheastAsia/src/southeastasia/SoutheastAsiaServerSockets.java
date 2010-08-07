@@ -4,6 +4,12 @@
  */
 package southeastasia;
 
+import java.io.IOException;
+import java.net.Socket;
+import java.net.ServerSocket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Coming soon: THREADS
  * 
@@ -11,13 +17,16 @@ package southeastasia;
  */
 public class SoutheastAsiaServerSockets {
 
-    int[] players;
-    Accepter accepter;
+    private Socket[] players;
+    private int port;
+    private Accepter accepter;
+    private ServerSocket[]server;
 
     public SoutheastAsiaServerSockets() {
-        players = new int[SoutheastAsiaApp.MAX_PLAYERS];
+        players = new Socket[SoutheastAsiaApp.MAX_PLAYERS];
+        server = new ServerSocket[SoutheastAsiaApp.MAX_PLAYERS];
         accepter = new Accepter();
-
+        port = 7777;
     }
 
     /**
@@ -27,6 +36,7 @@ public class SoutheastAsiaServerSockets {
      * 
      */
     public void acceptSockets() {
+        accepter.start();
     }
 
     public int getPlayer() {
@@ -40,18 +50,28 @@ public class SoutheastAsiaServerSockets {
 
         public Accepter() {
          i = 0;
-         max = SoutheastAsiaApp.MAX_PLAYERS;
+         //max = SoutheastAsiaApp.MAX_PLAYERS;
+         max = 1;
         }
 
+        @Override
         public void run()
         {
             while (i < max)
             {
-                //wait for socket
-                //accept socket using acceptSocket method
-                //assign socket as i
+                try {
+                    System.out.println("Waiting for player...");
+                    server[i] = new ServerSocket(port);
+                    Socket player = server[i].accept();
+                    players[i] = player;
+                } catch (IOException ex) {
+                    System.out.println("Jumping javabeans, Batman, something went wrong!");
+                    Logger.getLogger(SoutheastAsiaServerSockets.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
                 i++;
             }
+            System.out.println("Slots full. Ceasing to accept.");
         }
         
     }
