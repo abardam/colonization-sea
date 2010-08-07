@@ -124,6 +124,11 @@ public class SoutheastAsiaServer {
 
         }
     }
+
+    public int getCountry(int playerCode)
+    {
+        return stats.getCountry(playerCode);
+    }
     
     /**
      * call this method when done with country select

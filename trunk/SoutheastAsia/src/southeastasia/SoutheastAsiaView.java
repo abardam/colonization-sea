@@ -381,7 +381,7 @@ public class SoutheastAsiaView extends FrameView {
 
         if(result!=1)
         {
-            jcb.setSelectedIndex(-1);
+            jcb.setSelectedIndex(server.getCountry(playerno));
         }
     }
     //kind of a hacky way to get a country's code but WHATEVER

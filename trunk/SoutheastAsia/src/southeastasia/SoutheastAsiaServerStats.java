@@ -132,6 +132,11 @@ public class SoutheastAsiaServerStats {
         return -1;
     }
 
+    public int getCountry(int playerCode)
+    {
+        return countries[playerCode];
+    }
+
     /**
      * call this method every turn
      *
