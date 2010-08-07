@@ -15,9 +15,11 @@ public class SoutheastAsiaServer {
     
     private SoutheastAsiaServerStats stats;
     private boolean gameStarted;
+    private SoutheastAsiaServerSockets ss;
 
     public SoutheastAsiaServer()
     {
+        ss = new SoutheastAsiaServerSockets();
         stats=new SoutheastAsiaServerStats();
         gameStarted=false;
     }
@@ -220,5 +222,10 @@ public class SoutheastAsiaServer {
     public static Problem generateProblem()
     {
         return Problem.noProblem();
+    }
+
+    public void accept()
+    {
+        ss.acceptSockets();
     }
 }

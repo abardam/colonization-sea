@@ -18,21 +18,21 @@ public class SoutheastAsiaApp extends SingleFrameApplication {
 
     public static final int MAX_PLAYERS=6;
     private SoutheastAsiaView window;
-
+ 
     /**
      * At startup create and show the main frame of the application.
      */
     @Override protected void startup() {
         window=new SoutheastAsiaView(this, new SoutheastAsiaServer());
         show(window);
-
+        
         FakeSockets fs=new FakeSockets(this);
-        new SoutheastAsiaClientApp(fs).setVisible(true);
-        new SoutheastAsiaClientApp(fs).setVisible(true);
-        new SoutheastAsiaClientApp(fs).setVisible(true);
-        new SoutheastAsiaClientApp(fs).setVisible(true);
-        new SoutheastAsiaClientApp(fs).setVisible(true);
-        new SoutheastAsiaClientApp(fs).setVisible(true);
+            new SoutheastAsiaClientApp(fs).setVisible(true);
+            new SoutheastAsiaClientApp(fs).setVisible(true);
+            new SoutheastAsiaClientApp(fs).setVisible(true);
+            new SoutheastAsiaClientApp(fs).setVisible(true);
+            new SoutheastAsiaClientApp(fs).setVisible(true);
+            new SoutheastAsiaClientApp(fs).setVisible(true);
     }
 
     /**
