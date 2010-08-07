@@ -45,6 +45,7 @@ public class SoutheastAsiaServerStats {
         actions=new Action[SoutheastAsiaApp.MAX_PLAYERS];
         problems=new Problem[SoutheastAsiaApp.MAX_PLAYERS];
         countries=new int[SoutheastAsiaApp.MAX_PLAYERS];
+        approval=new boolean[SoutheastAsiaApp.MAX_PLAYERS];
 
         for(int i=0;i<SoutheastAsiaApp.MAX_PLAYERS;i++)
         {

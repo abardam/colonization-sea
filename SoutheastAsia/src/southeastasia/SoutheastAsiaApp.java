@@ -22,7 +22,7 @@ public class SoutheastAsiaApp extends SingleFrameApplication {
      * At startup create and show the main frame of the application.
      */
     @Override protected void startup() {
-        show(new SoutheastAsiaView(this));
+        show(new SoutheastAsiaView(this, new SoutheastAsiaServer()));
     }
 
     /**
