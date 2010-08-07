@@ -20,13 +20,16 @@ public class SoutheastAsiaServerSockets {
     private Socket[] players;
     private int port;
     private Accepter accepter;
-    private ServerSocket[]server;
+    //private ServerSocket[]server;
+    private ServerSocket server;
 
-    public SoutheastAsiaServerSockets() {
+    public SoutheastAsiaServerSockets() throws IOException {
         players = new Socket[SoutheastAsiaApp.MAX_PLAYERS];
-        server = new ServerSocket[SoutheastAsiaApp.MAX_PLAYERS];
-        accepter = new Accepter();
+        //server = new ServerSocket[SoutheastAsiaApp.MAX_PLAYERS];
         port = 7777;
+        server = new ServerSocket(port);
+        accepter = new Accepter();
+        
     }
 
     /**
@@ -50,8 +53,8 @@ public class SoutheastAsiaServerSockets {
 
         public Accepter() {
          i = 0;
-         //max = SoutheastAsiaApp.MAX_PLAYERS;
-         max = 1;
+         max = SoutheastAsiaApp.MAX_PLAYERS;
+         //max = 1;
         }
 
         @Override
@@ -59,15 +62,20 @@ public class SoutheastAsiaServerSockets {
         {
             while (i < max)
             {
+                    System.out.println("Waiting for player " + (i + 1) + "...");
+
+                    /**
+                     * TODO: Make new threads for the sockets?
+                     * See if it's necessary.
+                     */
+
                 try {
-                    System.out.println("Waiting for player...");
-                    server[i] = new ServerSocket(port);
-                    Socket player = server[i].accept();
-                    players[i] = player;
+                    players[i] = server.accept();
                 } catch (IOException ex) {
-                    System.out.println("Jumping javabeans, Batman, something went wrong!");
+                    System.out.println("Jumping Javabeans, Batman, something happened!");
                     Logger.getLogger(SoutheastAsiaServerSockets.class.getName()).log(Level.SEVERE, null, ex);
                 }
+
 
                 i++;
             }
