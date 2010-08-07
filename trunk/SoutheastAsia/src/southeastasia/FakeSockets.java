@@ -30,5 +30,8 @@ public class FakeSockets {
         //parse it
         //call some methods
 
+        //temporary parsing
+        server.tempParse(message);
+
     }
 }
