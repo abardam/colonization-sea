@@ -48,15 +48,10 @@ public class SoutheastAsiaServerSockets {
             while (i < max)
             {
                 //wait for socket
-                //accept socket
+                //accept socket using acceptSocket method
                 //assign socket as i
                 i++;
             }
-        }
-
-        public void setPlayers(int max)
-        {
-            this.max = max;
         }
         
     }
