@@ -17,12 +17,22 @@ import org.jdesktop.application.SingleFrameApplication;
 public class SoutheastAsiaApp extends SingleFrameApplication {
 
     public static final int MAX_PLAYERS=6;
+    private SoutheastAsiaView window;
 
     /**
      * At startup create and show the main frame of the application.
      */
     @Override protected void startup() {
-        show(new SoutheastAsiaView(this, new SoutheastAsiaServer()));
+        window=new SoutheastAsiaView(this, new SoutheastAsiaServer());
+        show(window);
+
+        FakeSockets fs=new FakeSockets(this);
+        new SoutheastAsiaClientApp(fs).setVisible(true);
+        new SoutheastAsiaClientApp(fs).setVisible(true);
+        new SoutheastAsiaClientApp(fs).setVisible(true);
+        new SoutheastAsiaClientApp(fs).setVisible(true);
+        new SoutheastAsiaClientApp(fs).setVisible(true);
+        new SoutheastAsiaClientApp(fs).setVisible(true);
     }
 
     /**
@@ -46,5 +56,15 @@ public class SoutheastAsiaApp extends SingleFrameApplication {
      */
     public static void main(String[] args) {
         launch(SoutheastAsiaApp.class, args);
+        //SoutheastAsiaClientApp.main(null);
+        
+    }
+
+    /**
+     * temporary method for "parsing"
+     */
+    public void tempParse(String message)
+    {
+        window.tempAddMessage(message);
     }
 }
