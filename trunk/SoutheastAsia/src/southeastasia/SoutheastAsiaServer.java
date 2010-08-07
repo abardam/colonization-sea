@@ -109,8 +109,7 @@ public class SoutheastAsiaServer {
         if(override)
         {
             stats.replaceAllCountryChoices(countryCode); //all players who have picked the country will be reset
-            stats.setCountry(playerCode, countryCode);
-            return 1;
+            return stats.setCountry(playerCode, countryCode);
         }
         else
         {
