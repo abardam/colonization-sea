@@ -5,8 +5,12 @@
 package southeastasia;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.ServerSocket;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,6 +26,7 @@ public class SoutheastAsiaServerSockets {
     private Accepter accepter;
     //private ServerSocket[]server;
     private ServerSocket server;
+    private PrintWriter[] sender;
 
     public SoutheastAsiaServerSockets() throws IOException {
         players = new Socket[SoutheastAsiaApp.MAX_PLAYERS];
@@ -29,6 +34,7 @@ public class SoutheastAsiaServerSockets {
         port = 7777;
         server = new ServerSocket(port);
         accepter = new Accepter();
+        sender = new PrintWriter[SoutheastAsiaApp.MAX_PLAYERS];
         
     }
 
@@ -42,8 +48,23 @@ public class SoutheastAsiaServerSockets {
         accepter.start();
     }
 
-    public int getPlayer() {
-        return 1;
+    public void giveOrder(String order, int player)
+    {
+        //insert string, sender[player] printstream shizz here
+    }
+
+    public void interpret(String order, int player)
+    {
+        //same as above
+    }
+
+    public void interpret(String order)
+    {
+        //lookie the top
+    }
+
+    public Socket getPlayer(int i) {
+        return players[i - 1];
     }
 
     class Accepter extends Thread
@@ -69,12 +90,22 @@ public class SoutheastAsiaServerSockets {
                      * See if it's necessary.
                      */
 
-                try {
+                    
+                try
+                {
                     players[i] = server.accept();
-                } catch (IOException ex) {
-                    System.out.println("Jumping Javabeans, Batman, something happened!");
-                    Logger.getLogger(SoutheastAsiaServerSockets.class.getName()).log(Level.SEVERE, null, ex);
+                    sender[i] = new PrintWriter(players[i].getOutputStream(), true);
+                    
+                    PlayRunner g = new PlayRunner(players[i]);
+                    g.start();
                 }
+                
+                catch (IOException ex)
+                {
+                    Logger.getLogger(SoutheastAsiaServerSockets.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("Jumping Javabeans, Batman, something happened!");
+                }
+
 
 
                 i++;
@@ -82,6 +113,44 @@ public class SoutheastAsiaServerSockets {
             System.out.println("Slots full. Ceasing to accept.");
         }
         
+    }
+
+        class PlayRunner extends Thread //doot doot doot. Should I stick this into another class?
+    {
+            Socket socket;
+
+            public PlayRunner(Socket socket)
+            {
+                this.socket = socket;
+            }
+
+        @Override
+            public void run()
+            {
+                try
+                {
+                    
+                    Scanner in = new Scanner(new InputStreamReader(socket.getInputStream()));
+
+                    while(true)
+                    {
+                        String msg = in.nextLine();
+                        if (!(msg.equals("")||msg==null))
+                        {
+                            //interpret(msg); ? Is this how it should be done?
+                        }
+                        
+                    }
+                }
+                catch (IOException ex)
+                {
+                    Logger.getLogger(SoutheastAsiaServerSockets.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("Yikes! Something happened.");
+                }
+
+
+            }
+
     }
     
 }
