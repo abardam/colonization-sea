@@ -81,6 +81,11 @@ public class SoutheastAsiaServerStats {
      */
     public boolean countryIsAlreadySelected(int countryCode)
     {
+        if(countryCode<0||countryCode>=SoutheastAsiaApp.MAX_PLAYERS)
+        {
+            return false;
+        }
+
         for(int i=0;i<SoutheastAsiaApp.MAX_PLAYERS;i++)
         {
             if(countries[i]==countryCode)
@@ -220,5 +225,22 @@ public class SoutheastAsiaServerStats {
     {
         return !(actions[playerCode].isNull);
 
+    }
+
+    /**
+     * counts how many players have countryCodes of not -1
+     * @return the number of players who have selected countries
+     */
+    public int countSelectedCountries()
+    {
+        int count=0;
+        for(int i=0;i<SoutheastAsiaApp.MAX_PLAYERS;i++)
+        {
+            if(countries[i]>=0&&countries[i]<6)
+            {
+                count++;
+            }
+        }
+        return count;
     }
 }

@@ -25,7 +25,7 @@ public class FakeSockets {
         clients.add(sac);
     }
 
-    public void recieveTransmission(String message)
+    public void serverRecieveTransmission(String message)
     {
         //parse it
         //call some methods
@@ -33,5 +33,25 @@ public class FakeSockets {
         //temporary parsing
         server.tempParse(message);
     }
+
+    public void clientRecieveTransmission(String message, int clientCode)
+    {
+        if(clientCode>=0)
+        {
+            int i=0;
+            for(SoutheastAsiaClient sac:clients)
+            {
+                if(i==clientCode)
+                {
+                    //parse it
+                    //call methods of sac
+                    sac.recieveMessage(message);
+
+                }
+                i++;
+            }
+        }
+    }
+    
 
 }

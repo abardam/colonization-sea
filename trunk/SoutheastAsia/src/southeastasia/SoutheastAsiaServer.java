@@ -4,7 +4,7 @@
  */
 
 package southeastasia;
-
+import java.io.IOException;
 /**
  *
  * @author Enzo
@@ -19,7 +19,14 @@ public class SoutheastAsiaServer {
 
     public SoutheastAsiaServer()
     {
-        ss = new SoutheastAsiaServerSockets();
+        try
+        {
+            ss = new SoutheastAsiaServerSockets();
+        }
+        catch(IOException ioe)
+        {
+            System.out.println(ioe.getMessage());
+        }
         stats=new SoutheastAsiaServerStats();
         gameStarted=false;
     }
@@ -142,13 +149,13 @@ public class SoutheastAsiaServer {
      * prepares ServerStats
      * 
      * @param override set to true if starting with incomplete players
-     * @return 0 if not all slots filled 1 if all slots filled 2 if country overlap
+     * @return 0 if not all slots filled 1 if all slots filled OR overridden 2 if country overlap
      */
     public int startGame(boolean override)
     {
         //put some code in here
         //gameStarted=true;
-        return 0;
+        return 1;
     }
 
     /**
@@ -227,5 +234,10 @@ public class SoutheastAsiaServer {
     public void accept()
     {
         ss.acceptSockets();
+    }
+
+    public int countPlayers()
+    {
+        return stats.countSelectedCountries();
     }
 }
