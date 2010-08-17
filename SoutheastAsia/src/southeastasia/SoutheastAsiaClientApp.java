@@ -25,24 +25,29 @@ import java.util.logging.Logger;
 public class SoutheastAsiaClientApp extends javax.swing.JFrame {
 
     /** Creates new form SoutheastAsiaClientApp */
-    public SoutheastAsiaClientApp() {
+    public SoutheastAsiaClientApp(SoutheastAsiaClient client) {
+        port=7777;
         initComponents();
+        this.client=client;
+        client.setApp(this);
     }
 
-    private FakeSockets sockets;
+    //private FakeSockets sockets;
     private Socket socket;
     private InetAddress host;
     private int port;
+    private SoutheastAsiaClient client;
 
-    /**
+    /*
      * this is for the FAKESOCKETS
-     */
-    public SoutheastAsiaClientApp(FakeSockets sock)
+     
+    public SoutheastAsiaClientApp(FakeSockets sock, SoutheastAsiaClient client)
     {
         port = 7777;
         initComponents();
         sockets=sock;
-    }
+        this.client=client;
+    }*/
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -117,8 +122,14 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        sockets.recieveTransmission(jTextField1.getText());
+        //sockets.serverRecieveTransmission(jTextField1.getText());
+        client.sendMessage(jTextField1.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    public void tempMessage(String message)
+    {
+        jTextField1.setText(message);
+    }
 
     private void connectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectActionPerformed
         try {
@@ -142,7 +153,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SoutheastAsiaClientApp().setVisible(true);
+                new SoutheastAsiaClientApp(new SoutheastAsiaClient()).setVisible(true);
             }
         });
     }
