@@ -81,7 +81,6 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
             }
         });
 
-        connect.setText(resourceMap.getString("connect.text")); // NOI18N
         connect.setName("connect"); // NOI18N
         connect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
