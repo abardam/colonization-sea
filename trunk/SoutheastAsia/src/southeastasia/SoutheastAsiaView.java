@@ -607,7 +607,7 @@ public class SoutheastAsiaView extends FrameView {
                     //fakesockets.clientRecieveTransmission("hellow", i);
                     if(server.getCountry(i)!=-1)
                     {
-                        fakesockets.clientRecieveTransmission("hellow", i);
+                        fakesockets.clientRecieveTransmission("startgame", i);
                     }
                 }
             }
