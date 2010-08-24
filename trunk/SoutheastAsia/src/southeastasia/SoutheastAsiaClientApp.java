@@ -313,6 +313,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         }
         try {
             socket = new Socket(host.getHostName(), port);
+            client.setSocket(socket);
         } catch (UnknownHostException ex) {
             Logger.getLogger(SoutheastAsiaClientApp.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

@@ -5,6 +5,8 @@
 
 package southeastasia;
 
+import java.net.Socket;
+
 /**
  *
  * @author Enzo
@@ -13,7 +15,7 @@ public class SoutheastAsiaClient {
     private boolean useFakeSockets;
     private FakeSockets fakesockets;
     private SoutheastAsiaClientApp app;
-
+    private Socket socket;
     public SoutheastAsiaClient(FakeSockets fs)
     {
         //call this constructor when using fakesockets
@@ -31,6 +33,11 @@ public class SoutheastAsiaClient {
         app=seapp;
     }
 
+    public void setSocket(Socket s)
+    {
+        socket = s;
+    }
+
     public void sendMessage(String message)
     {
         if(useFakeSockets)
@@ -39,7 +46,10 @@ public class SoutheastAsiaClient {
         }
         else
         {
-            //put not fake sockets here
+            /* put not fake sockets here
+             * para fun, gonna need to use outputstreamwriter
+             * must learn to flush.
+             */
         }
     }
 
@@ -56,4 +66,8 @@ public class SoutheastAsiaClient {
             app.tempMessage(message);
         }
     }
+
+    /*
+     * todo: make a thread for input!
+     */
 }

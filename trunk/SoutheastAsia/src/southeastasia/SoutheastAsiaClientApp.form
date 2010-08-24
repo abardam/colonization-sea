@@ -153,7 +153,7 @@
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                       <JTabbedPaneConstraints tabName="tab1">
-                        <Property name="tabTitle" type="java.lang.String" resourceKey="jPanel3.TabConstraints.tabTitle"/>
+                        <Property name="tabTitle" type="java.lang.String" value="tab1"/>
                       </JTabbedPaneConstraints>
                     </Constraint>
                   </Constraints>
@@ -185,7 +185,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jTextField7" pref="259" max="32767" attributes="0"/>
+                                      <Component id="jTextField7" pref="251" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -235,7 +235,6 @@
                   <SubComponents>
                     <Component class="javax.swing.JTextField" name="jTextField2">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jTextField2.text"/>
                         <Property name="name" type="java.lang.String" value="jTextField2" noResource="true"/>
                       </Properties>
                     </Component>
@@ -260,49 +259,41 @@
                     </Container>
                     <Component class="javax.swing.JLabel" name="jLabel1">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jLabel1.text"/>
                         <Property name="name" type="java.lang.String" value="jLabel1" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel2">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jLabel2.text"/>
                         <Property name="name" type="java.lang.String" value="jLabel2" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel3">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jLabel3.text"/>
                         <Property name="name" type="java.lang.String" value="jLabel3" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel4">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jLabel4.text"/>
                         <Property name="name" type="java.lang.String" value="jLabel4" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="jTextField3">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jTextField3.text"/>
                         <Property name="name" type="java.lang.String" value="jTextField3" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="jTextField4">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jTextField4.text"/>
                         <Property name="name" type="java.lang.String" value="jTextField4" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="jTextField5">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jTextField5.text"/>
                         <Property name="name" type="java.lang.String" value="jTextField5" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="jTextField6">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jTextField6.text"/>
                         <Property name="name" type="java.lang.String" value="jTextField6" noResource="true"/>
                       </Properties>
                     </Component>
@@ -315,7 +306,6 @@
                     <Component class="javax.swing.JTextField" name="jTextField7">
                       <Properties>
                         <Property name="editable" type="boolean" value="false"/>
-                        <Property name="text" type="java.lang.String" resourceKey="jTextField7.text"/>
                         <Property name="name" type="java.lang.String" value="jTextField7" noResource="true"/>
                       </Properties>
                     </Component>
