@@ -13,6 +13,7 @@ public class SoutheastAsiaClient {
     private boolean useFakeSockets;
     private FakeSockets fakesockets;
     private SoutheastAsiaClientApp app;
+
     public SoutheastAsiaClient(FakeSockets fs)
     {
         //call this constructor when using fakesockets
@@ -44,6 +45,15 @@ public class SoutheastAsiaClient {
 
     public void recieveMessage(String message)
     {
-        app.tempMessage(message);
+        if(message.equals("startgame"))
+        {
+            //switch screen
+            app.startGameScreen();
+
+        }
+        else
+        {
+            app.tempMessage(message);
+        }
     }
 }
