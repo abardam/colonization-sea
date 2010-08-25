@@ -17,6 +17,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JComboBox;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 import java.awt.CardLayout;
 
 /**
@@ -33,6 +34,8 @@ public class SoutheastAsiaView extends FrameView {
     private CardLayout cl;
     private ChatWindow chat;
 
+    private boolean boxesSet;
+
     public void setFakeSockets(FakeSockets sock)
     {
         useFakeSockets=true;
@@ -42,8 +45,10 @@ public class SoutheastAsiaView extends FrameView {
     public SoutheastAsiaView(SingleFrameApplication app, SoutheastAsiaServer serv) {
         super(app);
         server=serv;
+        server.window=this;
         useFakeSockets=false;
 
+        boxesSet=false;
         chat=new ChatWindow();
 
         initComponents();
@@ -66,6 +71,7 @@ public class SoutheastAsiaView extends FrameView {
         comboboxes.add(jComboBox6);
 
         
+        
 
         for(JComboBox jcb:comboboxes)
         {
@@ -76,6 +82,8 @@ public class SoutheastAsiaView extends FrameView {
 
             }
         }
+
+        boxesSet=true;
 
         // status bar initialization - message timeout, idle icon and busy animation, etc
         ResourceMap resourceMap = getResourceMap();
@@ -391,7 +399,6 @@ public class SoutheastAsiaView extends FrameView {
                 return types [columnIndex];
             }
         });
-        jTable1.setEnabled(false);
         jTable1.setName("jTable1"); // NOI18N
         jTable1.getTableHeader().setResizingAllowed(false);
         jTable1.getTableHeader().setReorderingAllowed(false);
@@ -399,6 +406,11 @@ public class SoutheastAsiaView extends FrameView {
 
         jButton3.setText(resourceMap.getString("jButton3.text")); // NOI18N
         jButton3.setName("jButton3"); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText(resourceMap.getString("jButton5.text")); // NOI18N
         jButton5.setName("jButton5"); // NOI18N
@@ -431,7 +443,7 @@ public class SoutheastAsiaView extends FrameView {
                     .addComponent(jButton3)
                     .addComponent(jButton5)
                     .addComponent(jButton6))
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab1", jPanel3);
@@ -446,7 +458,7 @@ public class SoutheastAsiaView extends FrameView {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 272, Short.MAX_VALUE)
+            .addGap(0, 163, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("tab2", jPanel4);
@@ -461,7 +473,7 @@ public class SoutheastAsiaView extends FrameView {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 272, Short.MAX_VALUE)
+            .addGap(0, 163, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("tab3", jPanel5);
@@ -476,7 +488,7 @@ public class SoutheastAsiaView extends FrameView {
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 272, Short.MAX_VALUE)
+            .addGap(0, 163, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("tab4", jPanel6);
@@ -492,8 +504,8 @@ public class SoutheastAsiaView extends FrameView {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(202, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(311, Short.MAX_VALUE))
         );
 
         mainPanel.add(jPanel2, "gamescreen");
@@ -561,30 +573,49 @@ public class SoutheastAsiaView extends FrameView {
         setStatusBar(statusPanel);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void updateComboBoxes()
+    {
+
+        if(boxesSet)
+        {
+            jComboBox1.setSelectedIndex(server.getCountry(0)+1);
+            jComboBox2.setSelectedIndex(server.getCountry(1)+1);
+            jComboBox3.setSelectedIndex(server.getCountry(2)+1);
+            jComboBox4.setSelectedIndex(server.getCountry(3)+1);
+            jComboBox5.setSelectedIndex(server.getCountry(4)+1);
+            jComboBox6.setSelectedIndex(server.getCountry(5)+1);
+        }
+    }
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         //System.out.println((String)jComboBox1.getSelectedItem());
         //System.out.println(getCountryNumber((String)jComboBox1.getSelectedItem()));
         selectCountry(jComboBox1, 0);
+        updateComboBoxes();
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         selectCountry(jComboBox2, 1);
+        updateComboBoxes();
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
         selectCountry(jComboBox3, 2);
+        updateComboBoxes();
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
     private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
         selectCountry(jComboBox4, 3);
+        updateComboBoxes();
     }//GEN-LAST:event_jComboBox4ActionPerformed
 
     private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
         selectCountry(jComboBox5, 4);
+        updateComboBoxes();
     }//GEN-LAST:event_jComboBox5ActionPerformed
 
     private void jComboBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox6ActionPerformed
         selectCountry(jComboBox6, 5);
+        updateComboBoxes();
     }//GEN-LAST:event_jComboBox6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -625,6 +656,22 @@ public class SoutheastAsiaView extends FrameView {
         chat.setVisible(!chat.isVisible());
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
+        if(jTable1.getSelectedRowCount()>0)
+        {
+            int playerCode=server.getPlayerCode(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+            new ActionViewerFrame(server.getActionData(playerCode), server, playerCode).setVisible(true);
+            
+        }
+
+        else
+
+        {
+            System.out.println("Select some rows!");
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
 
     private void selectCountry(JComboBox jcb, int playerno)
     {
@@ -640,6 +687,17 @@ public class SoutheastAsiaView extends FrameView {
     public void tempAddMessage(String message)
     {
         //jTextArea1.append(message+"\n");
+        //change this next part, specifically the delimiter
+        String[] input=message.split("#");
+
+        if(input[0].equals("sendaction"))
+        {
+            server.setAction(message.substring("sendaction#".length()), true);
+            
+
+        }
+
+
         chat.tempAddMessage(message);
     }
 
@@ -662,6 +720,20 @@ public class SoutheastAsiaView extends FrameView {
 
         return -1;
         
+    }
+
+    public void updateActionTables()
+    {
+        for(int i=0;i<SoutheastAsiaApp.MAX_PLAYERS;i++)
+        {
+            if(server.getCountry(i)!=-1)
+            {
+                jTable1.setValueAt(server.getCountry(i), i, 0);
+                jTable1.setValueAt(server.getActionName(i), i, 1);
+                jTable1.setValueAt(server.getActionApproved(i), i, 2);
+                jTable1.setValueAt(server.getProblemName(i), i, 3);
+            }
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -689,7 +761,6 @@ public class SoutheastAsiaView extends FrameView {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;

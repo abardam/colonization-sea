@@ -15,21 +15,32 @@ package southeastasia;
  * maybe a string for description
  * tapos idk; stat modifiers?
  */
-public class Action {
+public class SoutheastAsiaAction {
     //the variables that will modify the country doing the action
     public CountryVariables statModifiers;
+
+    public String name;
+    public String description;
 
     //is the action null
     public boolean isNull;
 
-    public Action()
+    public SoutheastAsiaAction()
     {
         isNull=false;
     }
 
-    public Action(boolean isNull)
+    public SoutheastAsiaAction(boolean isNull)
     {
         this.isNull=isNull;
+    }
+
+    public SoutheastAsiaAction(String name, String desc, int c, int e, int m, int p)
+    {
+        isNull=false;
+        this.name=name;
+        description=desc;
+        statModifiers=new CountryVariables("", c, e, m ,p);
     }
 
     /**
@@ -48,9 +59,9 @@ public class Action {
      * this method returns a null action for new turns, etc
      * @return a blank action
      */
-    public static Action noAction()
+    public static SoutheastAsiaAction noAction()
     {
-        return new Action(true);
+        return new SoutheastAsiaAction(true);
     }
 
     /**

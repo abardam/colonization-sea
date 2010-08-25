@@ -9,7 +9,7 @@ package southeastasia;
  *
  * @author Enzo
  */
-public class Problem extends Action{
+public class Problem extends SoutheastAsiaAction{
     //the solve bonuses
     public CountryVariables solveModifiers;
 
@@ -24,8 +24,13 @@ public class Problem extends Action{
         super(isNull);
     }
 
+    public Problem(String name, String desc, int c, int e, int m, int p)
+    {
+        super(name, desc, c, e, m, p);
+    }
+
     /**
-     * similar to the method in Action
+     * similar to the method in SoutheastAsiaAction
      * @return the problem in string form
      *
      */
@@ -34,6 +39,7 @@ public class Problem extends Action{
     {
         return "";
     }
+    
 
     /**
      * applies the solve bonuses
