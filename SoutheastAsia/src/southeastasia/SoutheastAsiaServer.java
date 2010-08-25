@@ -16,6 +16,7 @@ public class SoutheastAsiaServer {
     private SoutheastAsiaServerStats stats;
     private boolean gameStarted;
     private SoutheastAsiaServerSockets ss;
+    public SoutheastAsiaView window;
 
     public SoutheastAsiaServer()
     {
@@ -73,20 +74,7 @@ public class SoutheastAsiaServer {
         return 1;
     }
 
-    /**
-     *
-     * this function interprets the strings sent by the
-     * sockets and plugs it into the stats as Actions
-     *
-     * @param action the action in the code transmitted
-     * @return 1 if valid, 0 if not
-     */
-    public int recieveAction(String action)
-    {
-        //do the parsing here
-
-        return 0;
-    }
+   
 
     /**
      * this method returns the action corresponding to the
@@ -100,6 +88,26 @@ public class SoutheastAsiaServer {
     public String getAction(int playerCode)
     {
         return stats.getAction(playerCode).toString();
+    }
+
+    public String getActionName(int playerCode)
+    {
+        return stats.getActionName(playerCode);
+    }
+
+    public boolean getActionApproved(int playerCode)
+    {
+        return stats.getActionApproved(playerCode);
+    }
+
+    public String getProblem(int playerCode)
+    {
+        return stats.getProblem(playerCode);
+    }
+
+    public String getProblemName(int playerCode)
+    {
+        return stats.getProblemName(playerCode);
     }
 
     /**
@@ -196,6 +204,14 @@ public class SoutheastAsiaServer {
         
     }
 
+    public static SoutheastAsiaAction parseAction(String actionCode)
+    {
+        //change the delimiter here
+        String[] newaction= actionCode.split("#");
+        return new SoutheastAsiaAction(newaction[1],newaction[2],Integer.parseInt(newaction[3]),Integer.parseInt(newaction[4]),Integer.parseInt(newaction[5]),Integer.parseInt(newaction[6]));
+        //cultural, economic, military, political
+    }
+
     /**
      * call this method to send in actions
      * @param playerCode the player sending in an action
@@ -203,14 +219,25 @@ public class SoutheastAsiaServer {
      * @param override if set to false, will not change existing action
      * @return 1 if action set, 0 if there is an existing action, 2 if there is an existing action but was overridden
      */
-    public int setAction(int playerCode, String actionCode, boolean override)
+    public int setAction(String actionCode, boolean override)
     {
+        int playerCode; //do something to get playerCode from actionCode
+
+        String parsedCode[]=actionCode.split("#");
+        playerCode=Integer.parseInt(parsedCode[0]);
+
         if(stats.hasAction(playerCode))
         {
             if(override)
             {
                 //parse actioncode, turn it into an action
+                stats.setAction(parseAction(actionCode), playerCode);
+
+                
                 //pass to serverstats
+                 stats.setApproval(playerCode, false);
+
+                 window.updateActionTables();
 
                 return 2;
             }
@@ -220,8 +247,11 @@ public class SoutheastAsiaServer {
         //parse actioncode, turn it into an action
         //pass it to serverstats
 
+        stats.setAction(parseAction(actionCode), playerCode);
         //set action approval to false
-        stats.setApproval(playerCode, override);
+        stats.setApproval(playerCode, false);
+
+        window.updateActionTables();
 
         return 1;
     }
@@ -239,5 +269,30 @@ public class SoutheastAsiaServer {
     public int countPlayers()
     {
         return stats.countSelectedCountries();
+    }
+
+    public void setAction(SoutheastAsiaAction seact, int playerCode)
+    {
+        stats.setAction(seact, playerCode);
+    }
+
+    public SoutheastAsiaAction getActionData(int playerCode)
+    {
+        return stats.getActionData(playerCode);
+    }
+
+    public int getPlayerCode(int countryCode)
+    {
+        return stats.getPlayerCode(countryCode);
+    }
+
+    public int getPlayerCode(String countryCode)
+    {
+        return stats.getPlayerCode(Integer.parseInt(countryCode));
+    }
+
+    public void setApproval(boolean approval, int playerCode)
+    {
+        stats.setApproval(playerCode, approval);
     }
 }

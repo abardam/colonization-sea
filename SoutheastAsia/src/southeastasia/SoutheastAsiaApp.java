@@ -81,6 +81,7 @@ public class SoutheastAsiaApp extends SingleFrameApplication {
      */
     public void tempParse(String message)
     {
+        //change delimiter
         window.tempAddMessage(message);
     }
 }

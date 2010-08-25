@@ -53,6 +53,15 @@ public class SoutheastAsiaClient {
         }
     }
 
+    public int getClientCode()
+    {
+        if(useFakeSockets)
+            return fakesockets.getClientCode(this);
+        else
+            System.out.println("EDIT SoutheastAsiaClient.getClientCode to use not-fake-sockets!");
+        return -1;
+    }
+
     public void recieveMessage(String message)
     {
         if(message.equals("startgame"))

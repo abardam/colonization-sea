@@ -27,6 +27,15 @@ public class CountryVariables {
         this.name=name;
     }
 
+    public CountryVariables(String name, int c, int e, int m, int p)
+    {
+        political=p;
+        cultural=c;
+        military=m;
+        economic=e;
+        this.name=name;
+    }
+
     /**
      * modifies a country's stats (use with Action and Problem)
      * @param stats the stats modifying the country

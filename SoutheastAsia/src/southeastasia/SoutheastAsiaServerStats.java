@@ -23,7 +23,7 @@ public class SoutheastAsiaServerStats {
     private ArrayList<String> chatlog;
 
     //array for storing each country's current actions
-    private Action[] actions;
+    private SoutheastAsiaAction[] actions;
 
     private Problem[] problems;
 
@@ -41,7 +41,7 @@ public class SoutheastAsiaServerStats {
         //initialize arrays
         variables=new CountryVariables[SoutheastAsiaApp.MAX_PLAYERS];
         chatlog=new ArrayList<String>();
-        actions=new Action[SoutheastAsiaApp.MAX_PLAYERS];
+        actions=new SoutheastAsiaAction[SoutheastAsiaApp.MAX_PLAYERS];
         problems=new Problem[SoutheastAsiaApp.MAX_PLAYERS];
         countries=new int[SoutheastAsiaApp.MAX_PLAYERS];
         approval=new boolean[SoutheastAsiaApp.MAX_PLAYERS];
@@ -49,7 +49,7 @@ public class SoutheastAsiaServerStats {
         for(int i=0;i<SoutheastAsiaApp.MAX_PLAYERS;i++)
         {
             variables[i]=new CountryVariables("");
-            actions[i]=Action.noAction();
+            actions[i]=SoutheastAsiaAction.noAction();
             problems[i]=Problem.noProblem();
             countries[i]=-1;
             approval[i]=false;
@@ -68,7 +68,7 @@ public class SoutheastAsiaServerStats {
     //to do: update actions method
     //to do: get actions method
 
-    public Action getAction(int playerCode)
+    public SoutheastAsiaAction getAction(int playerCode)
     {
         return actions[playerCode];
     }
@@ -161,7 +161,7 @@ public class SoutheastAsiaServerStats {
 
             approval[i]=false;
 
-            actions[i]=Action.noAction();
+            actions[i]=SoutheastAsiaAction.noAction();
         }
 
         //the reason that this is in a separate for loop is so that
@@ -242,5 +242,58 @@ public class SoutheastAsiaServerStats {
             }
         }
         return count;
+    }
+
+    public int setAction(SoutheastAsiaAction seact, int playerCode)
+    {
+        actions[playerCode]=seact;
+        return 1;
+    }
+
+    public boolean getActionApproved(int playerCode)
+    {
+        return approval[playerCode];
+    }
+
+    public String getProblem(int playerCode)
+    {
+        return problems[playerCode].toString();
+    }
+
+    public String getProblemName(int playerCode)
+    {
+        return problems[playerCode].name;
+    }
+
+    public String getActionName(int playerCode)
+    {
+        return actions[playerCode].name;
+    }
+
+    public SoutheastAsiaAction getActionData(int playerCode)
+    {
+        return actions[playerCode];
+    }
+
+    //dumb way to get player code by reversing country code but whatever
+    public int getPlayerCode(int countryCode)
+    {
+        if(countryCode==-1)
+        {
+            return -1;
+        }
+        else
+        {
+            for(int i=0;i<SoutheastAsiaApp.MAX_PLAYERS;i++)
+            {
+                if(countries[i]==countryCode)
+                {
+                    return i;
+                }
+            }
+
+        }
+
+        return -1;
     }
 }

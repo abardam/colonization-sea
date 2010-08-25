@@ -52,6 +52,22 @@ public class FakeSockets {
             }
         }
     }
+
+    public int getClientCode(SoutheastAsiaClient sac2)
+    {
+        int i=0;
+        for(SoutheastAsiaClient sac:clients)
+        {
+            if(sac==sac2)
+            {
+                return i;
+
+            }
+            i++;
+        }
+
+        return -1;
+    }
     
 
 }
