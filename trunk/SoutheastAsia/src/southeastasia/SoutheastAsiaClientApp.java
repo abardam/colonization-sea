@@ -43,7 +43,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     private CardLayout cl;
     /**
      * after the game starts, the server sends a message and the
-     * client swittches to the game screen.
+     * client switches to the game screen.
      */
     public void startGameScreen()
     {

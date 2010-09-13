@@ -5,7 +5,14 @@
 
 package southeastasia;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,6 +23,9 @@ public class SoutheastAsiaClient {
     private FakeSockets fakesockets;
     private SoutheastAsiaClientApp app;
     private Socket socket;
+    private PlayRunner runner;
+    private PrintWriter sender;
+
     public SoutheastAsiaClient(FakeSockets fs)
     {
         //call this constructor when using fakesockets
@@ -36,7 +46,11 @@ public class SoutheastAsiaClient {
     public void setSocket(Socket s)
     {
         socket = s;
+        runner = new PlayRunner(socket);
+        runner.start();
     }
+
+    // to add: interpret messages, and send them out
 
     public void sendMessage(String message)
     {
@@ -76,7 +90,42 @@ public class SoutheastAsiaClient {
         }
     }
 
-    /*
-     * todo: make a thread for input!
-     */
+
+
+            class PlayRunner extends Thread //Copy-pasted from ServerSockets
+    {
+            Socket playSocket;
+
+            public PlayRunner(Socket socket)
+            {
+                this.playSocket = socket;
+            }
+
+                @Override
+                public void run() {
+                    try {
+
+                        sender = new PrintWriter(socket.getOutputStream(), true);
+                        Scanner in = new Scanner(new InputStreamReader(socket.getInputStream()));
+
+                    while(true)
+                    {
+                        String msg = in.nextLine();
+                        if (!(msg.equals("")||msg==null))
+                        {
+                            //interpret(msg); ? Is this how it should be done?
+                        }
+
+                    }
+                }
+                catch (IOException ex)
+                {
+                    Logger.getLogger(SoutheastAsiaServerSockets.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("Yikes! Something happened.");
+                }
+
+
+            }
+
+    }
 }
