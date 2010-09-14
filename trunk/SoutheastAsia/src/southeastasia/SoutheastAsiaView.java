@@ -42,7 +42,7 @@ public class SoutheastAsiaView extends FrameView {
         fakesockets=sock;
     }
 
-    public SoutheastAsiaView(SingleFrameApplication app, SoutheastAsiaServer serv) {
+    public SoutheastAsiaView(SingleFrameApplication app) {
         super(app);
         useFakeSockets=false;
 
@@ -380,7 +380,7 @@ public class SoutheastAsiaView extends FrameView {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
+                {null, null, new Boolean(false), null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
@@ -394,15 +394,26 @@ public class SoutheastAsiaView extends FrameView {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                true, true, false, true
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jTable1.setName("jTable1"); // NOI18N
         jTable1.getTableHeader().setResizingAllowed(false);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(jTable1);
+        jTable1.getColumnModel().getColumn(0).setHeaderValue(resourceMap.getString("jTable1.columnModel.title0")); // NOI18N
+        jTable1.getColumnModel().getColumn(1).setHeaderValue(resourceMap.getString("jTable1.columnModel.title1")); // NOI18N
+        jTable1.getColumnModel().getColumn(2).setHeaderValue(resourceMap.getString("jTable1.columnModel.title2")); // NOI18N
+        jTable1.getColumnModel().getColumn(3).setHeaderValue(resourceMap.getString("jTable1.columnModel.title3")); // NOI18N
 
         jButton3.setText(resourceMap.getString("jButton3.text")); // NOI18N
         jButton3.setName("jButton3"); // NOI18N
