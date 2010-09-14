@@ -18,10 +18,10 @@ package southeastasia;
 public class ActionViewerFrame extends javax.swing.JFrame {
 
     private SoutheastAsiaAction action;
-    private SoutheastAsiaServer server;
+    private SoutheastAsiaView server;
     private int playerCode;
     /** Creates new form ActionViewer */
-    public ActionViewerFrame(SoutheastAsiaAction seact, SoutheastAsiaServer server, int playerCode ) {
+    public ActionViewerFrame(SoutheastAsiaAction seact, SoutheastAsiaView server, int playerCode ) {
         initComponents();
         action=seact;
         this.server=server;
@@ -264,7 +264,7 @@ public class ActionViewerFrame extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         server.setApproval(true, playerCode);
-        server.window.updateActionTables();
+        server.updateActionTables();
 }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
@@ -287,7 +287,7 @@ public class ActionViewerFrame extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         server.setApproval(false, playerCode);
-        server.window.updateActionTables();
+        server.updateActionTables();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

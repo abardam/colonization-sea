@@ -27,27 +27,17 @@ public class SoutheastAsiaApp extends SingleFrameApplication {
         show(window);
         
         FakeSockets fs=new FakeSockets(this);
-        SoutheastAsiaClient sac1=new SoutheastAsiaClient(fs);
-        SoutheastAsiaClient sac2=new SoutheastAsiaClient(fs);
-        SoutheastAsiaClient sac3=new SoutheastAsiaClient(fs);
-        SoutheastAsiaClient sac4=new SoutheastAsiaClient(fs);
-        SoutheastAsiaClient sac5=new SoutheastAsiaClient(fs);
-        SoutheastAsiaClient sac6=new SoutheastAsiaClient(fs);
 
-            new SoutheastAsiaClientApp(sac1).setVisible(true);
-            new SoutheastAsiaClientApp(sac2).setVisible(true);
-            new SoutheastAsiaClientApp(sac3).setVisible(true);
-            new SoutheastAsiaClientApp(sac4).setVisible(true);
-            new SoutheastAsiaClientApp(sac5).setVisible(true);
-            new SoutheastAsiaClientApp(sac6).setVisible(true);
+        SoutheastAsiaClientApp sac;
 
-            fs.addClient(sac1);
-            fs.addClient(sac2);
-            fs.addClient(sac3);
-            fs.addClient(sac4);
-            fs.addClient(sac5);
-            fs.addClient(sac6);
-
+        for(int i=0;i<6;i++)
+        {
+            sac=new SoutheastAsiaClientApp();
+            sac.setVisible(true);
+            sac.setFakeSocket(fs); //change this
+            fs.addClient(sac);
+        }
+        
 
             window.setFakeSockets(fs); //remove this after fakesockets
     }

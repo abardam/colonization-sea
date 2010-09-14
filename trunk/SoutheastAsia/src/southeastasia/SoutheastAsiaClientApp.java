@@ -18,6 +18,11 @@ import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.awt.CardLayout;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.util.Scanner;
 
 /**
  *
@@ -26,11 +31,9 @@ import java.awt.CardLayout;
 public class SoutheastAsiaClientApp extends javax.swing.JFrame {
 
     /** Creates new form SoutheastAsiaClientApp */
-    public SoutheastAsiaClientApp(SoutheastAsiaClient client) {
+    public SoutheastAsiaClientApp() {
         port=7777;
         initComponents();
-        this.client=client;
-        client.setApp(this);
         cl=(CardLayout)jPanel4.getLayout();
     }
 
@@ -38,7 +41,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     private Socket socket;
     private InetAddress host;
     private int port;
-    private SoutheastAsiaClient client;
+    //private SoutheastAsiaClient client;
 
     private CardLayout cl;
     /**
@@ -302,7 +305,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //sockets.serverRecieveTransmission(jTextField1.getText());
-        client.sendMessage(jTextField1.getText());
+        sendMessage(jTextField1.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void tempMessage(String message)
@@ -318,7 +321,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         }
         try {
             socket = new Socket(host.getHostName(), port);
-            client.setSocket(socket);
+            setSocket(socket);
         } catch (UnknownHostException ex) {
             Logger.getLogger(SoutheastAsiaClientApp.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -329,7 +332,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String message="sendaction#";
-        message+=client.getClientCode();
+        message+=getClientCode();
         message+="#";
         message+=jTextField2.getText();
         message+="#";
@@ -342,7 +345,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         message+=jTextField5.getText();
         message+="#";
         message+=jTextField6.getText();
-        client.sendMessage(message);
+        sendMessage(message);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -351,7 +354,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SoutheastAsiaClientApp(new SoutheastAsiaClient()).setVisible(true);
+                new SoutheastAsiaClientApp().setVisible(true);
             }
         });
     }
@@ -380,4 +383,105 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField7;
     // End of variables declaration//GEN-END:variables
 
+    //i tried to combine app and client starting here:
+
+
+    private boolean useFakeSockets;
+    private FakeSockets fakesockets;
+    //private Socket socket;
+    private PlayRunner runner;
+    private PrintWriter sender;
+
+
+    public void setSocket(Socket s)
+    {
+        socket = s;
+        runner = new PlayRunner(socket);
+        runner.start();
+    }
+
+    public void setFakeSocket(FakeSockets fs)
+    {
+        useFakeSockets=true;
+        fakesockets=fs;
+    }
+
+    // to add: interpret messages, and send them out
+
+    public void sendMessage(String message)
+    {
+        if(useFakeSockets)
+        {
+            fakesockets.serverRecieveTransmission(message);
+        }
+        else
+        {
+            /* put not fake sockets here
+             * para fun, gonna need to use outputstreamwriter
+             * must learn to flush.
+             */
+        }
+    }
+
+    public int getClientCode()
+    {
+        if(useFakeSockets)
+            return fakesockets.getClientCode(this);
+        else
+            System.out.println("EDIT SoutheastAsiaClientApp.getClientCode to use not-fake-sockets!");
+        return -1;
+    }
+
+    public void recieveMessage(String message)
+    {
+        if(message.equals("startgame"))
+        {
+            //switch screen
+            startGameScreen();
+
+        }
+        else
+        {
+            tempMessage(message);
+        }
+    }
+
+
+
+            class PlayRunner extends Thread //Copy-pasted from ServerSockets
+    {
+            Socket playSocket;
+
+            public PlayRunner(Socket socket)
+            {
+                this.playSocket = socket;
+            }
+
+                @Override
+                public void run() {
+                    try {
+
+                        sender = new PrintWriter(socket.getOutputStream(), true);
+                        Scanner in = new Scanner(new InputStreamReader(socket.getInputStream()));
+
+                    while(true)
+                    {
+                        String msg = in.nextLine();
+                        if (!(msg.equals("")||msg==null))
+                        {
+                            //interpret(msg); ? Is this how it should be done?
+                        }
+
+                    }
+                }
+                catch (IOException ex)
+                {
+                    Logger.getLogger(SoutheastAsiaServerSockets.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("Yikes! Something happened.");
+                }
+
+
+            }
+
+    }
 }
