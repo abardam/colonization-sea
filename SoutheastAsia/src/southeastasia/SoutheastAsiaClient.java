@@ -16,9 +16,14 @@ import java.util.logging.Logger;
 
 /**
  *
+ *
+ * OBSOLETE CLASS, IGNORE
+ * EVERYTHING IS IN CLIENTAPP
+ *
  * @author Enzo
  */
 public class SoutheastAsiaClient {
+    /*
     private boolean useFakeSockets;
     private FakeSockets fakesockets;
     private SoutheastAsiaClientApp app;
@@ -64,9 +69,10 @@ public class SoutheastAsiaClient {
              * para fun, gonna need to use outputstreamwriter
              * must learn to flush.
              */
+    /*
         }
     }
-
+/*
     public int getClientCode()
     {
         if(useFakeSockets)
@@ -128,4 +134,5 @@ public class SoutheastAsiaClient {
             }
 
     }
+            */
 }

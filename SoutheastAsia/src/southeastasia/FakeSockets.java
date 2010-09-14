@@ -12,15 +12,15 @@ import java.util.ArrayList;
  */
 public class FakeSockets {
     private SoutheastAsiaApp server;
-    private ArrayList<SoutheastAsiaClient> clients;
+    private ArrayList<SoutheastAsiaClientApp> clients;
     public FakeSockets(SoutheastAsiaApp server)
     {
         this.server=server;
-        clients=new ArrayList<SoutheastAsiaClient>();
+        clients=new ArrayList<SoutheastAsiaClientApp>();
 
     }
 
-    public void addClient(SoutheastAsiaClient sac)
+    public void addClient(SoutheastAsiaClientApp sac)
     {
         clients.add(sac);
     }
@@ -39,7 +39,7 @@ public class FakeSockets {
         if(clientCode>=0)
         {
             int i=0;
-            for(SoutheastAsiaClient sac:clients)
+            for(SoutheastAsiaClientApp sac:clients)
             {
                 if(i==clientCode)
                 {
@@ -53,10 +53,10 @@ public class FakeSockets {
         }
     }
 
-    public int getClientCode(SoutheastAsiaClient sac2)
+    public int getClientCode(SoutheastAsiaClientApp sac2)
     {
         int i=0;
-        for(SoutheastAsiaClient sac:clients)
+        for(SoutheastAsiaClientApp sac:clients)
         {
             if(sac==sac2)
             {
