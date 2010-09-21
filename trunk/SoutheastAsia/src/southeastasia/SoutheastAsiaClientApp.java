@@ -35,6 +35,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         port=7777;
         initComponents();
         cl=(CardLayout)jPanel4.getLayout();
+
     }
 
     //private FakeSockets sockets;
@@ -119,6 +120,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
             }
         });
 
+        connect.setText(resourceMap.getString("connect.text")); // NOI18N
         connect.setName("connect"); // NOI18N
         connect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,7 +161,6 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
 
         jPanel3.setName("jPanel3"); // NOI18N
 
-        jTextField2.setText(resourceMap.getString("jTextField2.text")); // NOI18N
         jTextField2.setName("jTextField2"); // NOI18N
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
@@ -169,28 +170,20 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         jTextArea1.setName("jTextArea1"); // NOI18N
         jScrollPane1.setViewportView(jTextArea1);
 
-        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 
-        jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
         jLabel2.setName("jLabel2"); // NOI18N
 
-        jLabel3.setText(resourceMap.getString("jLabel3.text")); // NOI18N
         jLabel3.setName("jLabel3"); // NOI18N
 
-        jLabel4.setText(resourceMap.getString("jLabel4.text")); // NOI18N
         jLabel4.setName("jLabel4"); // NOI18N
 
-        jTextField3.setText(resourceMap.getString("jTextField3.text")); // NOI18N
         jTextField3.setName("jTextField3"); // NOI18N
 
-        jTextField4.setText(resourceMap.getString("jTextField4.text")); // NOI18N
         jTextField4.setName("jTextField4"); // NOI18N
 
-        jTextField5.setText(resourceMap.getString("jTextField5.text")); // NOI18N
         jTextField5.setName("jTextField5"); // NOI18N
 
-        jTextField6.setText(resourceMap.getString("jTextField6.text")); // NOI18N
         jTextField6.setName("jTextField6"); // NOI18N
 
         jButton2.setText(resourceMap.getString("jButton2.text")); // NOI18N
@@ -202,7 +195,6 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         });
 
         jTextField7.setEditable(false);
-        jTextField7.setText(resourceMap.getString("jTextField7.text")); // NOI18N
         jTextField7.setName("jTextField7"); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -230,7 +222,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)))
+                        .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -264,7 +256,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab(resourceMap.getString("jPanel3.TabConstraints.tabTitle"), jPanel3); // NOI18N
+        jTabbedPane1.addTab("tab1", jPanel3);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -396,7 +388,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     public void setSocket(Socket s)
     {
         socket = s;
-        runner = new PlayRunner(socket);
+        runner = new PlayRunner(socket, this);
         runner.start();
     }
 
@@ -420,6 +412,8 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
              * para fun, gonna need to use outputstreamwriter
              * must learn to flush.
              */
+
+            sender.print(message);
         }
     }
 
@@ -451,10 +445,12 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
             class PlayRunner extends Thread //Copy-pasted from ServerSockets
     {
             Socket playSocket;
+            SoutheastAsiaClientApp app;
 
-            public PlayRunner(Socket socket)
+            public PlayRunner(Socket socket, SoutheastAsiaClientApp app)
             {
                 this.playSocket = socket;
+                this.app = app;
             }
 
                 @Override
@@ -470,6 +466,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
                         if (!(msg.equals("")||msg==null))
                         {
                             //interpret(msg); ? Is this how it should be done?
+                            app.recieveMessage(msg);   //temporary
                         }
 
                     }

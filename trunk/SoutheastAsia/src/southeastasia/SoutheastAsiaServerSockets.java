@@ -22,19 +22,22 @@ import java.util.logging.Logger;
 public class SoutheastAsiaServerSockets {
 
     private Socket[] players;
-    private int port;
+    private final int port;
+    private final int MAX_PLAYERS;
     private Accepter accepter;
     //private ServerSocket[]server;
     private ServerSocket server;
     private PrintWriter[] sender;
+    
 
     public SoutheastAsiaServerSockets() throws IOException {
-        players = new Socket[SoutheastAsiaApp.MAX_PLAYERS];
+        MAX_PLAYERS = SoutheastAsiaApp.MAX_PLAYERS;
+        players = new Socket[MAX_PLAYERS];
         //server = new ServerSocket[SoutheastAsiaApp.MAX_PLAYERS];
         port = 7777;
         server = new ServerSocket(port);
         accepter = new Accepter();
-        sender = new PrintWriter[SoutheastAsiaApp.MAX_PLAYERS];
+        sender = new PrintWriter[MAX_PLAYERS];
         
     }
 
@@ -51,6 +54,14 @@ public class SoutheastAsiaServerSockets {
     public void giveOrder(String order, int player)
     {
         //insert string, sender[player] printstream shizz here
+    }
+
+    public void sendToAll(String message)
+    {
+        for (int i = 0; i < MAX_PLAYERS; i++)
+        {
+            sender[i].print(message);
+        }
     }
 
     public void interpret(String order, int player)
