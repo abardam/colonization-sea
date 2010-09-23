@@ -26,8 +26,19 @@ public class ActionViewerFrame extends javax.swing.JFrame {
         action=seact;
         this.server=server;
         this.playerCode=playerCode;
+        loadAction();
         saveChanges();
         
+    }
+
+    public void loadAction()
+    {
+        jTextField2.setText(action.name);
+        jTextArea1.setText(action.description);
+        jTextField3.setText(""+action.statModifiers.cultural);
+        jTextField4.setText(""+action.statModifiers.economic);
+        jTextField5.setText(""+action.statModifiers.military);
+        jTextField6.setText(""+action.statModifiers.political);
     }
 
     /** This method is called from within the constructor to
@@ -285,9 +296,17 @@ public class ActionViewerFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField6KeyTyped
 
+    /**
+     * upon disapproving the action, this closes the window and frees
+     * the student to send another action.
+     *
+     * @param evt
+     */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         server.setApproval(false, playerCode);
         server.updateActionTables();
+        server.allowActions(playerCode, true);
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

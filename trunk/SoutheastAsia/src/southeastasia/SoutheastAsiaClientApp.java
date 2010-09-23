@@ -434,6 +434,10 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
             startGameScreen();
 
         }
+        else if(message.substring(0, 5).equalsIgnoreCase("warn:"))
+        {
+            new AlertWindow(message.substring(5)).setVisible(true);
+        }
         else
         {
             tempMessage(message);

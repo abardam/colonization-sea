@@ -70,7 +70,7 @@ public class SoutheastAsiaView extends FrameView {
         comboboxes.add(jComboBox5);
         comboboxes.add(jComboBox6);
 
-        
+        allowActions=new boolean[SoutheastAsiaApp.MAX_PLAYERS];
         
 
         for(JComboBox jcb:comboboxes)
@@ -396,7 +396,7 @@ public class SoutheastAsiaView extends FrameView {
                 java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, false, true
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -411,7 +411,12 @@ public class SoutheastAsiaView extends FrameView {
         jTable1.getTableHeader().setResizingAllowed(false);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(jTable1);
+        jTable1.getColumnModel().getColumn(0).setHeaderValue(resourceMap.getString("jTable1.columnModel.title0")); // NOI18N
+        jTable1.getColumnModel().getColumn(1).setHeaderValue(resourceMap.getString("jTable1.columnModel.title1")); // NOI18N
+        jTable1.getColumnModel().getColumn(2).setHeaderValue(resourceMap.getString("jTable1.columnModel.title2")); // NOI18N
+        jTable1.getColumnModel().getColumn(3).setHeaderValue(resourceMap.getString("jTable1.columnModel.title3")); // NOI18N
 
+        jButton3.setText(resourceMap.getString("jButton3.text")); // NOI18N
         jButton3.setName("jButton3"); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -434,9 +439,9 @@ public class SoutheastAsiaView extends FrameView {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton6)))
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -444,11 +449,11 @@ public class SoutheastAsiaView extends FrameView {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab1", jPanel3);
@@ -636,6 +641,23 @@ public class SoutheastAsiaView extends FrameView {
         if(startGame(override)==1)
         {
             //send a message to all the clients telling them to start the game
+            sendClientMessage(-1, "startgame");
+            //change screen to game screen
+            cl.show(mainPanel, "gamescreen");
+            startGame(true);
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    /**
+     * use this for sending messages to clients
+     *
+     * @param playerCode -1 if sending to all
+     */
+    private void sendClientMessage(int playerCode, String message)
+    {
+        if(playerCode==-1)
+        {
             if(useFakeSockets)
             {
                 for(int i=0;i<SoutheastAsiaApp.MAX_PLAYERS;i++)
@@ -643,19 +665,31 @@ public class SoutheastAsiaView extends FrameView {
                     //fakesockets.clientRecieveTransmission("hellow", i);
                     if(getCountry(i)!=-1)
                     {
-                        fakesockets.clientRecieveTransmission("startgame", i);
+                        fakesockets.clientRecieveTransmission(message, i);
                     }
                 }
             }
             else
             {
-                //something else
+                System.out.println("HI ALBERT MODIFY SOUTHEASTASIAVIEW.SENDCLIENTMESSAGE");
+                //CHANGE THIS !!!
             }
-            //change screen to game screen
-            cl.show(mainPanel, "gamescreen");
         }
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
+        else
+        {
+            if(useFakeSockets)
+            {
+                fakesockets.clientRecieveTransmission(message, playerCode);
+
+            }
+            else
+            {
+                System.out.println("HI ALBERT MODIFY SOUTHEASTASIAVIEW.SENDCLIENTMESSAGE");
+                //CHANGE THIS !!!
+            }
+
+        }
+    }
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         chat.setVisible(!chat.isVisible());
@@ -797,6 +831,18 @@ public class SoutheastAsiaView extends FrameView {
     private SoutheastAsiaServerSockets ss;
     //public SoutheastAsiaView window;
 
+    private boolean[] allowActions; //set to true at the start of every turn;
+    /*set to false after a player has sent an action that is neither
+     * approved nor disapproved para bawal mag spam ng action
+     *
+     * set to true after disapproving
+     */
+
+    public void allowActions(int playerCode, boolean allowed)
+    {
+        allowActions[playerCode]=allowed;
+    }
+
     /*
     public SoutheastAsiaServer()
     {
@@ -829,9 +875,21 @@ public class SoutheastAsiaView extends FrameView {
     {
         if(gameStarted)
         {
+
+
+
             if(stats.newTurn())
             {
                 //game won! now check to see who won and in what category
+            }
+
+
+            for(int i=0;i<stats.countSelectedCountries();i++)
+            {
+                stats.setAction(new SoutheastAsiaAction(true), i);
+                //problems?
+                allowActions(i, true);
+
             }
         }
         return 0;
@@ -942,7 +1000,8 @@ public class SoutheastAsiaView extends FrameView {
     public int startGame(boolean override)
     {
         //put some code in here
-        //gameStarted=true;
+        gameStarted=true;
+        startNewTurn(true);
         return 1;
     }
 
@@ -1006,34 +1065,48 @@ public class SoutheastAsiaView extends FrameView {
         String parsedCode[]=actionCode.split("#");
         playerCode=Integer.parseInt(parsedCode[0]);
 
-        if(stats.hasAction(playerCode))
+        if(allowActions[playerCode])
         {
-            if(override)
+
+            if(stats.hasAction(playerCode))
             {
-                //parse actioncode, turn it into an action
-                stats.setAction(parseAction(actionCode), playerCode);
+                //if(override) not using override any more, instead allowActions
+                if(true)
+                {
+                    //parse actioncode, turn it into an action
+                    stats.setAction(parseAction(actionCode), playerCode);
+                    allowActions(playerCode, false);
 
+                    //pass to serverstats
+                     stats.setApproval(playerCode, false);
 
-                //pass to serverstats
-                 stats.setApproval(playerCode, false);
+                     updateActionTables();
 
-                 updateActionTables();
+                    return 2;
+                }
 
-                return 2;
+                return 0;
             }
 
+            //parse actioncode, turn it into an action
+            //pass it to serverstats
+
+            stats.setAction(parseAction(actionCode), playerCode);
+            //set action approval to false
+            stats.setApproval(playerCode, false);
+            allowActions(playerCode, false);
+
+            updateActionTables();
+
+            return 1;
+        }
+        else
+        {
+            //send a message back to the player saying that actions
+            //not allowed yet
+            sendClientMessage(playerCode, "warn:action not allowed");
             return 0;
         }
-        //parse actioncode, turn it into an action
-        //pass it to serverstats
-
-        stats.setAction(parseAction(actionCode), playerCode);
-        //set action approval to false
-        stats.setApproval(playerCode, false);
-
-        updateActionTables();
-
-        return 1;
     }
 
     public static Problem generateProblem()
