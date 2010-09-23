@@ -30,7 +30,7 @@ public class SoutheastAsiaApp extends SingleFrameApplication {
 
         SoutheastAsiaClientApp sac;
 
-        for(int i=0;i<6;i++)
+        for(int i=0;i<1;i++)
         {
             sac=new SoutheastAsiaClientApp();
             sac.setVisible(true);
