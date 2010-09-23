@@ -19,6 +19,7 @@ import javax.swing.JComboBox;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.awt.CardLayout;
+import java.io.IOException;
 
 /**
  * The application's main frame.
@@ -33,6 +34,10 @@ public class SoutheastAsiaView extends FrameView {
     private FakeSockets fakesockets;
     private CardLayout cl;
     private ChatWindow chat;
+
+    private SoutheastAsiaServerStats stats;
+    private boolean gameStarted;
+    private SoutheastAsiaServerSockets ss;
 
     private boolean boxesSet;
 
@@ -50,6 +55,15 @@ public class SoutheastAsiaView extends FrameView {
         chat=new ChatWindow();
 
         stats=new SoutheastAsiaServerStats();
+
+                try
+        {
+            ss = new SoutheastAsiaServerSockets();
+        }
+        catch(IOException ioe)
+        {
+            System.out.println(ioe.getMessage());
+        }
 
         initComponents();
         cl = (CardLayout)(mainPanel.getLayout());
@@ -178,6 +192,7 @@ public class SoutheastAsiaView extends FrameView {
         jComboBox4 = new javax.swing.JComboBox();
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
@@ -297,6 +312,14 @@ public class SoutheastAsiaView extends FrameView {
             }
         });
 
+        jButton7.setText(resourceMap.getString("jButton7.text")); // NOI18N
+        jButton7.setName("jButton7"); // NOI18N
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -323,6 +346,8 @@ public class SoutheastAsiaView extends FrameView {
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -363,7 +388,8 @@ public class SoutheastAsiaView extends FrameView {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
                 .addContainerGap())
@@ -711,6 +737,10 @@ public class SoutheastAsiaView extends FrameView {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        ss.sendToAll("huy");
+    }//GEN-LAST:event_jButton7ActionPerformed
+
 
     private void selectCountry(JComboBox jcb, int playerno)
     {
@@ -781,6 +811,7 @@ public class SoutheastAsiaView extends FrameView {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;
@@ -826,9 +857,7 @@ public class SoutheastAsiaView extends FrameView {
     //OLD SOUTHEASTASIASERVER
 
 
-    private SoutheastAsiaServerStats stats;
-    private boolean gameStarted;
-    private SoutheastAsiaServerSockets ss;
+
     //public SoutheastAsiaView window;
 
     private boolean[] allowActions; //set to true at the start of every turn;
@@ -846,14 +875,6 @@ public class SoutheastAsiaView extends FrameView {
     /*
     public SoutheastAsiaServer()
     {
-        try
-        {
-            ss = new SoutheastAsiaServerSockets();
-        }
-        catch(IOException ioe)
-        {
-            System.out.println(ioe.getMessage());
-        }
         stats=new SoutheastAsiaServerStats();
         gameStarted=false;
     }*/
@@ -897,7 +918,7 @@ public class SoutheastAsiaView extends FrameView {
 
     /**
      *
-     * call this function whenever a chat message is recieved
+     * call this function whenever a chat message is received
      * from the players or the sent by the teacher
      *
      * adds the chat to the log in serverstats
