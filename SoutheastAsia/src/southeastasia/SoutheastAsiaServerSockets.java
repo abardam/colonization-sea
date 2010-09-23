@@ -51,16 +51,18 @@ public class SoutheastAsiaServerSockets {
         accepter.start();
     }
 
-    public void giveOrder(String order, int player)
+    public void sendToOne(String message, int player)
     {
+        sender[player].println(message);
         //insert string, sender[player] printstream shizz here
     }
 
     public void sendToAll(String message)
     {
+        
         for (int i = 0; i < MAX_PLAYERS; i++)
         {
-            sender[i].print(message);
+            if (sender[i] != null)  sender[i].println(message);
         }
     }
 
@@ -94,6 +96,7 @@ public class SoutheastAsiaServerSockets {
         {
             while (i < max)
             {
+
                     System.out.println("Waiting for player " + (i + 1) + "...");
 
                     /**
@@ -106,9 +109,9 @@ public class SoutheastAsiaServerSockets {
                 {
                     players[i] = server.accept();
                     sender[i] = new PrintWriter(players[i].getOutputStream(), true);
-                    
                     PlayRunner g = new PlayRunner(players[i]);
                     g.start();
+                    sendToOne("verified",i);
                 }
                 
                 catch (IOException ex)
@@ -116,8 +119,6 @@ public class SoutheastAsiaServerSockets {
                     Logger.getLogger(SoutheastAsiaServerSockets.class.getName()).log(Level.SEVERE, null, ex);
                     System.out.println("Jumping Javabeans, Batman, something happened!");
                 }
-
-
 
                 i++;
             }

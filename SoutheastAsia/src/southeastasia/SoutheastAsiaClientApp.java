@@ -13,13 +13,12 @@ package southeastasia;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.awt.CardLayout;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.BufferedInputStream;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
@@ -35,6 +34,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         port=7777;
         initComponents();
         cl=(CardLayout)jPanel4.getLayout();
+        isConnected = false;
 
     }
 
@@ -42,6 +42,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     private Socket socket;
     private InetAddress host;
     private int port;
+    private boolean isConnected;
     //private SoutheastAsiaClient client;
 
     private CardLayout cl;
@@ -306,20 +307,30 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     }
 
     private void connectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectActionPerformed
-        try {
-            host = InetAddress.getLocalHost();
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(SoutheastAsiaClientApp.class.getName()).log(Level.SEVERE, null, ex);
+        if(isConnected == false)
+        {
+            System.out.println("Connecting!");
+            try {
+                host = InetAddress.getLocalHost();
+            } catch (UnknownHostException ex) {
+                Logger.getLogger(SoutheastAsiaClientApp.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                socket = new Socket(host.getHostName(), port);
+                setSocket(socket);
+            } catch (UnknownHostException ex) {
+                Logger.getLogger(SoutheastAsiaClientApp.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(SoutheastAsiaClientApp.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            //else
+            //    System.out.println("Connecting failed. Please try again later.");
         }
-        try {
-            socket = new Socket(host.getHostName(), port);
-            setSocket(socket);
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(SoutheastAsiaClientApp.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(SoutheastAsiaClientApp.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         System.out.println("Connecting!");
+
+        else System.out.println("Already connected!");
+
+
     }//GEN-LAST:event_connectActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -412,8 +423,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
              * para fun, gonna need to use outputstreamwriter
              * must learn to flush.
              */
-
-            sender.print(message);
+            sender.println(message);
         }
     }
 
@@ -428,11 +438,12 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
 
     public void recieveMessage(String message)
     {
-        if(message.equals("startgame"))
+        //System.out.println(message);
+        
+        if(message.equals("verified"))
         {
-            //switch screen
-            startGameScreen();
-
+            isConnected = true;
+            System.out.println("Connection established.");
         }
         else if(message.substring(0, 5).equalsIgnoreCase("warn:"))
         {
@@ -440,7 +451,13 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         }
         else
         {
-            tempMessage(message);
+            if(message.equals("startgame"))
+            {
+                startGameScreen();
+                //switch screen
+            }
+            else
+                tempMessage(message);
         }
     }
 
@@ -460,9 +477,9 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
                 @Override
                 public void run() {
                     try {
-
+                        InputStream is = socket.getInputStream();
                         sender = new PrintWriter(socket.getOutputStream(), true);
-                        Scanner in = new Scanner(new InputStreamReader(socket.getInputStream()));
+                        Scanner in = new Scanner(new BufferedInputStream(is));
 
                     while(true)
                     {
