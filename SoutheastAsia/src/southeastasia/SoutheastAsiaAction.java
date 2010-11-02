@@ -52,7 +52,7 @@ public class SoutheastAsiaAction {
      */
     public String toString()
     {
-        return "";
+        return name;
     }
 
     /**
