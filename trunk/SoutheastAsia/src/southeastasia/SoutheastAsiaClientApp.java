@@ -36,7 +36,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         initComponents();
         cl=(CardLayout)jPanel4.getLayout();
         isConnected = false;
-
+        useFakeSockets = false;
         loadActions();
 
     }
@@ -536,7 +536,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
 
     // to add: interpret messages, and send them out
 
-    public void sendMessage(String message)
+    public void sendMessage(String message)     // This sends a message to the server.
     {
         if(useFakeSockets)
         {
@@ -544,14 +544,12 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         }
         else
         {
-            /* put not fake sockets here
-             * para fun, gonna need to use outputstreamwriter
-             * must learn to flush.
-             */
+            // put not fake sockets here
 
-            System.out.println("HELLO ALBERT SoutheastAsiaClientApp.sendMessage");
+            //System.out.println("HI ENZO SoutheastAsiaClientApp.sendMessage");
 
-            sender.print(message);
+            if (sender != null && isConnected) sender.println(message);    // I'm wondering if these conditions are redundant
+                    else System.out.println("Not connected!");              // but I'll keep them there just in case.
         }
     }
 
@@ -561,6 +559,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
             return fakesockets.getClientCode(this);
         else
             System.out.println("EDIT SoutheastAsiaClientApp.getClientCode to use not-fake-sockets!");
+            // Note to self: figure this out - A.
         return -1;
     }
 
