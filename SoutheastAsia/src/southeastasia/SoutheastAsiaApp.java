@@ -34,7 +34,7 @@ public class SoutheastAsiaApp extends SingleFrameApplication {
         {
             sac=new SoutheastAsiaClientApp();
             sac.setVisible(true);
-            sac.setFakeSocket(fs); //change this
+            //sac.setFakeSocket(fs); //change this
             fs.addClient(sac);
         }
         

@@ -28,6 +28,7 @@ public class SoutheastAsiaServerSockets {
     //private ServerSocket[]server;
     private ServerSocket server;
     private PrintWriter[] sender;
+    private ChatWindow chat;
     
 
     public SoutheastAsiaServerSockets() throws IOException {
@@ -36,7 +37,7 @@ public class SoutheastAsiaServerSockets {
         //server = new ServerSocket[SoutheastAsiaApp.MAX_PLAYERS];
         port = 7777;
         server = new ServerSocket(port);
-        accepter = new Accepter();
+        accepter = new Accepter(this);
         sender = new PrintWriter[MAX_PLAYERS];
         
     }
@@ -57,6 +58,11 @@ public class SoutheastAsiaServerSockets {
         //insert string, sender[player] printstream shizz here
     }
 
+    public void setChat(ChatWindow c)
+    {
+        chat = c;
+    }
+
     public void sendToAll(String message)
     {
         
@@ -69,11 +75,14 @@ public class SoutheastAsiaServerSockets {
     public void interpret(String order, int player)
     {
         //same as above
+        System.out.println("Yo");
+        chat.tempAddMessage("Player " + player + ": " + order);     // Expand tempAddMessage in ChatWindow and this afterwards
     }
 
     public void interpret(String order)
     {
-        //lookie the top
+        System.out.println("FroYo");
+        chat.tempAddMessage(order);     // Expand tempAddMessage in ChatWindow and this afterwards
     }
 
     public Socket getPlayer(int i) {
@@ -84,11 +93,13 @@ public class SoutheastAsiaServerSockets {
     {
         int i;
         int max;
+        SoutheastAsiaServerSockets ss;
 
-        public Accepter() {
+        public Accepter(SoutheastAsiaServerSockets ss) {
          i = 0;
          max = SoutheastAsiaApp.MAX_PLAYERS;
          //max = 1;
+         this.ss = ss;
         }
 
         @Override
@@ -109,7 +120,7 @@ public class SoutheastAsiaServerSockets {
                 {
                     players[i] = server.accept();
                     sender[i] = new PrintWriter(players[i].getOutputStream(), true);
-                    PlayRunner g = new PlayRunner(players[i]);
+                    PlayRunner g = new PlayRunner(players[i], ss, i);
                     g.start();
                     sendToOne("verified",i);
                 }
@@ -130,10 +141,14 @@ public class SoutheastAsiaServerSockets {
         class PlayRunner extends Thread //doot doot doot. Should I stick this into another class?
     {
             Socket socket;
+            SoutheastAsiaServerSockets ss;
+            int i;
 
-            public PlayRunner(Socket socket)
+            public PlayRunner(Socket socket, SoutheastAsiaServerSockets ss, int i)
             {
                 this.socket = socket;
+                this.ss = ss;
+                this.i = i;
             }
 
         @Override
@@ -150,6 +165,7 @@ public class SoutheastAsiaServerSockets {
                         if (!(msg.equals("")||msg==null))
                         {
                             //interpret(msg); ? Is this how it should be done?
+                            ss.interpret(msg, i);
                         }
                         
                     }

@@ -60,6 +60,7 @@ public class SoutheastAsiaView extends FrameView {
                 try
         {
             ss = new SoutheastAsiaServerSockets();
+            ss.setChat(chat);
         }
         catch(IOException ioe)
         {
