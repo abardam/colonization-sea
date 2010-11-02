@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JComboBox;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import javax.swing.JOptionPane;
 import java.awt.CardLayout;
 import java.io.IOException;
 
@@ -202,8 +203,12 @@ public class SoutheastAsiaView extends FrameView {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jButton8 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
+        jButton9 = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
@@ -312,7 +317,6 @@ public class SoutheastAsiaView extends FrameView {
             }
         });
 
-        jButton7.setText(resourceMap.getString("jButton7.text")); // NOI18N
         jButton7.setName("jButton7"); // NOI18N
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -482,22 +486,67 @@ public class SoutheastAsiaView extends FrameView {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab1", jPanel3);
+        jTabbedPane1.addTab(resourceMap.getString("jPanel3.TabConstraints.tabTitle"), jPanel3); // NOI18N
 
         jPanel4.setName("jPanel4"); // NOI18N
+
+        jScrollPane4.setName("jScrollPane4"); // NOI18N
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Country", "Cultural", "Economic", "Military", "Political", "Items", "Agreements"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable2.setName("jTable2"); // NOI18N
+        jScrollPane4.setViewportView(jTable2);
+
+        jButton8.setText(resourceMap.getString("jButton8.text")); // NOI18N
+        jButton8.setName("jButton8"); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 471, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton8))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 163, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton8)
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab2", jPanel4);
+        jTabbedPane1.addTab(resourceMap.getString("jPanel4.TabConstraints.tabTitle"), jPanel4); // NOI18N
 
         jPanel5.setName("jPanel5"); // NOI18N
 
@@ -529,19 +578,33 @@ public class SoutheastAsiaView extends FrameView {
 
         jTabbedPane1.addTab("tab4", jPanel6);
 
+        jButton9.setText(resourceMap.getString("jButton9.text")); // NOI18N
+        jButton9.setName("jButton9"); // NOI18N
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton9)))
                 .addContainerGap(246, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(311, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton9)
+                .addContainerGap(282, Short.MAX_VALUE))
         );
 
         mainPanel.add(jPanel2, "gamescreen");
@@ -741,6 +804,16 @@ public class SoutheastAsiaView extends FrameView {
         ss.sendToAll("huy");
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        if(startNewTurn(false)==0)
+        {
+
+            startNewTurn(JOptionPane.YES_OPTION==JOptionPane.showConfirmDialog(null,  "Some actions have not been sent/approved.\nAre you sure you want to start a new round?","End turn", JOptionPane.YES_NO_OPTION));
+
+            
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
+
 
     private void selectCountry(JComboBox jcb, int playerno)
     {
@@ -804,6 +877,22 @@ public class SoutheastAsiaView extends FrameView {
             }
         }
     }
+
+    public void updateCountryTables()
+    {
+        for(int i=0;i<SoutheastAsiaApp.MAX_PLAYERS;i++)
+        {
+            if(getCountry(i)!=-1)
+            {
+                jTable2.setValueAt(getCountry(i), i, 0);
+                jTable2.setValueAt(stats.getStats(i).cultural, i, 1);
+                jTable2.setValueAt(stats.getStats(i).economic, i, 2);
+                jTable2.setValueAt(stats.getStats(i).military, i, 3);
+                jTable2.setValueAt(stats.getStats(i).political, i, 4);
+
+            }
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -812,6 +901,8 @@ public class SoutheastAsiaView extends FrameView {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;
@@ -832,8 +923,10 @@ public class SoutheastAsiaView extends FrameView {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
@@ -894,24 +987,42 @@ public class SoutheastAsiaView extends FrameView {
      */
     public int startNewTurn(boolean override)
     {
+        boolean overridden=false;
         if(gameStarted)
         {
+            
 
 
+            
+            for(int i=0;i<stats.countSelectedCountries();i++)
+            {
+                if(getActionData(i).isNull||!stats.getActionApproved(i))
+                {
+                    
+                    if(override)
+                        overridden=true;
+                    else{
+                        return 0;}
+                }
+            }
+
+            
 
             if(stats.newTurn())
             {
                 //game won! now check to see who won and in what category
             }
-
-
-            for(int i=0;i<stats.countSelectedCountries();i++)
+            else
             {
-                stats.setAction(new SoutheastAsiaAction(true), i);
-                //problems?
-                allowActions(i, true);
+                updateActionTables();
+                updateCountryTables();
+                for(int i=0;i<stats.countSelectedCountries();i++)
+                {
+                    allowActions(i, true);
 
+                }
             }
+            return 1;
         }
         return 0;
     }
