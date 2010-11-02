@@ -140,6 +140,7 @@ public class SoutheastAsiaServerStats {
     {
         return countries[playerCode];
     }
+    
 
     /**
      * call this method every turn
@@ -246,6 +247,9 @@ public class SoutheastAsiaServerStats {
 
     public int setAction(SoutheastAsiaAction seact, int playerCode)
     {
+        System.out.println(seact.name);
+        System.out.println(seact.description);
+        System.out.println(playerCode);
         actions[playerCode]=seact;
         return 1;
     }
