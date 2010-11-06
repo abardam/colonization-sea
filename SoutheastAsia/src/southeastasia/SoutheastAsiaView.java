@@ -42,6 +42,8 @@ public class SoutheastAsiaView extends FrameView {
 
     private boolean boxesSet;
 
+    private CountryVariables[] defaults;
+    private ArrayList<Problem> problems;
     public void setFakeSockets(FakeSockets sock)
     {
         useFakeSockets=true;
@@ -67,6 +69,39 @@ public class SoutheastAsiaView extends FrameView {
             System.out.println(ioe.getMessage());
         }
 
+
+        defaults=new CountryVariables[6];
+        defaults[0]=new CountryVariables("Portugal", 50, 40, 55, 55);
+        defaults[1]=new CountryVariables("Spain", 60, 45, 45, 50);
+        defaults[2]=new CountryVariables("Britain", 50, 60, 45, 45);
+        defaults[3]=new CountryVariables("Netherlands", 50, 55, 55, 40);
+        defaults[4]=new CountryVariables("France", 45, 55, 55, 45);
+        defaults[5]=new CountryVariables("America", 40, 55, 60, 45);
+
+        problems=new ArrayList<Problem>();
+		problems.add(new Problem("Natural Disaster", "Your home country faces a natural disaster (either earthquake, typhoon, hurricane, tsunami or volcano eruption) and half of your population is wiped out.", -5,-5,-5,0,3,3,3,5));
+		problems.add(new Problem("Great Depression", "The economic system in your home country suddenly collapses. Banks close down and shops and companies wind up. Unemployment rate almost hits 100%. ", -15,-20,0,-5,10,10,0,10));
+		problems.add(new Problem("Famine", "Your home country�s food supply are largely destroyed by pests, drought and diseases to the crops. Your country is in danger of mass starvation very soon.", -15,-10,0,-5,20,0,0,15));
+		problems.add(new Problem("Population Dissent","The people who are working on your plantations are unhappy that they are working for long hours and low pay. They are boycotting work on your plantations and factories.", -15,-10,0,-5,20,0,0,10));
+		problems.add(new Problem("Political Challenge","Some local leaders have mobilised the masses and begin to question over your right to rule over them. They see themselves as the rightful owner of their land.", 0,0,0,-10,0,0,0,15));
+		problems.add(new Problem("Language Issues","The locals are rallying for the need to make their language the official language of your empire in Southeast Asia. They want all schools, trade and business to use their language.",-5,0,0,0,10,0,0,5));
+		problems.add(new Problem("Artistic Movement","Artists explored your new lands in Southeast Asia and they reckon that these people are behind in their artistic appreciation. Your artists want you to lift these people up through arts.",-5,0,0,0,10,0,0,5));
+		problems.add(new Problem("Religious Zeal","Your citizens in your home country demand that you spread your country�s dominant religion to Southeast Asia by sending missionaries to these new lands.", -5,0,0,0,10,0,0,5));
+		problems.add(new Problem("Religious Conflict","The locals find your missionaries from your home country too insensitive towards their own beliefs and they started burning your religious buildings that you have constructed.", -10,0,0,0,15,0,0,5));
+		problems.add(new Problem("Educating the Uncivilized","Many educationists and professors are gaining momentum in your home country urging you to civilise Southeast Asian natives by providing them with a Western education.",-5,0,0,0,10,0,0,5));
+		problems.add(new Problem("Defamation Attacks","Politicians who are against your form of government and rule have repeatedly criticised your political system and even your personality and character.",0,0,0,-5,0,0,0,10));
+		problems.add(new Problem("Pirate Attacks","Many of your trading ships to your Southeast Asia colonies were routed by indisciminate pirates of the sea. They stole all your goods, making all your hardwork go down the drain.",0,-10,0,-5,0,0,0,10));
+		problems.add(new Problem("Communist Threat","Marxist political ideals have reached your colony and people are organising anti-government talks and holding violent demonstrations on the streets.",-5,-5,0,-5,3,3,0,10));
+		problems.add(new Problem("Violent Uprising","Anti-government groups who have been exposed to Western ideals have taken to arms and boldy attacked your police stations, courthouses and even military bases.",-5,-5,-5,-5,5,0,0,10));
+		problems.add(new Problem("Abolition of Slavery","The Western World have called for the abolition of slavery. If you are currently practicising slavery in any of your lands, you are a target of the activists for anit-slavery.",-5,0,0,-15,5,0,0,20));
+		problems.add(new Problem("Overpopulation","Immigrants from China and India have been migrating to your lands ever since you came. Poor housing and living conditions now plague your people.",-5,-5,0,-5,10,5,0,10));
+		problems.add(new Problem("Health Issues","There are outbreaks of infectious diseases such as flu, as well as diseases due to unhygenic living conditions such as tuberculosis.",-10,-5,0,-5,5,0,0,10));
+		problems.add(new Problem("Crimes","Pickpocketing, burglary, murders and gang fights have deterred many potential merchants from landing on your colonies to trade for fear of their life and posessions.",-15,-15,0,-5,20,10,0,10));
+		problems.add(new Problem("Bad Harvest","Due to a spate of bad weather, drought and pest attacks, your resources during harvest time has diminished considerably.",0,-15,0,0,5,0,0,5));
+		problems.add(new Problem("White Man's Burden","Your religious people from your home country demanded that you take on the responsibility to spread your superior religion to the inferior beings in Southeast Asia.",-10,0,0,0,20,0,0,5));
+		problems.add(new Problem("Land Negotiation Deal","The local King of one of your island/land has decided to give up only a bit of their land for your purposes, and still retain their autonomy to rule their people. \nThe local King of one of your island/land has decided to give up only a bit of their land for your purposes, and still retain their autonomy to rule their people.",0,0,0,0,0,0,0,0));
+		problems.add(new Problem("Land for resources","Your people in your home country is unsatisfied with your empire�s economic growth compared to the rest. They demand that you expand the empire now.",-10,0,0,0,20,0,0,5));
+		
         initComponents();
         cl = (CardLayout)(mainPanel.getLayout());
         countries=new ArrayList<String>();
@@ -455,7 +490,13 @@ public class SoutheastAsiaView extends FrameView {
             }
         });
 
+        jButton5.setText(resourceMap.getString("jButton5.text")); // NOI18N
         jButton5.setName("jButton5"); // NOI18N
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setName("jButton6"); // NOI18N
 
@@ -470,7 +511,7 @@ public class SoutheastAsiaView extends FrameView {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -481,9 +522,9 @@ public class SoutheastAsiaView extends FrameView {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -815,6 +856,43 @@ public class SoutheastAsiaView extends FrameView {
         }
     }//GEN-LAST:event_jButton9ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        assignProblems();
+        updateActionTables();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void assignProblems()
+    {
+        for(int i=0;i<stats.countSelectedCountries();i++)
+        {
+            stats.setProblem(getRandomProblem(), i);
+        }
+    }
+
+    private Problem getRandomProblem()
+    {
+        int ret=(int)(Math.random()*problems.size());
+        return problems.get(ret);
+    }
+
+    public void sendProblemUpdate(int playerCode)
+    {
+        Problem p=stats.getProblemData(playerCode);
+        String message;
+        message="prob:";
+        message+=p.name+"#";
+        message+=p.description+"#";
+        message+=p.statModifiers.cultural+"#";
+        message+=p.statModifiers.economic+"#";
+        message+=p.statModifiers.military+"#";
+        message+=p.statModifiers.political+"#";
+        message+=p.solveModifiers.cultural+"#";
+        message+=p.solveModifiers.economic+"#";
+        message+=p.solveModifiers.military+"#";
+        message+=p.solveModifiers.political+"#";
+        
+        sendClientMessage(playerCode, message);
+    }
 
     private void selectCountry(JComboBox jcb, int playerno)
     {
@@ -871,7 +949,7 @@ public class SoutheastAsiaView extends FrameView {
         {
             if(getCountry(i)!=-1)
             {
-                jTable1.setValueAt(getCountry(i), i, 0);
+                jTable1.setValueAt(stats.getStats(i).name, i, 0);
                 jTable1.setValueAt(getActionName(i), i, 1);
                 jTable1.setValueAt(getActionApproved(i), i, 2);
                 jTable1.setValueAt(getProblemName(i), i, 3);
@@ -885,7 +963,7 @@ public class SoutheastAsiaView extends FrameView {
         {
             if(getCountry(i)!=-1)
             {
-                jTable2.setValueAt(getCountry(i), i, 0);
+                jTable2.setValueAt(stats.getStats(i).name, i, 0);
                 jTable2.setValueAt(stats.getStats(i).cultural, i, 1);
                 jTable2.setValueAt(stats.getStats(i).economic, i, 2);
                 jTable2.setValueAt(stats.getStats(i).military, i, 3);
@@ -1133,6 +1211,20 @@ public class SoutheastAsiaView extends FrameView {
     public int startGame(boolean override)
     {
         //put some code in here
+
+        int c;
+        CountryVariables cv;
+        for(int i=0;i<stats.countSelectedCountries();i++)
+        {
+            c=stats.getCountry(i);
+            cv=stats.getStats(i);
+            cv.cultural=defaults[c].cultural;
+            cv.economic=defaults[c].economic;
+            cv.military=defaults[c].military;
+            cv.political=defaults[c].political;
+            cv.name=defaults[c].name;
+        }
+
         gameStarted=true;
         startNewTurn(true);
         return 1;

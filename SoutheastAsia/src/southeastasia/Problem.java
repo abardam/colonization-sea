@@ -17,16 +17,20 @@ public class Problem extends SoutheastAsiaAction{
     public Problem()
     {
         super();
+
+        solveModifiers=new CountryVariables("",0,0,0,0);
     }
 
     public Problem(boolean isNull)
     {
         super(isNull);
+        solveModifiers=new CountryVariables("",0,0,0,0);
     }
 
-    public Problem(String name, String desc, int c, int e, int m, int p)
+    public Problem(String name, String desc, int c, int e, int m, int p, int sc, int se, int sm, int sp)
     {
         super(name, desc, c, e, m, p);
+        solveModifiers=new CountryVariables("",sc,se,sm,sp);
     }
 
     /**

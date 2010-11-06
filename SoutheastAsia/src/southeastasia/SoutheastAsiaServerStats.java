@@ -247,10 +247,13 @@ public class SoutheastAsiaServerStats {
 
     public int setAction(SoutheastAsiaAction seact, int playerCode)
     {
-        System.out.println(seact.name);
-        System.out.println(seact.description);
-        System.out.println(playerCode);
         actions[playerCode]=seact;
+        return 1;
+    }
+
+    public int setProblem(Problem prob, int playerCode)
+    {
+        problems[playerCode]=prob;
         return 1;
     }
 
@@ -299,5 +302,10 @@ public class SoutheastAsiaServerStats {
         }
 
         return -1;
+    }
+
+    public Problem getProblemData(int playerCode)
+    {
+        return problems[playerCode];
     }
 }
