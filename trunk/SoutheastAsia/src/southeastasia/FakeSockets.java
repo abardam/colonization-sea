@@ -23,6 +23,7 @@ public class FakeSockets {
     public void addClient(SoutheastAsiaClientApp sac)
     {
         clients.add(sac);
+        sac.setFakeSocket(this);
     }
 
     public void serverRecieveTransmission(String message)
