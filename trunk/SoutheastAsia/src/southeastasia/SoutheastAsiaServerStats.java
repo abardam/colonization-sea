@@ -169,9 +169,18 @@ public class SoutheastAsiaServerStats {
 
             actions[i]=SoutheastAsiaAction.noAction();
 
-            if(solved[i])
+            if(!problems[i].isNull)
             {
-                solveProblem(i);
+                problems[i].applyEffect(this.variables[i]);
+                
+                if(solved[i])
+                {
+                    solveProblem(i);
+                }
+
+
+                solved[i]=false;
+                problems[i]=Problem.noProblem();
             }
         }
 
