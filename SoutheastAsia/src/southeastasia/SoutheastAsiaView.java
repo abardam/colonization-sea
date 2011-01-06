@@ -868,13 +868,15 @@ public class SoutheastAsiaView extends FrameView {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void solveProblemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solveProblemActionPerformed
-
+System.out.println("hhdh");
         //removes the problem
         if(actionTable.getSelectedRowCount()>0)
         {
+            System.out.println("hhdh");
             int playerCode=getPlayerCode(actionTable.getValueAt(actionTable.getSelectedRow(), 0).toString());
-            stats.setSolved(playerCode, !stats.getProblemSolved(playerCode));
-            updateActionTables();
+            //setSolved(!stats.getProblemSolved(playerCode), playerCode);
+            //updateActionTables();
+            new ProblemViewerFrame(stats.getProblemData(playerCode), this, playerCode).setVisible(true);
 
         }
 
@@ -1399,5 +1401,8 @@ public class SoutheastAsiaView extends FrameView {
         stats.setApproval(playerCode, approval);
     }
 
-
+    public void setSolved(boolean solved, int playerCode)
+    {
+        stats.setSolved(playerCode, solved);
+    }
 }
