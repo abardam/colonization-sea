@@ -27,6 +27,9 @@ public class SoutheastAsiaServerStats {
 
     private Problem[] problems;
 
+    //is the problem solved?
+    private boolean[] solved;
+
     //is the action approved?
     private boolean[] approval;
 
@@ -45,6 +48,7 @@ public class SoutheastAsiaServerStats {
         problems=new Problem[SoutheastAsiaApp.MAX_PLAYERS];
         countries=new int[SoutheastAsiaApp.MAX_PLAYERS];
         approval=new boolean[SoutheastAsiaApp.MAX_PLAYERS];
+        solved=new boolean[SoutheastAsiaApp.MAX_PLAYERS];
 
         for(int i=0;i<SoutheastAsiaApp.MAX_PLAYERS;i++)
         {
@@ -53,6 +57,7 @@ public class SoutheastAsiaServerStats {
             problems[i]=Problem.noProblem();
             countries[i]=-1;
             approval[i]=false;
+            solved[i]=false;
         }
     }
 
@@ -163,6 +168,11 @@ public class SoutheastAsiaServerStats {
             approval[i]=false;
 
             actions[i]=SoutheastAsiaAction.noAction();
+
+            if(solved[i])
+            {
+                solveProblem(i);
+            }
         }
 
         //the reason that this is in a separate for loop is so that
@@ -190,7 +200,7 @@ public class SoutheastAsiaServerStats {
 
     /**
      * solves the problem belonging to a player
-     * (called before the end of the turn)
+     * (called at the end of the turn)
      * @param playerCode
      * @return 1 if problem exists, 0 otherwise
      */
@@ -200,11 +210,12 @@ public class SoutheastAsiaServerStats {
         {
             return 0;
         }
-        else
+        else if(solved[playerCode])
         {
             problems[playerCode].solveProblem(variables[playerCode]);
             return 1;
         }
+        return 0;
     }
 
     /**
@@ -248,12 +259,14 @@ public class SoutheastAsiaServerStats {
     public int setAction(SoutheastAsiaAction seact, int playerCode)
     {
         actions[playerCode]=seact;
+        approval[playerCode]=false;
         return 1;
     }
 
     public int setProblem(Problem prob, int playerCode)
     {
         problems[playerCode]=prob;
+        solved[playerCode]=false;
         return 1;
     }
 
@@ -265,6 +278,16 @@ public class SoutheastAsiaServerStats {
     public String getProblem(int playerCode)
     {
         return problems[playerCode].toString();
+    }
+
+    public boolean getProblemSolved(int playerCode)
+    {
+        return solved[playerCode];
+    }
+
+    public void setSolved(int playerCode, boolean psolved)
+    {
+        solved[playerCode]=psolved;
     }
 
     public String getProblemName(int playerCode)

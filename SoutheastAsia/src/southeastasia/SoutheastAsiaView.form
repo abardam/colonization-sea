@@ -363,7 +363,7 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jButton5" min="-2" pref="117" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jButton6" min="-2" pref="61" max="-2" attributes="0"/>
+                                      <Component id="solveProblem" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
@@ -376,9 +376,9 @@
                               <Component id="jScrollPane3" min="-2" pref="123" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jButton6" min="-2" pref="23" max="-2" attributes="0"/>
                                   <Component id="jButton3" min="-2" pref="23" max="-2" attributes="0"/>
                                   <Component id="jButton5" min="-2" pref="23" max="-2" attributes="0"/>
+                                  <Component id="solveProblem" min="-2" pref="23" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
@@ -393,10 +393,10 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="jTable1">
+                        <Component class="javax.swing.JTable" name="actionTable">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="4" rowCount="6">
+                              <Table columnCount="5" rowCount="6">
                                 <Column editable="false" title="Country" type="java.lang.String"/>
                                 <Column editable="false" title="Action" type="java.lang.String"/>
                                 <Column editable="false" title="Approved?" type="java.lang.Boolean">
@@ -408,33 +408,34 @@
                                   <Data value="null"/>
                                 </Column>
                                 <Column editable="false" title="Problem" type="java.lang.String"/>
+                                <Column editable="false" title="Solved?" type="java.lang.Boolean"/>
                               </Table>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                               <TableColumnModel selectionModel="0">
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title resourceKey="jTable1.columnModel.title0"/>
+                                  <Title resourceKey="actionTable.columnModel.title0"/>
                                   <Editor/>
                                   <Renderer/>
                                 </Column>
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title resourceKey="jTable1.columnModel.title1"/>
+                                  <Title resourceKey="actionTable.columnModel.title1"/>
                                   <Editor/>
                                   <Renderer/>
                                 </Column>
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title resourceKey="jTable1.columnModel.title2"/>
+                                  <Title resourceKey="actionTable.columnModel.title2"/>
                                   <Editor/>
                                   <Renderer/>
                                 </Column>
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title resourceKey="jTable1.columnModel.title3"/>
+                                  <Title resourceKey="actionTable.columnModel.title3"/>
                                   <Editor/>
                                   <Renderer/>
                                 </Column>
                               </TableColumnModel>
                             </Property>
-                            <Property name="name" type="java.lang.String" value="jTable1" noResource="true"/>
+                            <Property name="name" type="java.lang.String" value="actionTable" noResource="true"/>
                             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                               <TableHeader reorderingAllowed="false" resizingAllowed="false"/>
                             </Property>
@@ -460,10 +461,14 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButton6">
+                    <Component class="javax.swing.JButton" name="solveProblem">
                       <Properties>
-                        <Property name="name" type="java.lang.String" value="jButton6" noResource="true"/>
+                        <Property name="text" type="java.lang.String" resourceKey="solveProblem.text"/>
+                        <Property name="name" type="java.lang.String" value="solveProblem" noResource="true"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="solveProblemActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>

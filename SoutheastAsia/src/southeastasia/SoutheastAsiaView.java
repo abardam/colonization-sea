@@ -234,10 +234,10 @@ public class SoutheastAsiaView extends FrameView {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        actionTable = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        solveProblem = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -445,24 +445,24 @@ public class SoutheastAsiaView extends FrameView {
 
         jScrollPane3.setName("jScrollPane3"); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        actionTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, new Boolean(false), null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, new Boolean(false), null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Country", "Action", "Approved?", "Problem"
+                "Country", "Action", "Approved?", "Problem", "Solved?"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -473,14 +473,14 @@ public class SoutheastAsiaView extends FrameView {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setName("jTable1"); // NOI18N
-        jTable1.getTableHeader().setResizingAllowed(false);
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane3.setViewportView(jTable1);
-        jTable1.getColumnModel().getColumn(0).setHeaderValue(resourceMap.getString("jTable1.columnModel.title0")); // NOI18N
-        jTable1.getColumnModel().getColumn(1).setHeaderValue(resourceMap.getString("jTable1.columnModel.title1")); // NOI18N
-        jTable1.getColumnModel().getColumn(2).setHeaderValue(resourceMap.getString("jTable1.columnModel.title2")); // NOI18N
-        jTable1.getColumnModel().getColumn(3).setHeaderValue(resourceMap.getString("jTable1.columnModel.title3")); // NOI18N
+        actionTable.setName("actionTable"); // NOI18N
+        actionTable.getTableHeader().setResizingAllowed(false);
+        actionTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(actionTable);
+        actionTable.getColumnModel().getColumn(0).setHeaderValue(resourceMap.getString("actionTable.columnModel.title0")); // NOI18N
+        actionTable.getColumnModel().getColumn(1).setHeaderValue(resourceMap.getString("actionTable.columnModel.title1")); // NOI18N
+        actionTable.getColumnModel().getColumn(2).setHeaderValue(resourceMap.getString("actionTable.columnModel.title2")); // NOI18N
+        actionTable.getColumnModel().getColumn(3).setHeaderValue(resourceMap.getString("actionTable.columnModel.title3")); // NOI18N
 
         jButton3.setText(resourceMap.getString("jButton3.text")); // NOI18N
         jButton3.setName("jButton3"); // NOI18N
@@ -498,7 +498,13 @@ public class SoutheastAsiaView extends FrameView {
             }
         });
 
-        jButton6.setName("jButton6"); // NOI18N
+        solveProblem.setText(resourceMap.getString("solveProblem.text")); // NOI18N
+        solveProblem.setName("solveProblem"); // NOI18N
+        solveProblem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                solveProblemActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -513,7 +519,7 @@ public class SoutheastAsiaView extends FrameView {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(solveProblem)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -522,9 +528,9 @@ public class SoutheastAsiaView extends FrameView {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(solveProblem, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -828,9 +834,9 @@ public class SoutheastAsiaView extends FrameView {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
-        if(jTable1.getSelectedRowCount()>0)
+        if(actionTable.getSelectedRowCount()>0)
         {
-            int playerCode=getPlayerCode(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+            int playerCode=getPlayerCode(actionTable.getValueAt(actionTable.getSelectedRow(), 0).toString());
             new ActionViewerFrame(getActionData(playerCode), this,  playerCode).setVisible(true);
             
         }
@@ -860,6 +866,24 @@ public class SoutheastAsiaView extends FrameView {
         assignProblems();
         updateActionTables();
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void solveProblemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solveProblemActionPerformed
+
+        //removes the problem
+        if(actionTable.getSelectedRowCount()>0)
+        {
+            int playerCode=getPlayerCode(actionTable.getValueAt(actionTable.getSelectedRow(), 0).toString());
+            stats.setSolved(playerCode, !stats.getProblemSolved(playerCode));
+            updateActionTables();
+
+        }
+
+        else
+
+        {
+            System.out.println("Select some rows!");
+        }
+    }//GEN-LAST:event_solveProblemActionPerformed
 
     private void assignProblems()
     {
@@ -949,10 +973,11 @@ public class SoutheastAsiaView extends FrameView {
         {
             if(getCountry(i)!=-1)
             {
-                jTable1.setValueAt(stats.getStats(i).name, i, 0);
-                jTable1.setValueAt(getActionName(i), i, 1);
-                jTable1.setValueAt(getActionApproved(i), i, 2);
-                jTable1.setValueAt(getProblemName(i), i, 3);
+                actionTable.setValueAt(stats.getStats(i).name, i, 0);
+                actionTable.setValueAt(getActionName(i), i, 1);
+                actionTable.setValueAt(getActionApproved(i), i, 2);
+                actionTable.setValueAt(getProblemName(i), i, 3);
+                actionTable.setValueAt(stats.getProblemSolved(i), i, 4);
             }
         }
     }
@@ -973,12 +998,12 @@ public class SoutheastAsiaView extends FrameView {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable actionTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
@@ -1004,12 +1029,12 @@ public class SoutheastAsiaView extends FrameView {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JProgressBar progressBar;
+    private javax.swing.JButton solveProblem;
     private javax.swing.JLabel statusAnimationLabel;
     private javax.swing.JLabel statusMessageLabel;
     private javax.swing.JPanel statusPanel;
