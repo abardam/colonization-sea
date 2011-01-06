@@ -21,7 +21,7 @@ import java.util.StringTokenizer;
 import javax.swing.JOptionPane;
 import java.awt.CardLayout;
 import java.io.IOException;
-
+import southeastasia.networking.SoutheastAsiaServerSockets;
 /**
  * The application's main frame.
  */
@@ -1366,7 +1366,7 @@ public class SoutheastAsiaView extends FrameView {
 
     public int getPlayerCode(String countryCode)
     {
-        return stats.getPlayerCode(Integer.parseInt(countryCode));
+        return stats.getPlayerCode(countryCode);
     }
 
     public void setApproval(boolean approval, int playerCode)

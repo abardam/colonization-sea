@@ -282,6 +282,19 @@ public class SoutheastAsiaServerStats {
         return actions[playerCode];
     }
 
+    //dumb way to get player code by reversing country name
+    public int getPlayerCode(String countryName)
+    {
+        for(int i=0;i<SoutheastAsiaApp.MAX_PLAYERS;i++)
+        {
+            if(variables[i].name.equalsIgnoreCase(countryName))
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     //dumb way to get player code by reversing country code but whatever
     public int getPlayerCode(int countryCode)
     {
