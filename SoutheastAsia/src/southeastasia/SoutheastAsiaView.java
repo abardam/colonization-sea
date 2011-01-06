@@ -240,7 +240,7 @@ public class SoutheastAsiaView extends FrameView {
         solveProblem = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        countryTable = new javax.swing.JTable();
         jButton8 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
@@ -540,7 +540,7 @@ public class SoutheastAsiaView extends FrameView {
 
         jScrollPane4.setName("jScrollPane4"); // NOI18N
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        countryTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -568,11 +568,16 @@ public class SoutheastAsiaView extends FrameView {
                 return canEdit [columnIndex];
             }
         });
-        jTable2.setName("jTable2"); // NOI18N
-        jScrollPane4.setViewportView(jTable2);
+        countryTable.setName("countryTable"); // NOI18N
+        jScrollPane4.setViewportView(countryTable);
 
         jButton8.setText(resourceMap.getString("jButton8.text")); // NOI18N
         jButton8.setName("jButton8"); // NOI18N
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -837,7 +842,11 @@ public class SoutheastAsiaView extends FrameView {
         if(actionTable.getSelectedRowCount()>0)
         {
             int playerCode=getPlayerCode(actionTable.getValueAt(actionTable.getSelectedRow(), 0).toString());
-            new ActionViewerFrame(getActionData(playerCode), this,  playerCode).setVisible(true);
+
+            if(!stats.getActionData(playerCode).isNull)
+            {
+                new ActionViewerFrame(getActionData(playerCode), this,  playerCode).setVisible(true);
+            }
             
         }
 
@@ -868,15 +877,17 @@ public class SoutheastAsiaView extends FrameView {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void solveProblemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solveProblemActionPerformed
-System.out.println("hhdh");
         //removes the problem
         if(actionTable.getSelectedRowCount()>0)
         {
-            System.out.println("hhdh");
             int playerCode=getPlayerCode(actionTable.getValueAt(actionTable.getSelectedRow(), 0).toString());
             //setSolved(!stats.getProblemSolved(playerCode), playerCode);
             //updateActionTables();
-            new ProblemViewerFrame(stats.getProblemData(playerCode), this, playerCode).setVisible(true);
+
+            if(!stats.getProblemData(playerCode).isNull)
+            {
+                new ProblemViewerFrame(stats.getProblemData(playerCode), this, playerCode).setVisible(true);
+            }
 
         }
 
@@ -886,6 +897,22 @@ System.out.println("hhdh");
             System.out.println("Select some rows!");
         }
     }//GEN-LAST:event_solveProblemActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        if(countryTable.getSelectedRowCount()>0)
+        {
+            int playerCode=getPlayerCode(countryTable.getValueAt(countryTable.getSelectedRow(), 0).toString());
+            
+            new CountryViewerFrame(playerCode, this).setVisible(true);
+
+        }
+
+        else
+
+        {
+            System.out.println("Select some rows!");
+        }
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     private void assignProblems()
     {
@@ -990,17 +1017,18 @@ System.out.println("hhdh");
         {
             if(getCountry(i)!=-1)
             {
-                jTable2.setValueAt(stats.getStats(i).name, i, 0);
-                jTable2.setValueAt(stats.getStats(i).cultural, i, 1);
-                jTable2.setValueAt(stats.getStats(i).economic, i, 2);
-                jTable2.setValueAt(stats.getStats(i).military, i, 3);
-                jTable2.setValueAt(stats.getStats(i).political, i, 4);
+                countryTable.setValueAt(stats.getStats(i).name, i, 0);
+                countryTable.setValueAt(stats.getStats(i).cultural, i, 1);
+                countryTable.setValueAt(stats.getStats(i).economic, i, 2);
+                countryTable.setValueAt(stats.getStats(i).military, i, 3);
+                countryTable.setValueAt(stats.getStats(i).political, i, 4);
 
             }
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable actionTable;
+    private javax.swing.JTable countryTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -1031,7 +1059,6 @@ System.out.println("hhdh");
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
