@@ -77,13 +77,13 @@ public class SoutheastAsiaServerSockets {
     public void interpret(String order, int player)
     {
         //same as above
-        System.out.println("Yo");
+        System.out.println("Yo - ServerSockets has received input from Player "+ player);
         chat.tempAddMessage("Player " + player + ": " + order);     // Expand tempAddMessage in ChatWindow and this afterwards
     }
 
     public void interpret(String order)
     {
-        System.out.println("FroYo");
+        System.out.println("FroYo - ServerSockets has received input!");
         chat.tempAddMessage(order);     // Expand tempAddMessage in ChatWindow and this afterwards
     }
 
@@ -112,19 +112,13 @@ public class SoutheastAsiaServerSockets {
 
                     System.out.println("Waiting for player " + (i + 1) + "...");
 
-                    /**
-                     * TODO: Make new threads for the sockets?
-                     * See if it's necessary.
-                     */
-
-                    
                 try
                 {
                     players[i] = server.accept();
                     sender[i] = new PrintWriter(players[i].getOutputStream(), true);
                     PlayRunner g = new PlayRunner(players[i], ss, i);
                     g.start();
-                    sendToOne("verified",i);
+                    sendToOne("verified:"+i,i);
                 }
                 
                 catch (IOException ex)
