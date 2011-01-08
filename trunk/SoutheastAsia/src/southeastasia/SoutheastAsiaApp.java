@@ -36,10 +36,10 @@ public class SoutheastAsiaApp extends SingleFrameApplication {
             sac.setVisible(true);
             //sac.setFakeSocket(fs); //change this
             //fs.addClient(sac);
-        }
+        } 
         
 
-//            window.setFakeSockets(fs); //remove this after fakesockets
+            //window.setFakeSockets(fs); //remove this after fakesockets
     }
 
     /**
