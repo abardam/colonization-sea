@@ -30,10 +30,12 @@ public class SoutheastAsiaServerSockets {
     //private ServerSocket[]server;
     private ServerSocket server;
     private PrintWriter[] sender;
-    private ChatWindow chat;
+    private ChatWindow chat;    //Might be unnecessary. - A., 110109
+    private SoutheastAsiaApp seaApp;
     
 
     public SoutheastAsiaServerSockets() throws IOException {
+        seaApp = SoutheastAsiaApp.getApplication();
         MAX_PLAYERS = SoutheastAsiaApp.MAX_PLAYERS;
         players = new Socket[MAX_PLAYERS];
         //server = new ServerSocket[SoutheastAsiaApp.MAX_PLAYERS];
@@ -77,14 +79,16 @@ public class SoutheastAsiaServerSockets {
     public void interpret(String order, int player)
     {
         //same as above
+        seaApp.tempParse("Player " + player + ": " + order);
         System.out.println("Yo - ServerSockets has received input from Player "+ player);
-        chat.tempAddMessage("Player " + player + ": " + order);     // Expand tempAddMessage in ChatWindow and this afterwards
+        //chat.tempAddMessage("Player " + player + ": " + order);     // Expand tempAddMessage in ChatWindow and this afterwards
     }
 
     public void interpret(String order)
     {
+        seaApp.tempParse(order);
         System.out.println("FroYo - ServerSockets has received input!");
-        chat.tempAddMessage(order);     // Expand tempAddMessage in ChatWindow and this afterwards
+        //chat.tempAddMessage(order);     // Expand tempAddMessage in ChatWindow and this afterwards
     }
 
     public Socket getPlayer(int i) {
