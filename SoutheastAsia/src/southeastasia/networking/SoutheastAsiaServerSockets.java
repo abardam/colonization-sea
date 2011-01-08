@@ -79,7 +79,7 @@ public class SoutheastAsiaServerSockets {
     public void interpret(String order, int player)
     {
         //same as above
-        seaApp.tempParse("Player " + player + ": " + order);
+        seaApp.tempParse(/*"Player " + player + ": " + */order);
         System.out.println("Yo - ServerSockets has received input from Player "+ player);
         //chat.tempAddMessage("Player " + player + ": " + order);     // Expand tempAddMessage in ChatWindow and this afterwards
     }

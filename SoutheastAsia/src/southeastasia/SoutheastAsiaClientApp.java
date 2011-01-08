@@ -432,7 +432,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         message+=jComboBox1.getSelectedItem().toString();
         message+="#";
         message+=jTextArea1.getText();
-        message+=" \n#";
+        message+="#";
         message+=jTextField3.getText();
         message+="#";
         message+=jTextField4.getText();
@@ -572,6 +572,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         if(splitMessage[0].equals("verified"))
         {
             isConnected = true;
+            System.out.println("yoyoyo"+message);
             clientCode = Integer.parseInt(splitMessage[1]);
             System.out.println(message);
             System.out.println("Connection established.");

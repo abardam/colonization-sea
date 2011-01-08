@@ -16,10 +16,12 @@ import javax.swing.Icon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 import javax.swing.JOptionPane;
 import java.awt.CardLayout;
+import java.awt.GridLayout;
 import java.io.IOException;
 import southeastasia.networking.SoutheastAsiaServerSockets;
 /**
@@ -189,6 +191,9 @@ public class SoutheastAsiaView extends FrameView {
                 }
             }
         });
+
+        //set up the territories tab
+        territoriesTab.add(new JLabel("yep"));
     }
 
     @Action
@@ -244,7 +249,7 @@ public class SoutheastAsiaView extends FrameView {
         jScrollPane4 = new javax.swing.JScrollPane();
         countryTable = new javax.swing.JTable();
         jButton8 = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
+        territoriesTab = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jButton9 = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
@@ -614,20 +619,9 @@ public class SoutheastAsiaView extends FrameView {
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel4.TabConstraints.tabTitle"), jPanel4); // NOI18N
 
-        jPanel5.setName("jPanel5"); // NOI18N
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 471, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 163, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("tab3", jPanel5);
+        territoriesTab.setName("territoriesTab"); // NOI18N
+        territoriesTab.setLayout(new java.awt.GridLayout(8, 4));
+        jTabbedPane1.addTab(resourceMap.getString("territoriesTab.TabConstraints.tabTitle"), territoriesTab); // NOI18N
 
         jPanel6.setName("jPanel6"); // NOI18N
 
@@ -1070,7 +1064,6 @@ public class SoutheastAsiaView extends FrameView {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1086,6 +1079,7 @@ public class SoutheastAsiaView extends FrameView {
     private javax.swing.JLabel statusAnimationLabel;
     private javax.swing.JLabel statusMessageLabel;
     private javax.swing.JPanel statusPanel;
+    private javax.swing.JPanel territoriesTab;
     // End of variables declaration//GEN-END:variables
 
     private final Timer messageTimer;
