@@ -811,7 +811,10 @@ public class SoutheastAsiaView extends FrameView {
      */
     private void sendClientMessage(int playerCode, String message)
     {
-        ss.sendToOne(message, playerCode);
+        if (playerCode == -1)
+            ss.sendToAll(message);
+        else
+            ss.sendToOne(message, playerCode);
 //        if(playerCode==-1)
 //        {
 //            if(useFakeSockets)
