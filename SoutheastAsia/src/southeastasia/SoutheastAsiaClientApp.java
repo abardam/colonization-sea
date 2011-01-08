@@ -573,6 +573,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         {
             isConnected = true;
             clientCode = Integer.parseInt(splitMessage[1]);
+            System.out.println(message);
             System.out.println("Connection established.");
         }
         else if(splitMessage[0].equalsIgnoreCase("warn"))
