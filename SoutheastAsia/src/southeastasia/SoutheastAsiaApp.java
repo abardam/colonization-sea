@@ -16,7 +16,7 @@ import org.jdesktop.application.SingleFrameApplication;
  */
 public class SoutheastAsiaApp extends SingleFrameApplication {
 
-    public static final int MAX_PLAYERS=6;
+    public static final int MAX_PLAYERS=1;
     private SoutheastAsiaView window;
  
     /**
@@ -26,7 +26,7 @@ public class SoutheastAsiaApp extends SingleFrameApplication {
         window=new SoutheastAsiaView(this);
         show(window);
         
-        FakeSockets fs=new FakeSockets(this);
+        //FakeSockets fs=new FakeSockets(this);
 
         SoutheastAsiaClientApp sac;
 
@@ -35,11 +35,11 @@ public class SoutheastAsiaApp extends SingleFrameApplication {
             sac=new SoutheastAsiaClientApp();
             sac.setVisible(true);
             //sac.setFakeSocket(fs); //change this
-            fs.addClient(sac);
+            //fs.addClient(sac);
         }
         
 
-            window.setFakeSockets(fs); //remove this after fakesockets
+//            window.setFakeSockets(fs); //remove this after fakesockets
     }
 
     /**

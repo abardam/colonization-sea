@@ -573,7 +573,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
             isConnected = true;
             System.out.println("Connection established.");
         }
-        else if(message.substring(0, 5).equalsIgnoreCase("warn:"))
+        else if(message.length() > 5 && message.substring(0, 5).equalsIgnoreCase("warn:"))
         {
             new AlertWindow(message.substring(5)).setVisible(true);
         }
