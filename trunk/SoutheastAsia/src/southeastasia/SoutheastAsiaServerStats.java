@@ -143,6 +143,7 @@ public class SoutheastAsiaServerStats {
 
     public int getCountry(int playerCode)
     {
+        //System.out.println("plcold"+playerCode);
         return countries[playerCode];
     }
     
@@ -265,6 +266,18 @@ public class SoutheastAsiaServerStats {
         return count;
     }
 
+
+    public String[] getCountryNames()
+    {
+        int count=countSelectedCountries();
+        String[] a=new String[count];
+        for(int i=0;i<count;i++)
+        {
+            a[i]=variables[i].name;
+        }
+        return a;
+    }
+
     public int setAction(SoutheastAsiaAction seact, int playerCode)
     {
         actions[playerCode]=seact;
@@ -353,4 +366,5 @@ public class SoutheastAsiaServerStats {
     {
         return problems[playerCode];
     }
+
 }
