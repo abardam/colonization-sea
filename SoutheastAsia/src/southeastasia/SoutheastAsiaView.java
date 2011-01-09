@@ -52,6 +52,13 @@ public class SoutheastAsiaView extends FrameView {
         fakesockets=sock;
     }
 
+    public static final int numTerritories=16;
+    public static final int territoriesPerColumn=8; //how many territories in a column, in the territory tab
+    //16 territories, 2 columns
+    private String[] territories; //array of all territories
+
+    private ArrayList<JComboBox> territoryCBs; //array of all jcomboboxes
+
     public SoutheastAsiaView(SingleFrameApplication app) {
         super(app);
         useFakeSockets=false;
@@ -79,6 +86,25 @@ public class SoutheastAsiaView extends FrameView {
         defaults[3]=new CountryVariables("Netherlands", 50, 55, 55, 40);
         defaults[4]=new CountryVariables("France", 45, 55, 55, 45);
         defaults[5]=new CountryVariables("America", 40, 55, 60, 45);
+
+        territories=new String[numTerritories];
+        territories[0]="Burma";
+        territories[1]="Brunei";
+        territories[2]="Cambodia";
+        territories[3]="Java";
+        territories[4]="Kalimantan";
+        territories[5]="Laos";
+        territories[6]="Malaya & Singapore";
+        territories[7]="Papua New Guinea";
+        territories[8]="The Philippines";
+        territories[9]="Sabah";
+        territories[10]="Sarawak";
+        territories[11]="Sulawesi & Moluccas";
+        territories[12]="Sumatra";
+        territories[13]="Thailand";
+        territories[14]="Timor";
+        territories[15]="Vietnam";
+
 
         problems=new ArrayList<Problem>();
 		problems.add(new Problem("Natural Disaster", "Your home country faces a natural disaster (either earthquake, typhoon, hurricane, tsunami or volcano eruption) and half of your population is wiped out.", -5,-5,-5,0,3,3,3,5));
@@ -136,6 +162,25 @@ public class SoutheastAsiaView extends FrameView {
             }
         }
 
+
+        territoryCBs=new ArrayList<JComboBox>();
+        territoryCBs.add(burmaCB);
+        territoryCBs.add(bruneiCB);
+        territoryCBs.add(cambodiaCB);
+        territoryCBs.add(javaCB);
+        territoryCBs.add(kalimantanCB);
+        territoryCBs.add(laosCB);
+        territoryCBs.add(malayaCB);
+        territoryCBs.add(papuaCB);
+        territoryCBs.add(philippinesCB);
+        territoryCBs.add(sabahCB);
+        territoryCBs.add(sarawakCB);
+        territoryCBs.add(sulawesiCB);
+        territoryCBs.add(sumatraCB);
+        territoryCBs.add(thailandCB);
+        territoryCBs.add(timorCB);
+        territoryCBs.add(vietnamCB);
+
         boxesSet=true;
 
         // status bar initialization - message timeout, idle icon and busy animation, etc
@@ -191,9 +236,6 @@ public class SoutheastAsiaView extends FrameView {
                 }
             }
         });
-
-        //set up the territories tab
-        territoriesTab.add(new JLabel("yep"));
     }
 
     @Action
@@ -250,6 +292,38 @@ public class SoutheastAsiaView extends FrameView {
         countryTable = new javax.swing.JTable();
         jButton8 = new javax.swing.JButton();
         territoriesTab = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        burmaCB = new javax.swing.JComboBox();
+        bruneiCB = new javax.swing.JComboBox();
+        cambodiaCB = new javax.swing.JComboBox();
+        javaCB = new javax.swing.JComboBox();
+        kalimantanCB = new javax.swing.JComboBox();
+        laosCB = new javax.swing.JComboBox();
+        malayaCB = new javax.swing.JComboBox();
+        jLabel14 = new javax.swing.JLabel();
+        papuaCB = new javax.swing.JComboBox();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        philippinesCB = new javax.swing.JComboBox();
+        sabahCB = new javax.swing.JComboBox();
+        sarawakCB = new javax.swing.JComboBox();
+        sulawesiCB = new javax.swing.JComboBox();
+        sumatraCB = new javax.swing.JComboBox();
+        thailandCB = new javax.swing.JComboBox();
+        timorCB = new javax.swing.JComboBox();
+        vietnamCB = new javax.swing.JComboBox();
         jPanel6 = new javax.swing.JPanel();
         jButton9 = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
@@ -549,7 +623,7 @@ public class SoutheastAsiaView extends FrameView {
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(solveProblem, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel3.TabConstraints.tabTitle"), jPanel3); // NOI18N
@@ -614,13 +688,224 @@ public class SoutheastAsiaView extends FrameView {
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton8)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel4.TabConstraints.tabTitle"), jPanel4); // NOI18N
 
         territoriesTab.setName("territoriesTab"); // NOI18N
-        territoriesTab.setLayout(new java.awt.GridLayout(8, 4));
+
+        jLabel7.setText(resourceMap.getString("jLabel7.text")); // NOI18N
+        jLabel7.setName("jLabel7"); // NOI18N
+
+        jLabel8.setText(resourceMap.getString("jLabel8.text")); // NOI18N
+        jLabel8.setName("jLabel8"); // NOI18N
+
+        jLabel9.setText(resourceMap.getString("jLabel9.text")); // NOI18N
+        jLabel9.setName("jLabel9"); // NOI18N
+
+        jLabel10.setText(resourceMap.getString("jLabel10.text")); // NOI18N
+        jLabel10.setName("jLabel10"); // NOI18N
+
+        jLabel11.setText(resourceMap.getString("jLabel11.text")); // NOI18N
+        jLabel11.setName("jLabel11"); // NOI18N
+
+        jLabel12.setText(resourceMap.getString("jLabel12.text")); // NOI18N
+        jLabel12.setName("jLabel12"); // NOI18N
+
+        jLabel13.setText(resourceMap.getString("jLabel13.text")); // NOI18N
+        jLabel13.setName("jLabel13"); // NOI18N
+
+        burmaCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        burmaCB.setName("burmaCB"); // NOI18N
+
+        bruneiCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        bruneiCB.setName("bruneiCB"); // NOI18N
+
+        cambodiaCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cambodiaCB.setName("cambodiaCB"); // NOI18N
+
+        javaCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        javaCB.setName("javaCB"); // NOI18N
+
+        kalimantanCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        kalimantanCB.setName("kalimantanCB"); // NOI18N
+
+        laosCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        laosCB.setName("laosCB"); // NOI18N
+
+        malayaCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        malayaCB.setName("malayaCB"); // NOI18N
+
+        jLabel14.setText(resourceMap.getString("jLabel14.text")); // NOI18N
+        jLabel14.setName("jLabel14"); // NOI18N
+
+        papuaCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        papuaCB.setName("papuaCB"); // NOI18N
+
+        jLabel15.setText(resourceMap.getString("jLabel15.text")); // NOI18N
+        jLabel15.setName("jLabel15"); // NOI18N
+
+        jLabel16.setText(resourceMap.getString("jLabel16.text")); // NOI18N
+        jLabel16.setName("jLabel16"); // NOI18N
+
+        jLabel17.setText(resourceMap.getString("jLabel17.text")); // NOI18N
+        jLabel17.setName("jLabel17"); // NOI18N
+
+        jLabel18.setText(resourceMap.getString("jLabel18.text")); // NOI18N
+        jLabel18.setName("jLabel18"); // NOI18N
+
+        jLabel19.setText(resourceMap.getString("jLabel19.text")); // NOI18N
+        jLabel19.setName("jLabel19"); // NOI18N
+
+        jLabel20.setText(resourceMap.getString("jLabel20.text")); // NOI18N
+        jLabel20.setName("jLabel20"); // NOI18N
+
+        jLabel21.setText(resourceMap.getString("jLabel21.text")); // NOI18N
+        jLabel21.setName("jLabel21"); // NOI18N
+
+        jLabel22.setText(resourceMap.getString("jLabel22.text")); // NOI18N
+        jLabel22.setName("jLabel22"); // NOI18N
+
+        philippinesCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        philippinesCB.setName("philippinesCB"); // NOI18N
+
+        sabahCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        sabahCB.setName("sabahCB"); // NOI18N
+
+        sarawakCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        sarawakCB.setName("sarawakCB"); // NOI18N
+
+        sulawesiCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        sulawesiCB.setName("sulawesiCB"); // NOI18N
+
+        sumatraCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        sumatraCB.setName("sumatraCB"); // NOI18N
+
+        thailandCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        thailandCB.setName("thailandCB"); // NOI18N
+
+        timorCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        timorCB.setName("timorCB"); // NOI18N
+
+        vietnamCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        vietnamCB.setName("vietnamCB"); // NOI18N
+
+        javax.swing.GroupLayout territoriesTabLayout = new javax.swing.GroupLayout(territoriesTab);
+        territoriesTab.setLayout(territoriesTabLayout);
+        territoriesTabLayout.setHorizontalGroup(
+            territoriesTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(territoriesTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(territoriesTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(territoriesTabLayout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(malayaCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(territoriesTabLayout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(laosCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(territoriesTabLayout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(kalimantanCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(territoriesTabLayout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(javaCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(territoriesTabLayout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cambodiaCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(territoriesTabLayout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bruneiCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(territoriesTabLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(86, 86, 86)
+                        .addComponent(burmaCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(territoriesTabLayout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(papuaCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(51, 51, 51)
+                .addGroup(territoriesTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel19)
+                    .addComponent(jLabel20)
+                    .addComponent(jLabel21)
+                    .addComponent(jLabel22))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGroup(territoriesTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(philippinesCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sabahCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sarawakCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sulawesiCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sumatraCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(thailandCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(timorCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(vietnamCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(58, Short.MAX_VALUE))
+        );
+        territoriesTabLayout.setVerticalGroup(
+            territoriesTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(territoriesTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(territoriesTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(burmaCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15)
+                    .addComponent(philippinesCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(territoriesTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(bruneiCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16)
+                    .addComponent(sabahCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(territoriesTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(cambodiaCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17)
+                    .addComponent(sarawakCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(territoriesTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(javaCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18)
+                    .addComponent(sulawesiCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(territoriesTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(kalimantanCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19)
+                    .addComponent(sumatraCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(territoriesTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(laosCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20)
+                    .addComponent(thailandCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(territoriesTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(malayaCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21)
+                    .addComponent(timorCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(territoriesTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(papuaCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel22)
+                    .addComponent(vietnamCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         jTabbedPane1.addTab(resourceMap.getString("territoriesTab.TabConstraints.tabTitle"), territoriesTab); // NOI18N
 
         jPanel6.setName("jPanel6"); // NOI18N
@@ -633,7 +918,7 @@ public class SoutheastAsiaView extends FrameView {
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 163, Short.MAX_VALUE)
+            .addGap(0, 224, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("tab4", jPanel6);
@@ -731,6 +1016,47 @@ public class SoutheastAsiaView extends FrameView {
         setMenuBar(menuBar);
         setStatusBar(statusPanel);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void initializeTerritories()
+    {
+        /*this was a stupid idea
+        int numterr=0;
+        int numterr2=0;
+
+        while(numterr<numTerritories)
+        {
+            for(int i=0;i<territoriesPerColumn;i++)
+            {
+                if(numterr<numTerritories)
+                {
+                    territoriesTab.add(new JLabel(territories[numterr]));
+                    numterr++;
+                }
+            }
+
+            for(int i=0;i<territoriesPerColumn;i++)
+            {
+                if(numterr2<numterr)
+                {
+                    territoriesTab.add(new JComboBox(stats.getCountryNames()));
+                    numterr2++;
+                }
+            }
+        }*/
+
+        //this sets the contents of the territory combo boxes
+        for(JComboBox jcb:territoryCBs)
+        {
+            jcb.removeAllItems();
+
+            jcb.addItem("---");
+            for(String s:stats.getCountryNames())
+            {
+                jcb.addItem(s);
+            }
+        }
+        
+    }
 
     private void updateComboBoxes()
     {
@@ -1039,6 +1365,9 @@ public class SoutheastAsiaView extends FrameView {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable actionTable;
+    private javax.swing.JComboBox bruneiCB;
+    private javax.swing.JComboBox burmaCB;
+    private javax.swing.JComboBox cambodiaCB;
     private javax.swing.JTable countryTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -1055,11 +1384,27 @@ public class SoutheastAsiaView extends FrameView {
     private javax.swing.JComboBox jComboBox5;
     private javax.swing.JComboBox jComboBox6;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1072,14 +1417,27 @@ public class SoutheastAsiaView extends FrameView {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JComboBox javaCB;
+    private javax.swing.JComboBox kalimantanCB;
+    private javax.swing.JComboBox laosCB;
     private javax.swing.JPanel mainPanel;
+    private javax.swing.JComboBox malayaCB;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JComboBox papuaCB;
+    private javax.swing.JComboBox philippinesCB;
     private javax.swing.JProgressBar progressBar;
+    private javax.swing.JComboBox sabahCB;
+    private javax.swing.JComboBox sarawakCB;
     private javax.swing.JButton solveProblem;
     private javax.swing.JLabel statusAnimationLabel;
     private javax.swing.JLabel statusMessageLabel;
     private javax.swing.JPanel statusPanel;
+    private javax.swing.JComboBox sulawesiCB;
+    private javax.swing.JComboBox sumatraCB;
     private javax.swing.JPanel territoriesTab;
+    private javax.swing.JComboBox thailandCB;
+    private javax.swing.JComboBox timorCB;
+    private javax.swing.JComboBox vietnamCB;
     // End of variables declaration//GEN-END:variables
 
     private final Timer messageTimer;
@@ -1294,6 +1652,7 @@ public class SoutheastAsiaView extends FrameView {
 
         gameStarted=true;
         startNewTurn(true);
+        initializeTerritories();
         return 1;
     }
 

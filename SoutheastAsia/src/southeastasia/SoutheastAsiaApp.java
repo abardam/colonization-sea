@@ -16,7 +16,7 @@ import org.jdesktop.application.SingleFrameApplication;
  */
 public class SoutheastAsiaApp extends SingleFrameApplication {
 
-    public static final int MAX_PLAYERS=1;
+    public static final int MAX_PLAYERS=6;
     private SoutheastAsiaView window;
  
     /**
