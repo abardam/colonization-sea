@@ -8,7 +8,6 @@
  *
  * Created on 08 8, 10, 12:40:53 AM
  */
-
 package southeastasia;
 
 import southeastasia.networking.SoutheastAsiaServerSockets;
@@ -32,20 +31,21 @@ import southeastasia.networking.SoutheastAsiaServerSockets;
  * @author Enzo
  */
 public class SoutheastAsiaClientApp extends javax.swing.JFrame {
-    public static final String ACTIONSPATH = "src\\southeastasia\\resources\\actions.xml";
 
+    public static final String ACTIONSPATH = "src\\southeastasia\\resources\\actions.xml";
     private ChatWindow chat;
+
     /** Creates new form SoutheastAsiaClientApp */
     public SoutheastAsiaClientApp() {
-        port=7777;
+        port = 7777;
         initComponents();
-        cl=(CardLayout)jPanel4.getLayout();
+        cl = (CardLayout) jPanel4.getLayout();
         isConnected = false;
         useFakeSockets = false;
         loadActions();
         setTerritories();
 
-        chat=new ChatWindow();
+        chat = new ChatWindow();
 
     }
 
@@ -68,12 +68,12 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         timorCB.setEnabled(false);
         vietnamCB.setEnabled(false);
     }
+    private ArrayList<SoutheastAsiaAction> actions;
 
-	private ArrayList<SoutheastAsiaAction> actions;
     private void loadActions() //loads the actions in; hardcoding ftw
-            // hohoho hindi na siya hardcoded
+    // hohoho hindi na siya hardcoded
     {
-        actions=ActionsLoader.loadActions(ACTIONSPATH);
+        actions = ActionsLoader.loadActions(ACTIONSPATH);
         jComboBox1.removeAllItems();
         for (SoutheastAsiaAction a : actions) {
             jComboBox1.addItem(a);
@@ -81,7 +81,6 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
 
 
     }
-
     //private FakeSockets sockets;
     private Socket socket;
     private InetAddress host;
@@ -89,28 +88,26 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     private boolean isConnected;
     private int clientCode;
     //private SoutheastAsiaClient client;
-
     private CardLayout cl;
+
     /**
      * after the game starts, the server sends a message and the
      * client switches to the game screen.
      */
-    public void startGameScreen()
-    {
+    public void startGameScreen() {
         cl.show(jPanel4, "game_play");
     }
 
     /*
      * this is for the FAKESOCKETS
-     
+
     public SoutheastAsiaClientApp(FakeSockets sock, SoutheastAsiaClient client)
     {
-        port = 7777;
-        initComponents();
-        sockets=sock;
-        this.client=client;
+    port = 7777;
+    initComponents();
+    sockets=sock;
+    this.client=client;
     }*/
-
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -801,14 +798,12 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         sendMessage(jTextField1.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    public void tempMessage(String message)
-    {
+    public void tempMessage(String message) {
         jTextField1.setText(message);
     }
 
     private void connectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectActionPerformed
-        if(isConnected == false)
-        {
+        if (isConnected == false) {
             System.out.println("Connecting!");
             try {
                 host = InetAddress.getLocalHost();
@@ -826,28 +821,28 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
 
             //else
             //    System.out.println("Connecting failed. Please try again later.");
+        } else {
+            System.out.println("Already connected!");
         }
-
-        else System.out.println("Already connected!");
 
 
     }//GEN-LAST:event_connectActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String message="sendaction#";
-        message+=getClientCode();
-        message+="#";
-        message+=jComboBox1.getSelectedItem().toString();
-        message+="#";
-        message+=jTextArea1.getText();
-        message+="#";
-        message+=jTextField3.getText();
-        message+="#";
-        message+=jTextField4.getText();
-        message+="#";
-        message+=jTextField5.getText();
-        message+="#";
-        message+=jTextField6.getText();
+        String message = "sendaction#";
+        message += getClientCode();
+        message += "#";
+        message += jComboBox1.getSelectedItem().toString();
+        message += "#";
+        message += jTextArea1.getText();
+        message += "#";
+        message += jTextField3.getText();
+        message += "#";
+        message += jTextField4.getText();
+        message += "#";
+        message += jTextField5.getText();
+        message += "#";
+        message += jTextField6.getText();
         sendMessage(message);
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -857,24 +852,20 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         SoutheastAsiaAction a;
-        try
-        {
-            a=(SoutheastAsiaAction)jComboBox1.getSelectedItem();
-        }
-        catch(java.lang.ClassCastException cce)
-        {
-            a=null;
+        try {
+            a = (SoutheastAsiaAction) jComboBox1.getSelectedItem();
+        } catch (java.lang.ClassCastException cce) {
+            a = null;
         }
 
-        if(a==null)
-        {
-            a=new SoutheastAsiaAction("", "", 0,0,0,0);
+        if (a == null) {
+            a = new SoutheastAsiaAction("", "", 0, 0, 0, 0);
         }
-            jTextArea1.setText(a.description);
-            jTextField3.setText(a.statModifiers.cultural+"");
-            jTextField4.setText(a.statModifiers.economic+"");
-            jTextField5.setText(a.statModifiers.military+"");
-            jTextField6.setText(a.statModifiers.political+"");
+        jTextArea1.setText(a.description);
+        jTextField3.setText(a.statModifiers.cultural + "");
+        jTextField4.setText(a.statModifiers.economic + "");
+        jTextField5.setText(a.statModifiers.military + "");
+        jTextField6.setText(a.statModifiers.political + "");
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -882,16 +873,16 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new SoutheastAsiaClientApp().setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox bruneiCB;
     private javax.swing.JComboBox burmaCB;
@@ -969,51 +960,43 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     private javax.swing.JComboBox timorCB;
     private javax.swing.JComboBox vietnamCB;
     // End of variables declaration//GEN-END:variables
-
     //i tried to combine app and client starting here:
-
-
     private boolean useFakeSockets;
     private FakeSockets fakesockets;
     //private Socket socket;
     private PlayRunner runner;
     private PrintWriter sender;
 
-
-    public void setSocket(Socket s)
-    {
+    public void setSocket(Socket s) {
         socket = s;
         runner = new PlayRunner(socket, this);
         runner.start();
     }
 
-    public void setFakeSocket(FakeSockets fs)
-    {
-        useFakeSockets=true;
-        fakesockets=fs;
+    public void setFakeSocket(FakeSockets fs) {
+        useFakeSockets = true;
+        fakesockets = fs;
     }
 
     // to add: interpret messages, and send them out
-
-    public void sendMessage(String message)     // This sends a message to the server.
+    public void sendMessage(String message) // This sends a message to the server.
     {
-        if(useFakeSockets)
-        {
+        if (useFakeSockets) {
             fakesockets.serverRecieveTransmission(message);
-        }
-        else
-        {
+        } else {
             // put not fake sockets here
 
             //System.out.println("HI ENZO SoutheastAsiaClientApp.sendMessage");
 
-            if (sender != null && isConnected) sender.println(message);    // I'm wondering if these conditions are redundant
-                    else System.out.println("Not connected!");              // but I'll keep them there just in case.
+            if (sender != null && isConnected) {
+                sender.println(message);    // I'm wondering if these conditions are redundant
+            } else {
+                System.out.println("Not connected!");              // but I'll keep them there just in case.
+            }
         }
     }
 
-    public int getClientCode()
-    {
+    public int getClientCode() {
 //        if(useFakeSockets)
 //            return fakesockets.getClientCode(this);
 //        else
@@ -1025,85 +1008,79 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         return clientCode;
     }
 
-    public void recieveMessage(String message)
-    {
+    public void recieveMessage(String message) {
         //System.out.println(message);
-        
-        String[]splitMessage = message.split("#");
 
-        if(splitMessage[0].equals("verified"))
-        {
-            isConnected = true;
-            //System.out.println("yoyoyo"+message);
-            clientCode = Integer.parseInt(splitMessage[1]);
-            System.out.println(message);
-            System.out.println("Connection established.");
-        }
-        else if(splitMessage[0].equalsIgnoreCase("warn"))
-        {
-            new AlertWindow(message.substring(5)).setVisible(true);
-        }
-        else
-        {
-            if(message.equals("startgame"))
-            {
-                startGameScreen();
+        String[] splitMessage = message.split("#");
+
+        if (splitMessage[0].equals("verified")) {
+        } else if (splitMessage[0].equalsIgnoreCase("warn")) {
+        } else {
+            if (message.equals("startgame")) {
                 //switch screen
-            }
-            else
+            } else {
                 tempMessage(message);
+            }
         }
     }
 
-
-
-            class PlayRunner extends Thread //Copy-pasted from ServerSockets
+    class PlayRunner extends Thread //Copy-pasted from ServerSockets
     {
-            Socket playSocket;
-            SoutheastAsiaClientApp app;
 
-            public PlayRunner(Socket socket, SoutheastAsiaClientApp app)
-            {
-                this.playSocket = socket;
-                this.app = app;
-            }
+        Socket playSocket;
+        SoutheastAsiaClientApp app;
 
-                @Override
-                public void run() {
-                    try {
-                        InputStream is = socket.getInputStream();
-                        sender = new PrintWriter(socket.getOutputStream(), true);
-                        Scanner in = new Scanner(new BufferedInputStream(is));
+        public PlayRunner(Socket socket, SoutheastAsiaClientApp app) {
+            this.playSocket = socket;
+            this.app = app;
+        }
 
-                    while(true)
-                    {
-                        String msg = in.nextLine();
-                        if (!(msg.equals("")||msg==null))
-                        {
-                            //interpret(msg); ? Is this how it should be done?
-                            app.recieveMessage(msg);   //temporary
-                        }
+        @Override
+        public void run() {
+            try {
+                InputStream is = socket.getInputStream();
+                sender = new PrintWriter(socket.getOutputStream(), true);
+                Scanner in = new Scanner(new BufferedInputStream(is));
 
+                while (true) {
+                    String msg = in.nextLine();
+                    if (!(msg.equals("") || msg == null)) {
+                        //interpret(msg); ? Is this how it should be done?
+                        app.recieveMessage(msg);   //temporary
                     }
-                }
-                catch (IOException ex)
-                {
-                    Logger.getLogger(SoutheastAsiaServerSockets.class.getName()).log(Level.SEVERE, null, ex);
-                    System.out.println("Yikes! Something happened.");
-                }
 
-
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(SoutheastAsiaServerSockets.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Yikes! Something happened.");
             }
 
+
+        }
     }
-
-
 
     //some methods for parsing
-
-    public void addChat(String message)
-    {
+    public void addChat(String message) {
         chat.tempAddMessage(message);
     }
+// begin interpreter methods
 
+    public void receiveChat(String source, String message) {
+        addChat(source + ": " + message);
+    }
+
+    public void receiveVerified(int clientCode) {
+        isConnected = true;
+        this.clientCode = clientCode;
+        System.out.println("Connection established.");
+    }
+
+    public void receiveWarn(String message) {
+        new AlertWindow(message).setVisible(true);
+    }
+
+    //startgamescreen implemented above.
+    public void receiveStart() {
+        startGameScreen();
+    }
 }
