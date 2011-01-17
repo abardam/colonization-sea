@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : problems.xml
+    Created on : January 17, 2011, 10:16 PM
+    Author     : Leland
+    Description: List of problems
+        Same as actions list, cept this time it's for the problems.
+-->
+
+<root>
+
+    <action>
+        <name>Natural Disaster</name>
+        <desc>Your home country faces a natural disaster (either earthquake, typhoon, hurricane, tsunami or volcano eruption) and half of your population is wiped out.</desc>
+        <stat>-5,-5,-5,0,3,3,3,5</stat>
+    </action>
+
+    <action>
+        <name>Great Depression</name>
+        <desc>The economic system in your home country suddenly collapses. Banks close down and shops and companies wind up. Unemployment rate almost hits 100%. </desc>
+        <stat>-15,-20,0,-5,10,10,0,10</stat>
+    </action>
+
+    <action>
+        <name>Famine</name>
+        <desc>Your home country's food supply are largely destroyed by pests, drought and diseases to the crops. Your country is in danger of mass starvation very soon.</desc>
+        <stat>-15,-10,0,-5,20,0,0,15</stat>
+    </action>
+
+    <action>
+        <name>Population Dissent</name>
+        <desc>The people who are working on your plantations are unhappy that they are working for long hours and low pay. They are boycotting work on your plantations and factories.</desc>
+        <stat>-15,-10,0,-5,20,0,0,10</stat>
+    </action>
+
+    <action>
+        <name>Political Challenge</name>
+        <desc>Some local leaders have mobilised the masses and begin to question over your right to rule over them. They see themselves as the rightful owner of their land.</desc>
+        <stat>0,0,0,-10,0,0,0,15</stat>
+    </action>
+
+    <action>
+        <name>Language Issues</name>
+        <desc>The locals are rallying for the need to make their language the official language of your empire in Southeast Asia. They want all schools, trade and business to use their language.</desc>
+        <stat>-5,0,0,0,10,0,0,5</stat>
+    </action>
+
+    <action>
+        <name>Artistic Movement</name>
+        <desc>Artists explored your new lands in Southeast Asia and they reckon that these people are behind in their artistic appreciation. Your artists want you to lift these people up through arts.</desc>
+        <stat>-5,0,0,0,10,0,0,5</stat>
+    </action>
+
+    <action>
+        <name>Religious Zeal</name>
+        <desc>Your citizens in your home country demand that you spread your country�s dominant religion to Southeast Asia by sending missionaries to these new lands.</desc>
+        <stat>-5,0,0,0,10,0,0,5</stat>
+    </action>
+
+    <action>
+        <name>Religious Conflict</name>
+        <desc>The locals find your missionaries from your home country too insensitive towards their own beliefs and they started burning your religious buildings that you have constructed.</desc>
+        <stat>-10,0,0,0,15,0,0,5</stat>
+    </action>
+
+    <action>
+        <name>Educating the Uncivilized</name>
+        <desc>Many educationists and professors are gaining momentum in your home country urging you to civilise Southeast Asian natives by providing them with a Western education.</desc>
+        <stat>-5,0,0,0,10,0,0,5</stat>
+    </action>
+
+    <action>
+        <name>Defamation Attacks</name>
+        <desc>Politicians who are against your form of government and rule have repeatedly criticised your political system and even your personality and character.</desc>
+        <stat>0,0,0,-5,0,0,0,10</stat>
+    </action>
+
+    <action>
+        <name>Pirate Attacks</name>
+        <desc>Many of your trading ships to your Southeast Asia colonies were routed by indisciminate pirates of the sea. They stole all your goods, making all your hardwork go down the drain.</desc>
+        <stat>0,-10,0,-5,0,0,0,10</stat>
+    </action>
+
+    <action>
+        <name>Communist Threat</name>
+        <desc>Marxist political ideals have reached your colony and people are organising anti-government talks and holding violent demonstrations on the streets.</desc>
+        <stat>-5,-5,0,-5,3,3,0,10</stat>
+    </action>
+
+    <action>
+        <name>Violent Uprising</name>
+        <desc>Anti-government groups who have been exposed to Western ideals have taken to arms and boldy attacked your police stations, courthouses and even military bases.</desc>
+        <stat>-5,-5,-5,-5,5,0,0,10</stat>
+    </action>
+
+    <action>
+        <name>Abolition of Slavery</name>
+        <desc>The Western World have called for the abolition of slavery. If you are currently practicising slavery in any of your lands, you are a target of the activists for anit-slavery.</desc>
+        <stat>-5,0,0,-15,5,0,0,20</stat>
+    </action>
+
+    <action>
+        <name>Overpopulation</name>
+        <desc>Immigrants from China and India have been migrating to your lands ever since you came. Poor housing and living conditions now plague your people.</desc>
+        <stat>-5,-5,0,-5,10,5,0,10</stat>
+    </action>
+
+    <action>
+        <name>Health Issues</name>
+        <desc>There are outbreaks of infectious diseases such as flu, as well as diseases due to unhygenic living conditions such as tuberculosis.</desc>
+        <stat>-10,-5,0,-5,5,0,0,10</stat>
+    </action>
+
+    <action>
+        <name>Crimes</name>
+        <desc>Pickpocketing, burglary, murders and gang fights have deterred many potential merchants from landing on your colonies to trade for fear of their life and posessions.</desc>
+        <stat>-15,-15,0,-5,20,10,0,10</stat>
+    </action>
+
+    <action>
+        <name>Bad Harvest</name>
+        <desc>Due to a spate of bad weather, drought and pest attacks, your resources during harvest time has diminished considerably.</desc>
+        <stat>0,-15,0,0,5,0,0,5</stat>
+    </action>
+
+    <action>
+        <name>White Man's Burden</name>
+        <desc>Your religious people from your home country demanded that you take on the responsibility to spread your superior religion to the inferior beings in Southeast Asia.</desc>
+        <stat>-10,0,0,0,20,0,0,5</stat>
+    </action>
+
+    <action>
+        <name>Land Negotiation Deal</name>
+        <desc>The local King of one of your island/land has decided to give up only a bit of their land for your purposes, and still retain their autonomy to rule their people. \nThe local King of one of your island/land has decided to give up only a bit of their land for your purposes, and still retain their autonomy to rule their people.</desc>
+        <stat>0,0,0,0,0,0,0,0</stat>
+    </action>
+
+    <action>
+        <name>Land for resources</name>
+        <desc>Your people in your home country is unsatisfied with your empire�s economic growth compared to the rest. They demand that you expand the empire now.</desc>
+        <stat>-10,0,0,0,20,0,0,5</stat>
+    </action>
+</root>
