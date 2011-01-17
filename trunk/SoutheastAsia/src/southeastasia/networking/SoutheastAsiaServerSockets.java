@@ -122,7 +122,7 @@ public class SoutheastAsiaServerSockets {
                     sender[i] = new PrintWriter(players[i].getOutputStream(), true);
                     PlayRunner g = new PlayRunner(players[i], ss, i);
                     g.start();
-                    sendToOne("verified:"+i,i);
+                    sendToOne("verified#"+i,i);
                 }
                 
                 catch (IOException ex)
