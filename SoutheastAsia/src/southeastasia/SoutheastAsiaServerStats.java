@@ -39,6 +39,26 @@ public class SoutheastAsiaServerStats {
 
     //each player corresponds to a number (a slot in the arrays)
 
+    private int[] territories;
+    //each number here corresponds to a territory:
+    public static final int BURMA=0;
+    public static final int BRUNEI=1;
+    public static final int CAMBODIA=2;
+    public static final int JAVA=3;
+    public static final int KALIMANTAN=4;
+    public static final int LAOS=5;
+    public static final int MALAYA=6;
+    public static final int PAPUA=7;
+    public static final int PHILIPPINES=8;
+    public static final int SABAH=9;
+    public static final int SARAWAK=10;
+    public static final int SULAWESI=11;
+    public static final int SUMATRA=12;
+    public static final int THAILAND=13;
+    public static final int TIMOR=14;
+    public static final int VIETNAM=15;
+    public static final int NUM_TERRITORIES=16;
+
     public SoutheastAsiaServerStats()
     {
         //initialize arrays
@@ -58,6 +78,13 @@ public class SoutheastAsiaServerStats {
             countries[i]=-1;
             approval[i]=false;
             solved[i]=false;
+        }
+
+        territories=new int[NUM_TERRITORIES];
+
+        for(int i=0;i<NUM_TERRITORIES;i++)
+        {
+            territories[i]=-1;
         }
     }
 
@@ -367,4 +394,8 @@ public class SoutheastAsiaServerStats {
         return problems[playerCode];
     }
 
+    public void setTerritory(int territoryCode, int countryCode)
+    {
+        territories[territoryCode]=countryCode;
+    }
 }

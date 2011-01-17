@@ -17,6 +17,7 @@ public class CountryVariables {
     public int cultural;
     public int military;
     public int economic;
+    public String inventory;
 
     public CountryVariables(String name)
     {
@@ -25,6 +26,7 @@ public class CountryVariables {
         military=0;
         economic=0;
         this.name=name;
+        inventory="";
     }
 
     public CountryVariables(String name, int c, int e, int m, int p)
@@ -34,6 +36,7 @@ public class CountryVariables {
         military=m;
         economic=e;
         this.name=name;
+        inventory="";
     }
 
     /**
