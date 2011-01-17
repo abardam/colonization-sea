@@ -1017,12 +1017,12 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     {
         //System.out.println(message);
         
-        String[]splitMessage = message.split(":");
+        String[]splitMessage = message.split("#");
 
         if(splitMessage[0].equals("verified"))
         {
             isConnected = true;
-            System.out.println("yoyoyo"+message);
+            //System.out.println("yoyoyo"+message);
             clientCode = Integer.parseInt(splitMessage[1]);
             System.out.println(message);
             System.out.println("Connection established.");

@@ -1778,7 +1778,7 @@ public class SoutheastAsiaView extends FrameView {
         {
             //send a message back to the player saying that actions
             //not allowed yet
-            sendClientMessage(playerCode, "warn:action not allowed");
+            sendClientMessage(playerCode, "warn#action not allowed");
             return 0;
         }
     }
