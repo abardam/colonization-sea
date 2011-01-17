@@ -19,16 +19,16 @@ public class Interpreter {
         temp.remove(0);
         String args[] = (String[]) temp.toArray();
         if (netcode[0].equals("chat")) {
-            for(int i=0;i<args.length;i++)
-            {
-                //add method to clientapp that adds args[i] to chat
-            }
+            // chat signature: chat(identifier (who said it, likely string so we can modify
+            // say for world chat, it would be Country, for private chat it would be Country (Private)),
+            // chatstuff);
+            receiver.receiveChat(args[0],args[1]);
         }
         else if (netcode[0].equals("stats")) {
             //here is the format: "stats"#playerid#cultural#economic#military#political#player2#etc
             if(args.length%5!=0)
             {
-                System.err.println("Netcode error! in stats");
+                System.err.println("Netcode format error! in stats");
             }
             else
             {
@@ -36,6 +36,7 @@ public class Interpreter {
             }
         }
         else if (netcode[0].equals("stat1")) {
+            // format: "stat1"#player...wait how do we know which? baka same lang. :)) gawin na lang na same ung dun sa stats.
             
         }
         else if (netcode[0].equals("terr1")) {
@@ -46,13 +47,13 @@ public class Interpreter {
             //literally just paste the entire array
         }
         else if(netcode[0].equals("verified")) {
-            
+            receiver.receiveVerified(Integer.parseInt(args[0]));
         }
         else if (netcode[0].equals("warn")) {
-
+            receiver.receiveWarn(args[0]);
         }
         else if (netcode[0].equals("startgame")) {
-
+            receiver.receiveStart();
         }
     }
 
