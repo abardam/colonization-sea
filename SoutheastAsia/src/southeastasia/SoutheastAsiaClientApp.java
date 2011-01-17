@@ -34,6 +34,7 @@ import southeastasia.networking.SoutheastAsiaServerSockets;
 public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     public static final String ACTIONSPATH = "src\\southeastasia\\resources\\actions.xml";
 
+    private ChatWindow chat;
     /** Creates new form SoutheastAsiaClientApp */
     public SoutheastAsiaClientApp() {
         port=7777;
@@ -43,6 +44,8 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         useFakeSockets = false;
         loadActions();
         setTerritories();
+
+        chat=new ChatWindow();
 
     }
 
@@ -759,6 +762,11 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
 
         jButton3.setText(resourceMap.getString("jButton3.text")); // NOI18N
         jButton3.setName("jButton3"); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -868,6 +876,10 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
             jTextField5.setText(a.statModifiers.military+"");
             jTextField6.setText(a.statModifiers.political+"");
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
     * @param args the command line arguments
@@ -1084,4 +1096,14 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
             }
 
     }
+
+
+
+    //some methods for parsing
+
+    public void addChat(String message)
+    {
+        chat.tempAddMessage(message);
+    }
+
 }
