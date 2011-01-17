@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : actions.xml
+    Created on : January 17, 2011, 8:24 PM
+    Author     : Leland
+    Description: A list of actions
+        To prevent hardcoding >:(
+-->
+
+<root>
+    <action>
+        <name>Military Landing</name>
+        <desc>After sailing in the sea for weeks, you decide to land on this land with military to secure your landing. Your military presence will warn all exisiting rulers of your offensive capability. This step is a must to prepare your military for war. Your military have to be in close proximity of your enemy before you can launch an invasion.</desc>
+        <stat>0, -2, 5, 0</stat>
+    </action>
+
+    <action>
+        <name>Military Exercise</name>
+        <desc>This exercise demonstrates your military's offensive and defensive capabilities for the world to see, while providing training for your forces at the same time. Your people are jubilant to be protected by a strong military force, while the other world leaders are aware of your military might. The only downside is the cost involved.</desc>
+        <stat>3, -5, 5, 0</stat>
+    </action>
+
+    <action>
+        <name>Invasion</name>
+        <desc>You must have at least 5E to execute an invasion. Look at the Battle Chart or your teacher for the result of the battle.</desc>
+        <stat>0, -5, 0, 0</stat>
+    </action>
+
+    <action>
+        <name>Military Surrender</name>
+        <desc>.</desc>
+        <stat>2, 0, -2, 0</stat>
+    </action>
+
+    <action>
+        <name>Purchase of Military Equipment, Weapons, Vehicles, Planes and Ships</name>
+        <desc>Gain +xM, -xE, x can be 1 to 10</desc>
+        <stat>0, -10, 10, 0</stat>
+    </action>
+
+    <action>
+        <name>Trade Sabotage</name>
+        <desc>Sinking your competitors� trading ships is one easy way to dissuade merchants from trading with your competitor, as well as hurt their economy.</desc>
+        <stat>0, 0, 5, 0</stat>
+    </action>
+
+    <action>
+        <name>Economic Landing</name>
+        <desc>After sailing in the sea for weeks, you decide to land on this land in peace and seek out the existing rulers and negotiate for trade, allow your people to settle a part of this land or bribe them into submission so that you are the true governor of this land.</desc>
+        <stat>0,3,0,0</stat>
+    </action>
+
+    <action>
+        <name>Financial Assistance</name>
+        <desc>You offer financial help to the affected country who is in economic dire straits. This country must have an Economic Strength of less than 10. Global leaders around the world look up to your altruistic behavior. -xE, +xP (+xE to affected party), x refers to any whole number from 5 to 30</desc>
+        <stat>0, -30, 0, 30</stat>
+    </action>
+
+    <action>
+        <name>Slavery</name>
+        <desc>You legalise the concept that men and women in that country can be owned by richer citizens from your country. They work for long hours for very low pay, and hence, your profit soars sky high. Naturally, the slaves are resentful towards you.</desc>
+        <stat>-5, 15, 0, 0</stat>
+    </action>
+
+    <action>
+        <name>Gather a resource</name>
+        <desc>Look at your resource chart for the available resources on your land or island. For instance, you can start an oil palm plantation or a fishery or a rice field farm. Planting cash crops such as rubber, tea or palm oil over a large piece of land in Southeast Asia is the best choice because the climate here is very suitable for these cash crops.</desc>
+        <stat>0, 10, 0, 0</stat>
+    </action>
+
+    <action>
+        <name>Trade</name>
+        <desc>You must have a resource to trade!You must also have a trade agreement with that country. The trade commodity must be different and lacking in both empires. Establishing trading routes via sea during this period is the way to trade excess goods and resources that you have with goods and resources that you do not have but want badly. Through trade, you get the resource card from your teacher that your trading partner decides to trade with you. </desc>
+        <stat>0, 15, 0, 0</stat>
+    </action>
+
+    <action>
+        <name>Taxation</name>
+        <desc>You decide to raise the tax your people have to pay for living on your colonies. This move is very unpopular with the people as they are giving you more of the money that they earn.  +xE, -xC (where x can take on a value of 1 to 10)</desc>
+        <stat>-10, 10, 0, 0</stat>
+    </action>
+
+    <action>
+        <name>Missionary Landing</name>
+        <desc>After sailing in the sea for weeks, you decide to land on this land to promote your faith as the one true and only faith in the world.</desc>
+        <stat>5, -2, 0, 0</stat>
+    </action>
+
+    <action>
+        <name>Building religious institutions</name>
+        <desc>By providing a physical space for your home country's missionaries to gather believers, your chances of spreading your faith will be higher.</desc>
+        <stat>5, -5, 0, 0</stat>
+    </action>
+
+    <action>
+        <name>Building artistic institutions</name>
+        <desc>A place for the Arts is a place where all dances, music and other art forms congregate for all the masses to enjoy and relax.</desc>
+        <stat>5, -5, 0, 0</stat>
+    </action>
+
+    <action>
+        <name>Building historical institutions</name>
+        <desc>Reminding the people of their roots, their ancestors and preseving a common memory of a place will certainly win you many hearts and minds.</desc>
+        <stat>5, -5, 0, 0</stat>
+    </action>
+
+    <action>
+        <name>Building recreational facilities</name>
+        <desc>When the people get to relax and have fun, they are less likely to be out there rioting and creating trouble for your government.</desc>
+        <stat>5, -5, 0, 0</stat>
+    </action>
+
+    <action>
+        <name>Building educational institutions</name>
+        <desc>Through a Western education, you are getting the population to speak your language and think the way you think.</desc>
+        <stat>5, -5, 0, 0</stat>
+    </action>
+
+    <action>
+        <name>Building public institutions</name>
+        <desc>Law and order, as well as public safety, are essential for any effective rule in any forms of government.</desc>
+        <stat>5, -5, 0, 0</stat>
+    </action>
+
+    <action>
+        <name>Sign a ceasefire treaty</name>
+        <desc>Your people are glad that war is over and some global leaders are impressed with your political move. +5P to affected parties (Violation: -10P)</desc>
+        <stat>2, 0, 0, 5</stat>
+    </action>
+
+    <action>
+        <name>Sign a military alliance treaty</name>
+        <desc>Your people feel safer to be your citizen and some global leaders are impressed with your political move. +5P to affected parties (Violation: -10P)</desc>
+        <stat>2, 0, 3, 5</stat>
+    </action>
+
+    <action>
+        <name>Sign a trade agreement</name>
+        <desc>Your people will get to enjoy more goods and services from this agreement, and their standard of living will increase. Some global leaders decide to learn from you too. Your next turn must be a Trade or you will face a penalty. +3P to affected parties (If the affected party did not trade next turn, -5P to the party that violates this agreement)</desc>
+        <stat>5, 0, 0, 3</stat>
+    </action>
+
+    <action>
+        <name>Mediate between two parties</name>
+        <desc>Your intervention between two countries in a military, economic, cultural or political dispute has resulted in great admiration for your leadership by the global community. +5P to affected parties if they reconcile (Failure: -5P)</desc>
+        <stat>0,0,0,10</stat>
+    </action>
+
+    <action>
+        <name>Form a union</name>
+        <desc>Numbers and size speak for themselves in the political arena. With more countries as your friends, your enemies and potential friends from all over the world cannot help but take notice of your next action. +10P to all participating countries, with +3P to all countries for any additional country who joins this union. (Violation: -10P to violating party only)</desc>
+        <stat>0, 0, 0, 10</stat>
+    </action>
+</root>
