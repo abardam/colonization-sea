@@ -44,15 +44,16 @@ public class ProblemsLoader {
                     Element statElement = (Element) statList.item(0);
                     NodeList stat = statElement.getChildNodes();
                     String[] stats = stat.item(0).getNodeValue().split(",");
-//                    if (stats.length > 3) r.add(new SoutheastAsiaAction(name.item(0).getNodeValue(),desc.item(0).getNodeValue(),
-  //                                                                      Integer.parseInt(stats[0].trim()), Integer.parseInt(stats[1].trim()), Integer.parseInt(stats[2].trim()), Integer.parseInt(stats[3].trim()) ));
+                    if (stats.length > 7) r.add(new Problem(name.item(0).getNodeValue(),desc.item(0).getNodeValue(),
+                                                                        Integer.parseInt(stats[0].trim()), Integer.parseInt(stats[1].trim()), Integer.parseInt(stats[2].trim()), Integer.parseInt(stats[3].trim()),
+                                                                        Integer.parseInt(stats[4].trim()), Integer.parseInt(stats[5].trim()), Integer.parseInt(stats[6].trim()), Integer.parseInt(stats[7].trim()) ));
                 }
             }
         }
         catch (Exception x) {
-            System.out.println("Action loader error. " + x.toString());
+            System.out.println("Problem loader error. " + x.toString());
             Problem m = r.get(r.size()-1);
-            System.out.println(m.name);
+            if (m!=null) System.out.println("Last problem loaded: "+m.name);
         }
         return r;
     }
