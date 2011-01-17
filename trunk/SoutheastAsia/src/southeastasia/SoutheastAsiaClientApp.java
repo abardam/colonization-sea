@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
+import southeastasia.client.Interpreter;
 import southeastasia.loader.ActionsLoader;
 import southeastasia.networking.SoutheastAsiaServerSockets;
 
@@ -1009,19 +1010,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     }
 
     public void recieveMessage(String message) {
-        //System.out.println(message);
-
-        String[] splitMessage = message.split("#");
-
-        if (splitMessage[0].equals("verified")) {
-        } else if (splitMessage[0].equalsIgnoreCase("warn")) {
-        } else {
-            if (message.equals("startgame")) {
-                //switch screen
-            } else {
-                tempMessage(message);
-            }
-        }
+        Interpreter.interpret(this, message);
     }
 
     class PlayRunner extends Thread //Copy-pasted from ServerSockets
