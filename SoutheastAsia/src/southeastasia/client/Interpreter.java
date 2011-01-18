@@ -68,6 +68,12 @@ public class Interpreter {
         else if (netcode[0].equals("startgame")) {
             receiver.receiveStart();
         }
+        else if(netcode[0].equals("privmsg"))
+        {
+            //got a private message!
+            //privmsg#sender#message
+            
+        }
     }
 
 }

@@ -136,10 +136,15 @@ public class ChatWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(type==CLIENT)
-            client.sendMessage("chat#"+client.getStats().name+"#"+jTextField1.getText());
-        else if(type==SERVER)
-            server.sendMessage("chat#SERVER#"+jTextField1.getText());
+        if(jTextField1.getText().length()>0)
+        {
+            if(type==CLIENT)
+                client.sendMessage("chat#"+client.getStats().name+"#"+jTextField1.getText());
+            else if(type==SERVER)
+                server.sendMessage("chat#SERVER#"+jTextField1.getText());
+
+            jTextField1.setText("");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -154,7 +159,7 @@ public class ChatWindow extends javax.swing.JFrame {
         });
     }*/
 
-    public void tempAddMessage(String message)
+    public void addMessage(String message)
     {
         jTextArea2.append(message+"\n");
     }
