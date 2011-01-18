@@ -1271,7 +1271,7 @@ public class SoutheastAsiaView extends FrameView {
         }
 
 
-        chat.tempAddMessage(message);
+        chat.addMessage(message);
     }
 
     //kind of a hacky way to get a country's code but WHATEVER
@@ -1703,6 +1703,11 @@ public class SoutheastAsiaView extends FrameView {
     }
 
     public void bigPlayerUpdate() {
+        String terrupdate = "terrs";
+        for (int j = 0; j < SoutheastAsiaServerStats.NUM_TERRITORIES; j++) {
+            terrupdate += "#" + (territoryCBs[j].getSelectedIndex() - 1);
+        }
+
         String s;
         for (int i = 0; i < countPlayers(); i++) {
             s = "stats#";
@@ -1715,7 +1720,11 @@ public class SoutheastAsiaView extends FrameView {
             s += stats.getStats(i).political;
 
             ss.sendToAll(s);
+
+            ss.sendToAll(terrupdate);
+
         }
+
     }
 
     public void sendMessage(String s) {
@@ -1727,10 +1736,12 @@ public class SoutheastAsiaView extends FrameView {
     }
 
     public void sendPrivateMessage(int playerindex, int senderindex, String message) {
-        sendMessage(playerindex, defaults[senderindex].name + " (Private): " + message);
+        sendMessage(playerindex, "privmsg#"+defaults[senderindex].name + "#" + message);
     }
 
-    public void sendChat(int source, String message) {
-        sendMessage(defaults[source].name + ": " + message);
+    //temporarily going to change this
+    public void sendChat(int source, String name, String message) {
+        sendMessage("chat#"+/*defaults[source].*/name + "#" + message);
+        chat.addMessage(name+": "+message);
     }
 }

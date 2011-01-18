@@ -15,7 +15,8 @@ public class Interpreter {
     public static void interpret (SoutheastAsiaView receiver, int source, String input) {
         String temp[] = input.split("#");
         if (temp[0].equals("chat")) {
-            receiver.sendChat(source, temp[1]);
+            receiver.sendChat(source, temp[1], temp[2]);
+            
         } else if (temp[0].equals("privmsg")) {
             int rec = Integer.parseInt(temp[1]);
             if (rec < southeastasia.SoutheastAsiaApp.MAX_PLAYERS) {
