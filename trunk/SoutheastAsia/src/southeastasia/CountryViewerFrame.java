@@ -260,7 +260,8 @@ public class CountryViewerFrame extends javax.swing.JFrame {
         server.getStats(playerCode).economic=Integer.parseInt(economic.getText());
         server.getStats(playerCode).military=Integer.parseInt(military.getText());
         server.getStats(playerCode).political=Integer.parseInt(political.getText());
-
+        server.getStats(playerCode).inventory=itemArea.getText();
+        server.getStats(playerCode).agreements=agreementArea.getText();
         server.updateCountryTables();
     }//GEN-LAST:event_saveButtonActionPerformed
 

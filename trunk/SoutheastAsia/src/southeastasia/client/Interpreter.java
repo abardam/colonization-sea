@@ -17,12 +17,19 @@ public class Interpreter {
         String netcode[] = message.split("#");
         ArrayList<String> temp = new ArrayList<String> (Arrays.asList(netcode));
         temp.remove(0);
-        String args[] = (String[]) temp.toArray();
+        //String args[] = (String[]) temp.toArray();
+        String args[]=new String[temp.size()];
+        for(int i=0;i<args.length;i++)
+        {
+            args[i]=temp.get(i);
+        }
+
         if (netcode[0].equals("chat")) {
-            // chat signature: chat(identifier (who said it, likely string so we can modify
-            // say for world chat, it would be Country, for private chat it would be Country (Private)),
-            // chatstuff);
-            receiver.receiveChat(args[0],args[1]);
+            for(int i=0;i<args.length;i++)
+            {
+                //add method to clientapp that adds args[i] to chat
+                receiver.addChat(args[i]);
+            }
         }
         else if (netcode[0].equals("stats")) {
             //here is the format: "stats"#playerid#cultural#economic#military#political#player2#etc
@@ -32,7 +39,12 @@ public class Interpreter {
             }
             else
             {
-                receiver.receiveStats(args);
+                //receiver.receiveStats(args);
+                for(int i=0;i<args.length;i+=5)
+                {
+                    receiver.updateStats(Integer.parseInt(args[i]), Integer.parseInt(args[i+1]), Integer.parseInt(args[i+2]), Integer.parseInt(args[i+3]), Integer.parseInt(args[i+4]));
+                    
+                }
             }
         }/*
         else if (netcode[0].equals("stat1")) {
@@ -45,16 +57,34 @@ public class Interpreter {
         else if (netcode[0].equals("terrs")) {
             //here is the format: terrs#burma#brunei#etc
             //literally just paste the entire array
-            //...di ko gets. so how do we pass ownership details?
+
+            if(args.length!=southeastasia.SoutheastAsiaServerStats.NUM_TERRITORIES)
+            {
+                System.err.println("Netcode error! in territories");
+            }
+            else
+            {
+                int[] intargs=new int[args.length];
+                for(int i=0;i<intargs.length;i++)
+                {
+                    intargs[i]=Integer.parseInt(args[i]);
+                }
+            }
         }
         else if(netcode[0].equals("verified")) {
-            receiver.receiveVerified(Integer.parseInt(args[0]));
+            receiver.recieveVerify(Integer.parseInt(args[0]));
         }
         else if (netcode[0].equals("warn")) {
-            receiver.receiveWarn(args[0]);
+            String warning="";
+            for(String s:args)
+            {
+                warning+=s+"\n";
+            }
+                receiver.recieveWarn(warning);
+
         }
         else if (netcode[0].equals("startgame")) {
-            receiver.receiveStart();
+            receiver.startGameScreen();
         }
     }
 

@@ -35,7 +35,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
 
     public static final String ACTIONSPATH = "src\\southeastasia\\resources\\actions.xml";
     private ChatWindow chat;
-
+    private SoutheastAsiaServerStats stats;
     /** Creates new form SoutheastAsiaClientApp */
     public SoutheastAsiaClientApp() {
         port = 7777;
@@ -44,12 +44,13 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         isConnected = false;
         useFakeSockets = false;
         loadActions();
-        setTerritories();
+        stats=new SoutheastAsiaServerStats();
 
         chat = new ChatWindow();
 
     }
 
+    javax.swing.JComboBox[] territoryCBs;
     private void setTerritories() //for now, just sets all territory combo boxes to disabled.
     {
         burmaCB.setEnabled(false);
@@ -68,6 +69,35 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         thailandCB.setEnabled(false);
         timorCB.setEnabled(false);
         vietnamCB.setEnabled(false);
+
+        territoryCBs=new javax.swing.JComboBox[SoutheastAsiaServerStats.NUM_TERRITORIES];
+        territoryCBs[0]=burmaCB;
+        territoryCBs[1]=bruneiCB;
+        territoryCBs[2]=cambodiaCB;
+        territoryCBs[3]=(javaCB);
+        territoryCBs[4]=(kalimantanCB);
+        territoryCBs[5]=(laosCB);
+        territoryCBs[6]=(malayaCB);
+        territoryCBs[7]=(papuaCB);
+        territoryCBs[8]=(philippinesCB);
+        territoryCBs[9]=(sabahCB);
+        territoryCBs[10]=(sarawakCB);
+        territoryCBs[11]=(sulawesiCB);
+        territoryCBs[12]=(sumatraCB);
+        territoryCBs[13]=(thailandCB);
+        territoryCBs[14]=(timorCB);
+        territoryCBs[15]=(vietnamCB);
+
+        for(javax.swing.JComboBox jcb:territoryCBs)
+        {
+            jcb.removeAllItems();
+
+            jcb.addItem("---");
+            for(String s:stats.getCountryNames())
+            {
+                jcb.addItem(s);
+            }
+        }
     }
     private ArrayList<SoutheastAsiaAction> actions;
 
@@ -97,6 +127,8 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
      */
     public void startGameScreen() {
         cl.show(jPanel4, "game_play");
+
+        setTerritories();
     }
 
     /*
@@ -870,7 +902,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        chat.setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -1009,8 +1041,50 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         return clientCode;
     }
 
-    public void recieveMessage(String message) {
-        Interpreter.interpret(this, message);
+    public void recieveVerify(int clientCode)
+    {
+        isConnected = true;
+        //System.out.println("yoyoyo"+message);
+        this.clientCode = clientCode;
+        System.out.println("Connection established.");
+    }
+
+    public void recieveWarn(String message)
+    {
+        new AlertWindow(message.substring(5)).setVisible(true);
+    }
+
+    public void recieveMessage(String message)
+    {
+        //this will be replaced by Interpreter
+        //System.out.println(message);
+        southeastasia.client.Interpreter.interpret(this, message);
+
+        /*
+        String[]splitMessage = message.split("#");
+
+        if(splitMessage[0].equals("verified"))
+        {
+            isConnected = true;
+            //System.out.println("yoyoyo"+message);
+            clientCode = Integer.parseInt(splitMessage[1]);
+            System.out.println(message);
+            System.out.println("Connection established.");
+        }
+        else if(splitMessage[0].equalsIgnoreCase("warn"))
+        {
+            new AlertWindow(message.substring(5)).setVisible(true);
+        }
+        else
+        {
+            if(message.equals("startgame"))
+            {
+                startGameScreen();
+                //switch screen
+            }
+            else
+                tempMessage(message);
+        }*/
     }
 
     class PlayRunner extends Thread //Copy-pasted from ServerSockets
@@ -1073,9 +1147,17 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         startGameScreen();
     }
 
-    public void receiveStats(String[] args) {
-        // args format:
-        // { <playerIndex>, <stat1>, <stat2>, <stat3>, <stat4>, ... }
-        // total number of updated player stats: args.length/5.
+    public void updateTerritories(int[] territories)
+    {
+        for(int i=0;i<territories.length;i++)
+        {
+            territoryCBs[i].setSelectedIndex(territories[i]+1);
+        }
     }
+
+    public void updateStats(int playerCode, int c, int e, int m, int p)
+    {
+        
+    }
+
 }
