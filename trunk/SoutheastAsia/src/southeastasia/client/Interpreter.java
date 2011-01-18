@@ -32,19 +32,20 @@ public class Interpreter {
             }
             else
             {
-                //add method to clientapp that updates stats
+                receiver.receiveStats(args);
             }
-        }
+        }/*
         else if (netcode[0].equals("stat1")) {
             // format: "stat1"#player...wait how do we know which? baka same lang. :)) gawin na lang na same ung dun sa stats.
             
         }
         else if (netcode[0].equals("terr1")) {
 
-        }
+        }*/
         else if (netcode[0].equals("terrs")) {
             //here is the format: terrs#burma#brunei#etc
             //literally just paste the entire array
+            //...di ko gets. so how do we pass ownership details?
         }
         else if(netcode[0].equals("verified")) {
             receiver.receiveVerified(Integer.parseInt(args[0]));
