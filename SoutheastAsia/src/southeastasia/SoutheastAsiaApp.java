@@ -68,6 +68,7 @@ public class SoutheastAsiaApp extends SingleFrameApplication {
 
     /**
      * temporary method for "parsing"
+     * News: Parsing will now be done in a separate class. :D
      */
     public void tempParse(String message)
     {
