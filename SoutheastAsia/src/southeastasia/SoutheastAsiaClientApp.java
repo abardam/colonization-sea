@@ -1041,19 +1041,6 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         return clientCode;
     }
 
-    public void recieveVerify(int clientCode)
-    {
-        isConnected = true;
-        //System.out.println("yoyoyo"+message);
-        this.clientCode = clientCode;
-        System.out.println("Connection established.");
-    }
-
-    public void recieveWarn(String message)
-    {
-        new AlertWindow(message.substring(5)).setVisible(true);
-    }
-
     public void recieveMessage(String message)
     {
         //this will be replaced by Interpreter
@@ -1132,12 +1119,6 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         addChat(source + ": " + message);
     }
 
-    public void receiveVerified(int clientCode) {
-        isConnected = true;
-        this.clientCode = clientCode;
-        System.out.println("Connection established.");
-    }
-
     public void receiveWarn(String message) {
         new AlertWindow(message).setVisible(true);
     }
@@ -1153,6 +1134,13 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         {
             territoryCBs[i].setSelectedIndex(territories[i]+1);
         }
+    }
+
+    public void receiveVerify(int clientCode)
+    {
+        isConnected = true;
+        this.clientCode = clientCode;
+        System.out.println("Connection established.");
     }
 
     public void updateStats(int playerCode, int c, int e, int m, int p)

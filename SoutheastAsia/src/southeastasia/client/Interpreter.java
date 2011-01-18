@@ -25,11 +25,8 @@ public class Interpreter {
         }
 
         if (netcode[0].equals("chat")) {
-            for(int i=0;i<args.length;i++)
-            {
-                //add method to clientapp that adds args[i] to chat
-                receiver.addChat(args[i]);
-            }
+            // chat format: args[0] is source (String), args[1] is message (String).
+            receiver.receiveChat(args[0],args[1]);
         }
         else if (netcode[0].equals("stats")) {
             //here is the format: "stats"#playerid#cultural#economic#military#political#player2#etc
@@ -39,25 +36,14 @@ public class Interpreter {
             }
             else
             {
-                //receiver.receiveStats(args);
                 for(int i=0;i<args.length;i+=5)
                 {
                     receiver.updateStats(Integer.parseInt(args[i]), Integer.parseInt(args[i+1]), Integer.parseInt(args[i+2]), Integer.parseInt(args[i+3]), Integer.parseInt(args[i+4]));
                     
                 }
             }
-        }/*
-        else if (netcode[0].equals("stat1")) {
-            // format: "stat1"#player...wait how do we know which? baka same lang. :)) gawin na lang na same ung dun sa stats.
-            
         }
-        else if (netcode[0].equals("terr1")) {
-
-        }*/
         else if (netcode[0].equals("terrs")) {
-            //here is the format: terrs#burma#brunei#etc
-            //literally just paste the entire array
-
             if(args.length!=southeastasia.SoutheastAsiaServerStats.NUM_TERRITORIES)
             {
                 System.err.println("Netcode error! in territories");
@@ -69,22 +55,18 @@ public class Interpreter {
                 {
                     intargs[i]=Integer.parseInt(args[i]);
                 }
+                receiver.updateTerritories(intargs);
             }
         }
         else if(netcode[0].equals("verified")) {
-            receiver.recieveVerify(Integer.parseInt(args[0]));
+            receiver.receiveVerify(Integer.parseInt(args[0]));
         }
         else if (netcode[0].equals("warn")) {
-            String warning="";
-            for(String s:args)
-            {
-                warning+=s+"\n";
-            }
-                receiver.recieveWarn(warning);
+                receiver.receiveWarn(args[0]);
 
         }
         else if (netcode[0].equals("startgame")) {
-            receiver.startGameScreen();
+            receiver.receiveStart();
         }
     }
 
