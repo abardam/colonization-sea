@@ -1827,4 +1827,22 @@ public class SoutheastAsiaView extends FrameView {
     {
         stats.setSolved(playerCode, solved);
     }
+
+    public void bigPlayerUpdate()
+    {
+        String s;
+        for(int i=0;i<countPlayers();i++)
+        {
+            s="stats#";
+            s+=stats.getStats(i).cultural;
+            s+="#";
+            s+=stats.getStats(i).economic;
+            s+="#";
+            s+=stats.getStats(i).military;
+            s+="#";
+            s+=stats.getStats(i).political;
+
+            ss.sendToAll(s);
+        }
+    }
 }
