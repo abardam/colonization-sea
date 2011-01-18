@@ -46,7 +46,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         loadActions();
         stats=new SoutheastAsiaServerStats();
 
-        chat = new ChatWindow();
+        chat = new ChatWindow(this);
 
     }
 
@@ -1146,6 +1146,16 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     public void updateStats(int playerCode, int c, int e, int m, int p)
     {
         
+    }
+
+    public SoutheastAsiaServerStats getServerStats()
+    {
+        return stats;
+    }
+
+    public CountryVariables getStats()
+    {
+        return stats.getStats(clientCode);
     }
 
 }

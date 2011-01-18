@@ -65,7 +65,7 @@ public class SoutheastAsiaView extends FrameView {
         useFakeSockets=false;
 
         boxesSet=false;
-        chat=new ChatWindow();
+        chat=new ChatWindow(this);
 
         stats=new SoutheastAsiaServerStats();
 
@@ -1844,5 +1844,11 @@ public class SoutheastAsiaView extends FrameView {
 
             ss.sendToAll(s);
         }
+    }
+
+
+    public void sendMessage(String s)
+    {
+        ss.sendToAll(s);
     }
 }

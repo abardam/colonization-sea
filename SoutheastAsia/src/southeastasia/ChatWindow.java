@@ -18,8 +18,30 @@ package southeastasia;
 public class ChatWindow extends javax.swing.JFrame {
 
     /** Creates new form ChatWindow */
+    public static final int CLIENT=0;
+    public static final int SERVER=1;
+    private int type;
+    private SoutheastAsiaClientApp client;
+    private SoutheastAsiaView server;
+
+    /*
     public ChatWindow() {
         initComponents();
+
+    }*/
+
+    public ChatWindow(SoutheastAsiaClientApp client)
+    {
+        initComponents();
+        this.client=client;
+        type=CLIENT;
+    }
+
+    public ChatWindow(SoutheastAsiaView server)
+    {
+        initComponents();
+        this.server=server;
+        type=SERVER;
     }
 
     /** This method is called from within the constructor to
@@ -114,19 +136,23 @@ public class ChatWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-                // TODO add your handling code here:
+        if(type==CLIENT)
+            client.sendMessage("chat#"+client.getStats().name+"#"+jTextField1.getText());
+        else if(type==SERVER)
+            server.sendMessage("chat#SERVER#"+jTextField1.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
     * @param args the command line arguments
     */
+    /*
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ChatWindow().setVisible(true);
             }
         });
-    }
+    }*/
 
     public void tempAddMessage(String message)
     {
