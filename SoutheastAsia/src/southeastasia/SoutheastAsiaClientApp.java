@@ -1016,7 +1016,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     public void sendMessage(String message) // This sends a message to the server.
     {
         if (useFakeSockets) {
-            fakesockets.serverRecieveTransmission(message);
+            //fakesockets.serverRecieveTransmission(message);
         } else {
             // put not fake sockets here
 

@@ -1,7 +1,6 @@
 /*
  * SoutheastAsiaApp.java
  */
-
 package southeastasia;
 
 import org.jdesktop.application.Application;
@@ -16,30 +15,30 @@ import org.jdesktop.application.SingleFrameApplication;
  */
 public class SoutheastAsiaApp extends SingleFrameApplication {
 
-    public static final int MAX_PLAYERS=6;
+    public static final int MAX_PLAYERS = 6;
     private SoutheastAsiaView window;
- 
+
     /**
      * At startup create and show the main frame of the application.
      */
-    @Override protected void startup() {
-        window=new SoutheastAsiaView(this);
+    @Override
+    protected void startup() {
+        window = new SoutheastAsiaView(this);
         show(window);
-        
+
         //FakeSockets fs=new FakeSockets(this);
 
         SoutheastAsiaClientApp sac;
 
-        for(int i=0;i<1;i++)
-        {
-            sac=new SoutheastAsiaClientApp();
+        for (int i = 0; i < 1; i++) {
+            sac = new SoutheastAsiaClientApp();
             sac.setVisible(true);
             //sac.setFakeSocket(fs); //change this
             //fs.addClient(sac);
-        } 
-        
+        }
 
-            //window.setFakeSockets(fs); //remove this after fakesockets
+
+        //window.setFakeSockets(fs); //remove this after fakesockets
     }
 
     /**
@@ -47,7 +46,8 @@ public class SoutheastAsiaApp extends SingleFrameApplication {
      * Windows shown in our application come fully initialized from the GUI
      * builder, so this additional configuration is not needed.
      */
-    @Override protected void configureWindow(java.awt.Window root) {
+    @Override
+    protected void configureWindow(java.awt.Window root) {
     }
 
     /**
@@ -63,16 +63,14 @@ public class SoutheastAsiaApp extends SingleFrameApplication {
      */
     public static void main(String[] args) {
         launch(SoutheastAsiaApp.class, args);
-        
+
     }
 
     /**
-     * temporary method for "parsing"
-     * News: Parsing will now be done in a separate class. :D
+     * Previously known as tempParse() >:)
+     * Refer to Interpreter class for details.
      */
-    public void tempParse(String message)
-    {
-        //change delimiter
-        window.tempAddMessage(message);
+    public void receive(int source, String message) {
+        southeastasia.server.Interpreter.interpret(window, source, message);
     }
 }

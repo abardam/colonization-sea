@@ -26,14 +26,14 @@ public class FakeSockets {
         sac.setFakeSocket(this);
     }
 
-    public void serverRecieveTransmission(String message)
+    /*public void serverRecieveTransmission(String message)
     {
         //parse it
         //call some methods
 
         //temporary parsing
-        server.tempParse(message);
-    }
+        server.receive(message);
+    }*/ // this conflicts with stuff sorry! i had to comment it out
 
     public void clientRecieveTransmission(String message, int clientCode)
     {
