@@ -32,7 +32,6 @@ public class SoutheastAsiaServerSockets {
     private PrintWriter[] sender;
     private ChatWindow chat;    //Might be unnecessary. - A., 110109
     private SoutheastAsiaApp seaApp;
-    
 
     public SoutheastAsiaServerSockets() throws IOException {
         seaApp = SoutheastAsiaApp.getApplication();
@@ -43,7 +42,7 @@ public class SoutheastAsiaServerSockets {
         server = new ServerSocket(port);
         accepter = new Accepter(this);
         sender = new PrintWriter[MAX_PLAYERS];
-        
+
     }
 
     /**
@@ -56,36 +55,43 @@ public class SoutheastAsiaServerSockets {
         accepter.start();
     }
 
-    public void sendToOne(String message, int player)
-    {
+    public void sendToOne(String message, int player) {
         sender[player].println(message);
         //insert string, sender[player] printstream shizz here
     }
 
-    public void setChat(ChatWindow c)
-    {
+    public void setChat(ChatWindow c) {
         chat = c;
     }
 
-    public void sendToAll(String message)
-    {
-        
-        for (int i = 0; i < MAX_PLAYERS; i++)
-        {
-            if (sender[i] != null)  sender[i].println(message);
+    public void sendToAll(String message) {
+
+        for (int i = 0; i < MAX_PLAYERS; i++) {
+            if (sender[i] != null) {
+                sender[i].println(message);
+            }
         }
     }
 
-    public void interpret(String order, int player)
-    {
-        //same as above
-        seaApp.tempParse(/*"Player " + player + ": " + */order);
-        System.out.println("Yo - ServerSockets has received input from Player "+ player);
-        //chat.tempAddMessage("Player " + player + ": " + order);     // Expand tempAddMessage in ChatWindow and this afterwards
+    public void interpret(String order, int player) {
+        String temp[] = order.split("#");
+        if (temp[0].equals("chat")) {
+        } else if (temp[0].equals("privmsg")) {
+            int receiver = Integer.parseInt(temp[1]);
+            if (receiver < MAX_PLAYERS) {
+                // insert additional chatstuff here
+                sender[receiver].println(player + ": " + temp[2]); // kailangan pa maconvert yung player into the country name
+            }
+        }
+        else if (temp[0].equals("action")) {
+        } else {
+            System.out.println("Received invalid order. " + order);
+        }
+        seaApp.tempParse(order); // pwede na tanggalin when the if statements work.
+        System.out.println("Yo - ServerSockets has received input from Player " + player);
     }
 
-    public void interpret(String order)
-    {
+    public void interpret(String order) {
         seaApp.tempParse(order);
         System.out.println("FroYo - ServerSockets has received input!");
         //chat.tempAddMessage(order);     // Expand tempAddMessage in ChatWindow and this afterwards
@@ -95,38 +101,32 @@ public class SoutheastAsiaServerSockets {
         return players[i - 1];
     }
 
-    class Accepter extends Thread
-    {
+    class Accepter extends Thread {
+
         int i;
         int max;
         SoutheastAsiaServerSockets ss;
 
         public Accepter(SoutheastAsiaServerSockets ss) {
-         i = 0;
-         max = SoutheastAsiaApp.MAX_PLAYERS;
-         //max = 1;
-         this.ss = ss;
+            i = 0;
+            max = SoutheastAsiaApp.MAX_PLAYERS;
+            //max = 1;
+            this.ss = ss;
         }
 
         @Override
-        public void run()
-        {
-            while (i < max)
-            {
+        public void run() {
+            while (i < max) {
 
-                    System.out.println("Waiting for player " + (i + 1) + "...");
+                System.out.println("Waiting for player " + (i + 1) + "...");
 
-                try
-                {
+                try {
                     players[i] = server.accept();
                     sender[i] = new PrintWriter(players[i].getOutputStream(), true);
                     PlayRunner g = new PlayRunner(players[i], ss, i);
                     g.start();
-                    sendToOne("verified#"+i,i);
-                }
-                
-                catch (IOException ex)
-                {
+                    sendToOne("verified#" + i, i);
+                } catch (IOException ex) {
                     Logger.getLogger(SoutheastAsiaServerSockets.class.getName()).log(Level.SEVERE, null, ex);
                     System.out.println("Jumping Javabeans, Batman, something happened!");
                 }
@@ -135,50 +135,41 @@ public class SoutheastAsiaServerSockets {
             }
             System.out.println("Slots full. Ceasing to accept.");
         }
-        
     }
 
-        class PlayRunner extends Thread //doot doot doot. Should I stick this into another class?
+    class PlayRunner extends Thread //doot doot doot. Should I stick this into another class?
     {
-            Socket socket;
-            SoutheastAsiaServerSockets ss;
-            int i;
 
-            public PlayRunner(Socket socket, SoutheastAsiaServerSockets ss, int i)
-            {
-                this.socket = socket;
-                this.ss = ss;
-                this.i = i;
-            }
+        Socket socket;
+        SoutheastAsiaServerSockets ss;
+        int i;
+
+        public PlayRunner(Socket socket, SoutheastAsiaServerSockets ss, int i) {
+            this.socket = socket;
+            this.ss = ss;
+            this.i = i;
+        }
 
         @Override
-            public void run()
-            {
-                try
-                {
-                    
-                    Scanner in = new Scanner(new InputStreamReader(socket.getInputStream()));
+        public void run() {
+            try {
 
-                    while(true)
-                    {
-                        String msg = in.nextLine();
-                        if (!(msg.equals("")||msg==null))
-                        {
-                            //interpret(msg); ? Is this how it should be done?
-                            ss.interpret(msg, i);
-                        }
-                        
+                Scanner in = new Scanner(new InputStreamReader(socket.getInputStream()));
+
+                while (true) {
+                    String msg = in.nextLine();
+                    if (!(msg.equals("") || msg == null)) {
+                        //interpret(msg); ? Is this how it should be done?
+                        ss.interpret(msg, i);
                     }
-                }
-                catch (IOException ex)
-                {
-                    Logger.getLogger(SoutheastAsiaServerSockets.class.getName()).log(Level.SEVERE, null, ex);
-                    System.out.println("Yikes! Something happened.");
-                }
 
-
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(SoutheastAsiaServerSockets.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Yikes! Something happened.");
             }
 
+
+        }
     }
-    
 }
