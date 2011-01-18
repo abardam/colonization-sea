@@ -1012,6 +1012,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     }
 
     // to add: interpret messages, and send them out
+    // NOTE TO SELF: THIS IS GOLDEN.
     public void sendMessage(String message) // This sends a message to the server.
     {
         if (useFakeSockets) {
