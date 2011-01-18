@@ -141,26 +141,6 @@ public class SoutheastAsiaView extends FrameView {
             }
         }
 
-
-        /*
-        territoryCBs=new ArrayList<JComboBox>();
-        territoryCBs.add(burmaCB);
-        territoryCBs.add(bruneiCB);
-        territoryCBs.add(cambodiaCB);
-        territoryCBs.add(javaCB);
-        territoryCBs.add(kalimantanCB);
-        territoryCBs.add(laosCB);
-        territoryCBs.add(malayaCB);
-        territoryCBs.add(papuaCB);
-        territoryCBs.add(philippinesCB);
-        territoryCBs.add(sabahCB);
-        territoryCBs.add(sarawakCB);
-        territoryCBs.add(sulawesiCB);
-        territoryCBs.add(sumatraCB);
-        territoryCBs.add(thailandCB);
-        territoryCBs.add(timorCB);
-        territoryCBs.add(vietnamCB);*/
-
         territoryCBs=new JComboBox[SoutheastAsiaServerStats.NUM_TERRITORIES];
         territoryCBs[0]=burmaCB;
         territoryCBs[1]=bruneiCB;
