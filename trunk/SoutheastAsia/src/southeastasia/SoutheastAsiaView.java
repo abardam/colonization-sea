@@ -1,7 +1,6 @@
 /*
  * SoutheastAsiaView.java
  */
-
 package southeastasia;
 
 import org.jdesktop.application.Action;
@@ -25,93 +24,86 @@ import java.awt.GridLayout;
 import java.io.IOException;
 import southeastasia.loader.ProblemsLoader;
 import southeastasia.networking.SoutheastAsiaServerSockets;
+
 /**
  * The application's main frame.
  */
 public class SoutheastAsiaView extends FrameView {
+
     public static final String PROBLEMSPATH = "src\\southeastasia\\resources\\problems.xml";
     public ArrayList<String> countries;
     public ArrayList<JComboBox> comboboxes;
     //public SoutheastAsiaServer server;
-
     private boolean useFakeSockets;
     private FakeSockets fakesockets;
     private CardLayout cl;
     private ChatWindow chat;
-
     private SoutheastAsiaServerStats stats;
     private boolean gameStarted;
     private SoutheastAsiaServerSockets ss;
-
     private boolean boxesSet;
-
     private CountryVariables[] defaults;
     private ArrayList<Problem> problems;
-    public void setFakeSockets(FakeSockets sock)
-    {
-        useFakeSockets=true;
-        fakesockets=sock;
-    }
 
-    public static final int numTerritories=16;
-    public static final int territoriesPerColumn=8; //how many territories in a column, in the territory tab
+    public void setFakeSockets(FakeSockets sock) {
+        useFakeSockets = true;
+        fakesockets = sock;
+    }
+    public static final int numTerritories = 16;
+    public static final int territoriesPerColumn = 8; //how many territories in a column, in the territory tab
     //16 territories, 2 columns
     private String[] territories; //array of all territories
-
     private JComboBox[] territoryCBs; //array of all jcomboboxes
 
     public SoutheastAsiaView(SingleFrameApplication app) {
         super(app);
-        useFakeSockets=false;
+        useFakeSockets = false;
 
-        boxesSet=false;
-        chat=new ChatWindow(this);
+        boxesSet = false;
+        chat = new ChatWindow(this);
 
-        stats=new SoutheastAsiaServerStats();
+        stats = new SoutheastAsiaServerStats();
 
-                try
-        {
+        try {
             ss = new SoutheastAsiaServerSockets();
             ss.setChat(chat);
-        }
-        catch(IOException ioe)
-        {
+        } catch (IOException ioe) {
             System.out.println(ioe.getMessage());
         }
 
 
-        defaults=new CountryVariables[6];
-        defaults[0]=new CountryVariables("Portugal", 50, 40, 55, 55);
-        defaults[1]=new CountryVariables("Spain", 60, 45, 45, 50);
-        defaults[2]=new CountryVariables("Britain", 50, 60, 45, 45);
-        defaults[3]=new CountryVariables("Netherlands", 50, 55, 55, 40);
-        defaults[4]=new CountryVariables("France", 45, 55, 55, 45);
-        defaults[5]=new CountryVariables("America", 40, 55, 60, 45);
+        defaults = new CountryVariables[6];
+        defaults[0] = new CountryVariables("Portugal", 50, 40, 55, 55);
+        defaults[1] = new CountryVariables("Spain", 60, 45, 45, 50);
+        defaults[2] = new CountryVariables("Britain", 50, 60, 45, 45);
+        defaults[3] = new CountryVariables("Netherlands", 50, 55, 55, 40);
+        defaults[4] = new CountryVariables("France", 45, 55, 55, 45);
+        defaults[5] = new CountryVariables("America", 40, 55, 60, 45);
 
-        territories=new String[numTerritories];
-        territories[0]="Burma";
-        territories[1]="Brunei";
-        territories[2]="Cambodia";
-        territories[3]="Java";
-        territories[4]="Kalimantan";
-        territories[5]="Laos";
-        territories[6]="Malaya & Singapore";
-        territories[7]="Papua New Guinea";
-        territories[8]="The Philippines";
-        territories[9]="Sabah";
-        territories[10]="Sarawak";
-        territories[11]="Sulawesi & Moluccas";
-        territories[12]="Sumatra";
-        territories[13]="Thailand";
-        territories[14]="Timor";
-        territories[15]="Vietnam";
+        territories = new String[numTerritories];
+        territories[0] = "Burma";
+        territories[1] = "Brunei";
+        territories[2] = "Cambodia";
+        territories[3] = "Java";
+        territories[4] = "Kalimantan";
+        territories[5] = "Laos";
+        territories[6] = "Malaya & Singapore";
+        territories[7] = "Papua New Guinea";
+        territories[8] = "The Philippines";
+        territories[9] = "Sabah";
+        territories[10] = "Sarawak";
+        territories[11] = "Sulawesi & Moluccas";
+        territories[12] = "Sumatra";
+        territories[13] = "Thailand";
+        territories[14] = "Timor";
+        territories[15] = "Vietnam";
 
 
-        problems=ProblemsLoader.loadProblems(PROBLEMSPATH);
-		
+        problems = ProblemsLoader.loadProblems(PROBLEMSPATH);
+
         initComponents();
-        cl = (CardLayout)(mainPanel.getLayout());
-        countries=new ArrayList<String>();
+        cl = (CardLayout) (mainPanel.getLayout());
+        countries = new ArrayList<String>();
         countries.add("Select country");
         countries.add("Portugal");
         countries.add("Spain");
@@ -120,7 +112,7 @@ public class SoutheastAsiaView extends FrameView {
         countries.add("France");
         countries.add("America");
 
-        comboboxes=new ArrayList<JComboBox>();
+        comboboxes = new ArrayList<JComboBox>();
         comboboxes.add(jComboBox1);
         comboboxes.add(jComboBox2);
         comboboxes.add(jComboBox3);
@@ -128,43 +120,42 @@ public class SoutheastAsiaView extends FrameView {
         comboboxes.add(jComboBox5);
         comboboxes.add(jComboBox6);
 
-        allowActions=new boolean[SoutheastAsiaApp.MAX_PLAYERS];
-        
+        allowActions = new boolean[SoutheastAsiaApp.MAX_PLAYERS];
 
-        for(JComboBox jcb:comboboxes)
-        {
+
+        for (JComboBox jcb : comboboxes) {
             jcb.removeAllItems();
-            for(String country:countries)
-            {
+            for (String country : countries) {
                 jcb.addItem(country);
 
             }
         }
 
-        territoryCBs=new JComboBox[SoutheastAsiaServerStats.NUM_TERRITORIES];
-        territoryCBs[0]=burmaCB;
-        territoryCBs[1]=bruneiCB;
-        territoryCBs[2]=cambodiaCB;
-        territoryCBs[3]=(javaCB);
-        territoryCBs[4]=(kalimantanCB);
-        territoryCBs[5]=(laosCB);
-        territoryCBs[6]=(malayaCB);
-        territoryCBs[7]=(papuaCB);
-        territoryCBs[8]=(philippinesCB);
-        territoryCBs[9]=(sabahCB);
-        territoryCBs[10]=(sarawakCB);
-        territoryCBs[11]=(sulawesiCB);
-        territoryCBs[12]=(sumatraCB);
-        territoryCBs[13]=(thailandCB);
-        territoryCBs[14]=(timorCB);
-        territoryCBs[15]=(vietnamCB);
+        territoryCBs = new JComboBox[SoutheastAsiaServerStats.NUM_TERRITORIES];
+        territoryCBs[0] = burmaCB;
+        territoryCBs[1] = bruneiCB;
+        territoryCBs[2] = cambodiaCB;
+        territoryCBs[3] = (javaCB);
+        territoryCBs[4] = (kalimantanCB);
+        territoryCBs[5] = (laosCB);
+        territoryCBs[6] = (malayaCB);
+        territoryCBs[7] = (papuaCB);
+        territoryCBs[8] = (philippinesCB);
+        territoryCBs[9] = (sabahCB);
+        territoryCBs[10] = (sarawakCB);
+        territoryCBs[11] = (sulawesiCB);
+        territoryCBs[12] = (sumatraCB);
+        territoryCBs[13] = (thailandCB);
+        territoryCBs[14] = (timorCB);
+        territoryCBs[15] = (vietnamCB);
 
-        boxesSet=true;
+        boxesSet = true;
 
         // status bar initialization - message timeout, idle icon and busy animation, etc
         ResourceMap resourceMap = getResourceMap();
         int messageTimeout = resourceMap.getInteger("StatusBar.messageTimeout");
         messageTimer = new Timer(messageTimeout, new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
                 statusMessageLabel.setText("");
             }
@@ -175,6 +166,7 @@ public class SoutheastAsiaView extends FrameView {
             busyIcons[i] = resourceMap.getIcon("StatusBar.busyIcons[" + i + "]");
         }
         busyIconTimer = new Timer(busyAnimationRate, new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
                 busyIconIndex = (busyIconIndex + 1) % busyIcons.length;
                 statusAnimationLabel.setIcon(busyIcons[busyIconIndex]);
@@ -187,6 +179,7 @@ public class SoutheastAsiaView extends FrameView {
         // connecting action tasks to status bar via TaskMonitor
         TaskMonitor taskMonitor = new TaskMonitor(getApplication().getContext());
         taskMonitor.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 String propertyName = evt.getPropertyName();
                 if ("started".equals(propertyName)) {
@@ -203,11 +196,11 @@ public class SoutheastAsiaView extends FrameView {
                     progressBar.setVisible(false);
                     progressBar.setValue(0);
                 } else if ("message".equals(propertyName)) {
-                    String text = (String)(evt.getNewValue());
+                    String text = (String) (evt.getNewValue());
                     statusMessageLabel.setText((text == null) ? "" : text);
                     messageTimer.restart();
                 } else if ("progress".equals(propertyName)) {
-                    int value = (Integer)(evt.getNewValue());
+                    int value = (Integer) (evt.getNewValue());
                     progressBar.setVisible(true);
                     progressBar.setIndeterminate(false);
                     progressBar.setValue(value);
@@ -1011,58 +1004,53 @@ public class SoutheastAsiaView extends FrameView {
         setStatusBar(statusPanel);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void initializeTerritories()
-    {
+    private void initializeTerritories() {
         /*this was a stupid idea
         int numterr=0;
         int numterr2=0;
 
         while(numterr<numTerritories)
         {
-            for(int i=0;i<territoriesPerColumn;i++)
-            {
-                if(numterr<numTerritories)
-                {
-                    territoriesTab.add(new JLabel(territories[numterr]));
-                    numterr++;
-                }
-            }
+        for(int i=0;i<territoriesPerColumn;i++)
+        {
+        if(numterr<numTerritories)
+        {
+        territoriesTab.add(new JLabel(territories[numterr]));
+        numterr++;
+        }
+        }
 
-            for(int i=0;i<territoriesPerColumn;i++)
-            {
-                if(numterr2<numterr)
-                {
-                    territoriesTab.add(new JComboBox(stats.getCountryNames()));
-                    numterr2++;
-                }
-            }
+        for(int i=0;i<territoriesPerColumn;i++)
+        {
+        if(numterr2<numterr)
+        {
+        territoriesTab.add(new JComboBox(stats.getCountryNames()));
+        numterr2++;
+        }
+        }
         }*/
 
         //this sets the contents of the territory combo boxes
-        for(JComboBox jcb:territoryCBs)
-        {
+        for (JComboBox jcb : territoryCBs) {
             jcb.removeAllItems();
 
             jcb.addItem("---");
-            for(String s:stats.getCountryNames())
-            {
+            for (String s : stats.getCountryNames()) {
                 jcb.addItem(s);
             }
         }
-        
+
     }
 
-    private void updateComboBoxes()
-    {
+    private void updateComboBoxes() {
 
-        if(boxesSet)
-        {
-            jComboBox1.setSelectedIndex(getCountry(0)+1);
-            jComboBox2.setSelectedIndex(getCountry(1)+1);
-            jComboBox3.setSelectedIndex(getCountry(2)+1);
-            jComboBox4.setSelectedIndex(getCountry(3)+1);
-            jComboBox5.setSelectedIndex(getCountry(4)+1);
-            jComboBox6.setSelectedIndex(getCountry(5)+1);
+        if (boxesSet) {
+            jComboBox1.setSelectedIndex(getCountry(0) + 1);
+            jComboBox2.setSelectedIndex(getCountry(1) + 1);
+            jComboBox3.setSelectedIndex(getCountry(2) + 1);
+            jComboBox4.setSelectedIndex(getCountry(3) + 1);
+            jComboBox5.setSelectedIndex(getCountry(4) + 1);
+            jComboBox6.setSelectedIndex(getCountry(5) + 1);
         }
     }
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -1105,17 +1093,16 @@ public class SoutheastAsiaView extends FrameView {
         // start game
         //check if all countries are selected
         //if overridden, can start with less than 6 players
-        boolean override=true; //change this
+        boolean override = true; //change this
 
-        if(startGame(override)==1)
-        {
+        if (startGame(override) == 1) {
             //send a message to all the clients telling them to start the game
             sendClientMessage(-1, "startgame");
             //change screen to game screen
             cl.show(mainPanel, "gamescreen");
             startGame(true);
         }
-        
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -1123,12 +1110,12 @@ public class SoutheastAsiaView extends FrameView {
      *
      * @param playerCode -1 if sending to all
      */
-    private void sendClientMessage(int playerCode, String message)
-    {
-        if (playerCode == -1)
+    private void sendClientMessage(int playerCode, String message) {
+        if (playerCode == -1) {
             ss.sendToAll(message);
-        else
+        } else {
             ss.sendToOne(message, playerCode);
+        }
 //        if(playerCode==-1)
 //        {
 //            if(useFakeSockets)
@@ -1170,20 +1157,14 @@ public class SoutheastAsiaView extends FrameView {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
-        if(actionTable.getSelectedRowCount()>0)
-        {
-            int playerCode=getPlayerCode(actionTable.getValueAt(actionTable.getSelectedRow(), 0).toString());
+        if (actionTable.getSelectedRowCount() > 0) {
+            int playerCode = getPlayerCode(actionTable.getValueAt(actionTable.getSelectedRow(), 0).toString());
 
-            if(!stats.getActionData(playerCode).isNull)
-            {
-                new ActionViewerFrame(getActionData(playerCode), this,  playerCode).setVisible(true);
+            if (!stats.getActionData(playerCode).isNull) {
+                new ActionViewerFrame(getActionData(playerCode), this, playerCode).setVisible(true);
             }
-            
-        }
 
-        else
-
-        {
+        } else {
             System.out.println("Select some rows!");
         }
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -1193,12 +1174,11 @@ public class SoutheastAsiaView extends FrameView {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        if(startNewTurn(false)==0)
-        {
+        if (startNewTurn(false) == 0) {
 
-            startNewTurn(JOptionPane.YES_OPTION==JOptionPane.showConfirmDialog(null,  "Some actions have not been sent/approved.\nAre you sure you want to start a new round?","End turn", JOptionPane.YES_NO_OPTION));
+            startNewTurn(JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, "Some actions have not been sent/approved.\nAre you sure you want to start a new round?", "End turn", JOptionPane.YES_NO_OPTION));
 
-            
+
         }
     }//GEN-LAST:event_jButton9ActionPerformed
 
@@ -1209,104 +1189,84 @@ public class SoutheastAsiaView extends FrameView {
 
     private void solveProblemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solveProblemActionPerformed
         //removes the problem
-        if(actionTable.getSelectedRowCount()>0)
-        {
-            int playerCode=getPlayerCode(actionTable.getValueAt(actionTable.getSelectedRow(), 0).toString());
+        if (actionTable.getSelectedRowCount() > 0) {
+            int playerCode = getPlayerCode(actionTable.getValueAt(actionTable.getSelectedRow(), 0).toString());
             //setSolved(!stats.getProblemSolved(playerCode), playerCode);
             //updateActionTables();
 
-            if(!stats.getProblemData(playerCode).isNull)
-            {
+            if (!stats.getProblemData(playerCode).isNull) {
                 new ProblemViewerFrame(stats.getProblemData(playerCode), this, playerCode).setVisible(true);
             }
 
-        }
-
-        else
-
-        {
+        } else {
             System.out.println("Select some rows!");
         }
     }//GEN-LAST:event_solveProblemActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        if(countryTable.getSelectedRowCount()>0)
-        {
-            int playerCode=getPlayerCode(countryTable.getValueAt(countryTable.getSelectedRow(), 0).toString());
-            
+        if (countryTable.getSelectedRowCount() > 0) {
+            int playerCode = getPlayerCode(countryTable.getValueAt(countryTable.getSelectedRow(), 0).toString());
+
             new CountryViewerFrame(playerCode, this).setVisible(true);
 
-        }
-
-        else
-
-        {
+        } else {
             System.out.println("Select some rows!");
         }
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         //save territories per country
-        for(int i=0;i<SoutheastAsiaServerStats.NUM_TERRITORIES;i++)
-        {
-            stats.setTerritory(i, territoryCBs[i].getSelectedIndex()-1);
+        for (int i = 0; i < SoutheastAsiaServerStats.NUM_TERRITORIES; i++) {
+            stats.setTerritory(i, territoryCBs[i].getSelectedIndex() - 1);
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void assignProblems()
-    {
-        for(int i=0;i<stats.countSelectedCountries();i++)
-        {
+    private void assignProblems() {
+        for (int i = 0; i < stats.countSelectedCountries(); i++) {
             stats.setProblem(getRandomProblem(), i);
         }
     }
 
-    private Problem getRandomProblem()
-    {
-        int ret=(int)(Math.random()*problems.size());
+    private Problem getRandomProblem() {
+        int ret = (int) (Math.random() * problems.size());
         return problems.get(ret);
     }
 
-    public void sendProblemUpdate(int playerCode)
-    {
-        Problem p=stats.getProblemData(playerCode);
+    public void sendProblemUpdate(int playerCode) {
+        Problem p = stats.getProblemData(playerCode);
         String message;
-        message="prob:";
-        message+=p.name+"#";
-        message+=p.description+"#";
-        message+=p.statModifiers.cultural+"#";
-        message+=p.statModifiers.economic+"#";
-        message+=p.statModifiers.military+"#";
-        message+=p.statModifiers.political+"#";
-        message+=p.solveModifiers.cultural+"#";
-        message+=p.solveModifiers.economic+"#";
-        message+=p.solveModifiers.military+"#";
-        message+=p.solveModifiers.political+"#";
-        
+        message = "prob:";
+        message += p.name + "#";
+        message += p.description + "#";
+        message += p.statModifiers.cultural + "#";
+        message += p.statModifiers.economic + "#";
+        message += p.statModifiers.military + "#";
+        message += p.statModifiers.political + "#";
+        message += p.solveModifiers.cultural + "#";
+        message += p.solveModifiers.economic + "#";
+        message += p.solveModifiers.military + "#";
+        message += p.solveModifiers.political + "#";
+
         sendClientMessage(playerCode, message);
     }
 
-    private void selectCountry(JComboBox jcb, int playerno)
-    {
+    private void selectCountry(JComboBox jcb, int playerno) {
         //System.out.println(getCountryNumber((String)jcb.getSelectedItem()));
-        int result=chooseCountry(playerno, getCountryNumber((String)jcb.getSelectedItem()), false);
+        int result = chooseCountry(playerno, getCountryNumber((String) jcb.getSelectedItem()), false);
 
-        if(result!=1)
-        {
+        if (result != 1) {
             jcb.setSelectedIndex(getCountry(playerno));
         }
     }
 
-    public void tempAddMessage(String message)
-    {
+    public void tempAddMessage(String message) {
         //jTextArea1.append(message+"\n");
         //change this next part, specifically the delimiter
-        String[] input=message.split("#");
+        String[] input = message.split("#");
 
-        if(input[0].equals("sendaction"))
-        {
+        if (input[0].equals("sendaction")) {
             setAction(message.substring("sendaction#".length()), true);
-            
+
 
         }
 
@@ -1315,16 +1275,12 @@ public class SoutheastAsiaView extends FrameView {
     }
 
     //kind of a hacky way to get a country's code but WHATEVER
-    private int getCountryNumber(String name)
-    {
-        int i=-1;
+    private int getCountryNumber(String name) {
+        int i = -1;
 
-        if(name!=null)
-        {
-            for(String country:countries)
-            {
-                if(name.equals(country))
-                {
+        if (name != null) {
+            for (String country : countries) {
+                if (name.equals(country)) {
                     return i;
                 }
                 i++;
@@ -1332,15 +1288,12 @@ public class SoutheastAsiaView extends FrameView {
         }
 
         return -1;
-        
+
     }
 
-    public void updateActionTables()
-    {
-        for(int i=0;i<SoutheastAsiaApp.MAX_PLAYERS;i++)
-        {
-            if(getCountry(i)!=-1)
-            {
+    public void updateActionTables() {
+        for (int i = 0; i < SoutheastAsiaApp.MAX_PLAYERS; i++) {
+            if (getCountry(i) != -1) {
                 actionTable.setValueAt(stats.getStats(i).name, i, 0);
                 actionTable.setValueAt(getActionName(i), i, 1);
                 actionTable.setValueAt(getActionApproved(i), i, 2);
@@ -1350,12 +1303,9 @@ public class SoutheastAsiaView extends FrameView {
         }
     }
 
-    public void updateCountryTables()
-    {
-        for(int i=0;i<SoutheastAsiaApp.MAX_PLAYERS;i++)
-        {
-            if(getCountry(i)!=-1)
-            {
+    public void updateCountryTables() {
+        for (int i = 0; i < SoutheastAsiaApp.MAX_PLAYERS; i++) {
+            if (getCountry(i) != -1) {
                 countryTable.setValueAt(stats.getStats(i).name, i, 0);
                 countryTable.setValueAt(stats.getStats(i).cultural, i, 1);
                 countryTable.setValueAt(stats.getStats(i).economic, i, 2);
@@ -1442,24 +1392,14 @@ public class SoutheastAsiaView extends FrameView {
     private javax.swing.JComboBox timorCB;
     private javax.swing.JComboBox vietnamCB;
     // End of variables declaration//GEN-END:variables
-
     private final Timer messageTimer;
     private final Timer busyIconTimer;
     private final Icon idleIcon;
     private final Icon[] busyIcons = new Icon[15];
     private int busyIconIndex = 0;
-
     private JDialog aboutBox;
-
-
-
-
     //OLD SOUTHEASTASIASERVER
-
-
-
     //public SoutheastAsiaView window;
-
     private boolean[] allowActions; //set to true at the start of every turn;
     /*set to false after a player has sent an action that is neither
      * approved nor disapproved para bawal mag spam ng action
@@ -1467,18 +1407,16 @@ public class SoutheastAsiaView extends FrameView {
      * set to true after disapproving
      */
 
-    public void allowActions(int playerCode, boolean allowed)
-    {
-        allowActions[playerCode]=allowed;
+    public void allowActions(int playerCode, boolean allowed) {
+        allowActions[playerCode] = allowed;
     }
 
     /*
     public SoutheastAsiaServer()
     {
-        stats=new SoutheastAsiaServerStats();
-        gameStarted=false;
+    stats=new SoutheastAsiaServerStats();
+    gameStarted=false;
     }*/
-
     /**
      * call this class whenever a new turn starts
      * (possibly the teacher presses a button)
@@ -1492,39 +1430,32 @@ public class SoutheastAsiaView extends FrameView {
      *
      * @param override true if next turn starts with not all countries ready with an action
      */
-    public int startNewTurn(boolean override)
-    {
-        boolean overridden=false;
-        if(gameStarted)
-        {
-            
+    public int startNewTurn(boolean override) {
+        boolean overridden = false;
+        if (gameStarted) {
 
 
-            
-            for(int i=0;i<stats.countSelectedCountries();i++)
-            {
-                if(getActionData(i).isNull||!stats.getActionApproved(i))
-                {
-                    
-                    if(override)
-                        overridden=true;
-                    else{
-                        return 0;}
+
+
+            for (int i = 0; i < stats.countSelectedCountries(); i++) {
+                if (getActionData(i).isNull || !stats.getActionApproved(i)) {
+
+                    if (override) {
+                        overridden = true;
+                    } else {
+                        return 0;
+                    }
                 }
             }
 
-            
 
-            if(stats.newTurn())
-            {
+
+            if (stats.newTurn()) {
                 //game won! now check to see who won and in what category
-            }
-            else
-            {
+            } else {
                 updateActionTables();
                 updateCountryTables();
-                for(int i=0;i<stats.countSelectedCountries();i++)
-                {
+                for (int i = 0; i < stats.countSelectedCountries(); i++) {
                     allowActions(i, true);
 
                 }
@@ -1544,14 +1475,11 @@ public class SoutheastAsiaView extends FrameView {
      * @param chat the chat message in some format (handle plz)
      * @return
      */
-    public int recieveChatMessage(String chat)
-    {
+    public int recieveChatMessage(String chat) {
         stats.updateChatlog(chat);
 
         return 1;
     }
-
-
 
     /**
      * this method returns the action corresponding to the
@@ -1562,28 +1490,23 @@ public class SoutheastAsiaView extends FrameView {
      * @param playerCode the player's number
      * @return the action in String format
      */
-    public String getAction(int playerCode)
-    {
+    public String getAction(int playerCode) {
         return stats.getAction(playerCode).toString();
     }
 
-    public String getActionName(int playerCode)
-    {
+    public String getActionName(int playerCode) {
         return stats.getActionName(playerCode);
     }
 
-    public boolean getActionApproved(int playerCode)
-    {
+    public boolean getActionApproved(int playerCode) {
         return stats.getActionApproved(playerCode);
     }
 
-    public String getProblem(int playerCode)
-    {
+    public String getProblem(int playerCode) {
         return stats.getProblem(playerCode);
     }
 
-    public String getProblemName(int playerCode)
-    {
+    public String getProblemName(int playerCode) {
         return stats.getProblemName(playerCode);
     }
 
@@ -1598,29 +1521,21 @@ public class SoutheastAsiaView extends FrameView {
      * @param override if true, can replace country already picked
      * @return 1 if successful 0 if country already chosen -1 if playercode invalid -2 if countrycode invalid
      */
-    public int chooseCountry(int playerCode, int countryCode, boolean override)
-    {
-        if(override)
-        {
+    public int chooseCountry(int playerCode, int countryCode, boolean override) {
+        if (override) {
             stats.replaceAllCountryChoices(countryCode); //all players who have picked the country will be reset
             return stats.setCountry(playerCode, countryCode);
-        }
-        else
-        {
-            if(stats.countryIsAlreadySelected(countryCode))
-            {
+        } else {
+            if (stats.countryIsAlreadySelected(countryCode)) {
                 return 0;
-            }
-            else
-            {
+            } else {
                 return stats.setCountry(playerCode, countryCode);
             }
 
         }
     }
 
-    public int getCountry(int playerCode)
-    {
+    public int getCountry(int playerCode) {
         return stats.getCountry(playerCode);
     }
 
@@ -1636,24 +1551,22 @@ public class SoutheastAsiaView extends FrameView {
      * @param override set to true if starting with incomplete players
      * @return 0 if not all slots filled 1 if all slots filled OR overridden 2 if country overlap
      */
-    public int startGame(boolean override)
-    {
+    public int startGame(boolean override) {
         //put some code in here
 
         int c;
         CountryVariables cv;
-        for(int i=0;i<stats.countSelectedCountries();i++)
-        {
-            c=stats.getCountry(i);
-            cv=stats.getStats(i);
-            cv.cultural=defaults[c].cultural;
-            cv.economic=defaults[c].economic;
-            cv.military=defaults[c].military;
-            cv.political=defaults[c].political;
-            cv.name=defaults[c].name;
+        for (int i = 0; i < stats.countSelectedCountries(); i++) {
+            c = stats.getCountry(i);
+            cv = stats.getStats(i);
+            cv.cultural = defaults[c].cultural;
+            cv.economic = defaults[c].economic;
+            cv.military = defaults[c].military;
+            cv.political = defaults[c].political;
+            cv.name = defaults[c].name;
         }
 
-        gameStarted=true;
+        gameStarted = true;
         startNewTurn(true);
         initializeTerritories();
         return 1;
@@ -1668,8 +1581,7 @@ public class SoutheastAsiaView extends FrameView {
      *
      * @return the log for this turn
      */
-    public String generateTurnLog()
-    {
+    public String generateTurnLog() {
         //stuff here
         return "";
     }
@@ -1680,8 +1592,7 @@ public class SoutheastAsiaView extends FrameView {
      * @param playerCode
      * @return 1 if problem exists, 0 otherwise
      */
-    public int solveProblem(int playerCode)
-    {
+    public int solveProblem(int playerCode) {
         return stats.solveProblem(playerCode);
 
     }
@@ -1691,17 +1602,15 @@ public class SoutheastAsiaView extends FrameView {
      * @param playerCode the player to query
      * @return the stats
      */
-    public CountryVariables getStats(int playerCode)
-    {
+    public CountryVariables getStats(int playerCode) {
         return stats.getStats(playerCode);
 
     }
 
-    public static SoutheastAsiaAction parseAction(String actionCode)
-    {
+    public static SoutheastAsiaAction parseAction(String actionCode) {
         //change the delimiter here
-        String[] newaction= actionCode.split("#");
-        return new SoutheastAsiaAction(newaction[1],newaction[2],Integer.parseInt(newaction[3]),Integer.parseInt(newaction[4]),Integer.parseInt(newaction[5]),Integer.parseInt(newaction[6]));
+        String[] newaction = actionCode.split("#");
+        return new SoutheastAsiaAction(newaction[1], newaction[2], Integer.parseInt(newaction[3]), Integer.parseInt(newaction[4]), Integer.parseInt(newaction[5]), Integer.parseInt(newaction[6]));
         //cultural, economic, military, political
     }
 
@@ -1712,29 +1621,25 @@ public class SoutheastAsiaView extends FrameView {
      * @param override if set to false, will not change existing action
      * @return 1 if action set, 0 if there is an existing action, 2 if there is an existing action but was overridden
      */
-    public int setAction(String actionCode, boolean override)
-    {
+    public int setAction(String actionCode, boolean override) {
         int playerCode; //do something to get playerCode from actionCode
 
-        String parsedCode[]=actionCode.split("#");
-        playerCode=Integer.parseInt(parsedCode[0]);
+        String parsedCode[] = actionCode.split("#");
+        playerCode = Integer.parseInt(parsedCode[0]);
 
-        if(allowActions[playerCode])
-        {
+        if (allowActions[playerCode]) {
 
-            if(stats.hasAction(playerCode))
-            {
+            if (stats.hasAction(playerCode)) {
                 //if(override) not using override any more, instead allowActions
-                if(true)
-                {
+                if (true) {
                     //parse actioncode, turn it into an action
                     stats.setAction(parseAction(actionCode), playerCode);
                     allowActions(playerCode, false);
 
                     //pass to serverstats
-                     stats.setApproval(playerCode, false);
+                    stats.setApproval(playerCode, false);
 
-                     updateActionTables();
+                    updateActionTables();
 
                     return 2;
                 }
@@ -1753,9 +1658,7 @@ public class SoutheastAsiaView extends FrameView {
             updateActionTables();
 
             return 1;
-        }
-        else
-        {
+        } else {
             //send a message back to the player saying that actions
             //not allowed yet
             sendClientMessage(playerCode, "warn#action not allowed");
@@ -1763,72 +1666,71 @@ public class SoutheastAsiaView extends FrameView {
         }
     }
 
-    public static Problem generateProblem()
-    {
+    public static Problem generateProblem() {
         return Problem.noProblem();
     }
 
-    public void accept()
-    {
+    public void accept() {
         ss.acceptSockets();
     }
 
-    public int countPlayers()
-    {
+    public int countPlayers() {
         return stats.countSelectedCountries();
     }
 
-    public void setAction(SoutheastAsiaAction seact, int playerCode)
-    {
+    public void setAction(SoutheastAsiaAction seact, int playerCode) {
         stats.setAction(seact, playerCode);
     }
 
-    public SoutheastAsiaAction getActionData(int playerCode)
-    {
+    public SoutheastAsiaAction getActionData(int playerCode) {
         return stats.getActionData(playerCode);
     }
 
-    public int getPlayerCode(int countryCode)
-    {
+    public int getPlayerCode(int countryCode) {
         return stats.getPlayerCode(countryCode);
     }
 
-    public int getPlayerCode(String countryCode)
-    {
+    public int getPlayerCode(String countryCode) {
         return stats.getPlayerCode(countryCode);
     }
 
-    public void setApproval(boolean approval, int playerCode)
-    {
+    public void setApproval(boolean approval, int playerCode) {
         stats.setApproval(playerCode, approval);
     }
 
-    public void setSolved(boolean solved, int playerCode)
-    {
+    public void setSolved(boolean solved, int playerCode) {
         stats.setSolved(playerCode, solved);
     }
 
-    public void bigPlayerUpdate()
-    {
+    public void bigPlayerUpdate() {
         String s;
-        for(int i=0;i<countPlayers();i++)
-        {
-            s="stats#";
-            s+=stats.getStats(i).cultural;
-            s+="#";
-            s+=stats.getStats(i).economic;
-            s+="#";
-            s+=stats.getStats(i).military;
-            s+="#";
-            s+=stats.getStats(i).political;
+        for (int i = 0; i < countPlayers(); i++) {
+            s = "stats#";
+            s += stats.getStats(i).cultural;
+            s += "#";
+            s += stats.getStats(i).economic;
+            s += "#";
+            s += stats.getStats(i).military;
+            s += "#";
+            s += stats.getStats(i).political;
 
             ss.sendToAll(s);
         }
     }
 
-
-    public void sendMessage(String s)
-    {
+    public void sendMessage(String s) {
         ss.sendToAll(s);
+    }
+
+    public void sendMessage(int playerindex, String s) {
+        ss.sendToOne(s, playerindex);
+    }
+
+    public void sendPrivateMessage(int playerindex, int senderindex, String message) {
+        sendMessage(playerindex, defaults[senderindex].name + " (Private): " + message);
+    }
+
+    public void sendChat(int source, String message) {
+        sendMessage(defaults[source].name + ": " + message);
     }
 }

@@ -74,29 +74,15 @@ public class SoutheastAsiaServerSockets {
     }
 
     public void interpret(String order, int player) {
-        String temp[] = order.split("#");
-        if (temp[0].equals("chat")) {
-        } else if (temp[0].equals("privmsg")) {
-            int receiver = Integer.parseInt(temp[1]);
-            if (receiver < MAX_PLAYERS) {
-                // insert additional chatstuff here
-                sender[receiver].println(player + ": " + temp[2]); // kailangan pa maconvert yung player into the country name
-            }
-        }
-        else if (temp[0].equals("action")) {
-        } else {
-            System.out.println("Received invalid order. " + order);
-        }
-        seaApp.tempParse(order); // pwede na tanggalin when the if statements work.
+        seaApp.receive(player, order); // ... nirefactor ko na lang. pwede pala na nasa asia view.
         System.out.println("Yo - ServerSockets has received input from Player " + player);
     }
 
-    public void interpret(String order) {
-        seaApp.tempParse(order);
-        System.out.println("FroYo - ServerSockets has received input!");
-        //chat.tempAddMessage(order);     // Expand tempAddMessage in ChatWindow and this afterwards
-    }
-
+    /*public void interpret(String order) {
+    seaApp.receive(order);
+    System.out.println("FroYo - ServerSockets has received input!");
+    //chat.tempAddMessage(order);     // Expand tempAddMessage in ChatWindow and this afterwards
+    }*/ // hindi yata kailangan, since all commands come from one person.
     public Socket getPlayer(int i) {
         return players[i - 1];
     }
