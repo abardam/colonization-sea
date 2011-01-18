@@ -390,7 +390,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel8))))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1071,5 +1071,11 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     //startgamescreen implemented above.
     public void receiveStart() {
         startGameScreen();
+    }
+
+    public void receiveStats(String[] args) {
+        // args format:
+        // { <playerIndex>, <stat1>, <stat2>, <stat3>, <stat4>, ... }
+        // total number of updated player stats: args.length/5.
     }
 }
