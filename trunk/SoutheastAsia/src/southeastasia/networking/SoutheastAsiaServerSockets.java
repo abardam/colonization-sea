@@ -87,6 +87,20 @@ public class SoutheastAsiaServerSockets {
         return players[i - 1];
     }
 
+    public int getNumPlayers()
+    {
+        int np=0;
+        for(int i=0;i<MAX_PLAYERS;i++)
+        {
+            if(players[i]!=null)
+            {
+                np++;
+            }
+        }
+
+        return np;
+    }
+
     class Accepter extends Thread {
 
         int i;

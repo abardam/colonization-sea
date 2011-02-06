@@ -74,6 +74,20 @@ public class Interpreter {
             //privmsg#sender#message
             
         }
+        else if(netcode[0].equals("player"))
+        {
+            if(args.length%3!=0)
+            {
+                System.err.println("Netcode format error! in player");
+            }
+            else
+            {
+                for(int i=0;i<args.length;i+=3)
+                {
+                    receiver.updatePlayerCountry(Integer.parseInt(args[i]), Integer.parseInt(args[i+1]), args[i+2]);
+                }
+            }
+        }
     }
 
 }
