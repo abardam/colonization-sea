@@ -101,6 +101,11 @@ public class ChatWindow extends javax.swing.JFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,11 +146,22 @@ public class ChatWindow extends javax.swing.JFrame {
             if(type==CLIENT)
                 client.sendMessage("chat#"+client.getStats().name+"#"+jTextField1.getText());
             else if(type==SERVER)
+            {
                 server.sendMessage("chat#SERVER#"+jTextField1.getText());
+                jTextArea2.append("SERVER: "+jTextField1.getText()+"\n");
+            }
 
             jTextField1.setText("");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        if(evt.getKeyCode()==evt.VK_ENTER)
+        {
+            jButton1ActionPerformed(null);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1KeyPressed
 
     /**
     * @param args the command line arguments
