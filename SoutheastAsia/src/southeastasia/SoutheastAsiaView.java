@@ -15,12 +15,10 @@ import javax.swing.Icon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 import javax.swing.JOptionPane;
 import java.awt.CardLayout;
-import java.awt.GridLayout;
+import java.awt.Component;
 import java.io.IOException;
 import southeastasia.loader.ProblemsLoader;
 import southeastasia.networking.SoutheastAsiaServerSockets;
@@ -1093,15 +1091,24 @@ public class SoutheastAsiaView extends FrameView {
         // start game
         //check if all countries are selected
         //if overridden, can start with less than 6 players
-        boolean override = true; //change this
+        boolean override = false; //change this
 
-        if (startGame(override) == 1) {
+        int val=startGame(override);
+
+        if (val == 1) {
             //send a message to all the clients telling them to start the game
             sendClientMessage(-1, "startgame");
             //change screen to game screen
             cl.show(mainPanel, "gamescreen");
-            startGame(true);
+
+            startNewTurn(true);
         }
+        else if(val==-1)
+        {
+            JOptionPane.showMessageDialog(null, (Object)"Not all players have a country!");
+
+        }
+
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -1434,6 +1441,7 @@ public class SoutheastAsiaView extends FrameView {
         boolean overridden = false;
         if (gameStarted) {
 
+            bigPlayerUpdate();
 
 
 
@@ -1554,6 +1562,12 @@ public class SoutheastAsiaView extends FrameView {
     public int startGame(boolean override) {
         //put some code in here
 
+        if(stats.countSelectedCountries()<ss.getNumPlayers())
+        {
+            //not all players have selected a country
+            return -1;
+        }
+
         int c;
         CountryVariables cv;
         for (int i = 0; i < stats.countSelectedCountries(); i++) {
@@ -1567,7 +1581,7 @@ public class SoutheastAsiaView extends FrameView {
         }
 
         gameStarted = true;
-        startNewTurn(true);
+        //startNewTurn(true);
         initializeTerritories();
         return 1;
     }
@@ -1703,6 +1717,12 @@ public class SoutheastAsiaView extends FrameView {
     }
 
     public void bigPlayerUpdate() {
+        String playerCountryUpdate="player";
+        for(int k=0;k<countPlayers();k++)
+        {
+            playerCountryUpdate+="#"+k+"#"+stats.getCountry(k)+"#"+stats.getStats(k).name;
+        }
+
         String terrupdate = "terrs";
         for (int j = 0; j < SoutheastAsiaServerStats.NUM_TERRITORIES; j++) {
             terrupdate += "#" + (territoryCBs[j].getSelectedIndex() - 1);
@@ -1711,6 +1731,8 @@ public class SoutheastAsiaView extends FrameView {
         String s;
         for (int i = 0; i < countPlayers(); i++) {
             s = "stats#";
+            s+=i;
+            s+="#";
             s += stats.getStats(i).cultural;
             s += "#";
             s += stats.getStats(i).economic;
@@ -1718,6 +1740,8 @@ public class SoutheastAsiaView extends FrameView {
             s += stats.getStats(i).military;
             s += "#";
             s += stats.getStats(i).political;
+
+            ss.sendToAll(playerCountryUpdate);
 
             ss.sendToAll(s);
 
