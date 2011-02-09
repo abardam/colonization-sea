@@ -9,11 +9,12 @@
 -->
 
 <root>
+    <!-- landings should now only be accesible from the map - enzo
     <action>
         <name>Military Landing</name>
         <desc>After sailing in the sea for weeks, you decide to land on this land with military to secure your landing. Your military presence will warn all exisiting rulers of your offensive capability. This step is a must to prepare your military for war. Your military have to be in close proximity of your enemy before you can launch an invasion.</desc>
         <stat>0, -2, 5, 0</stat>
-    </action>
+    </action> -->
 
     <action>
         <name>Military Exercise</name>
@@ -21,7 +22,7 @@
         <stat>3, -5, 5, 0</stat>
     </action>
 
-    <action>
+    <action> <!-- i guess this should also be taken out in the future -->
         <name>Invasion</name>
         <desc>You must have at least 5E to execute an invasion. Look at the Battle Chart or your teacher for the result of the battle.</desc>
         <stat>0, -5, 0, 0</stat>
@@ -45,11 +46,11 @@
         <stat>0, 0, 5, 0</stat>
     </action>
 
-    <action>
+<!--    <action>
         <name>Economic Landing</name>
         <desc>After sailing in the sea for weeks, you decide to land on this land in peace and seek out the existing rulers and negotiate for trade, allow your people to settle a part of this land or bribe them into submission so that you are the true governor of this land.</desc>
         <stat>0,3,0,0</stat>
-    </action>
+    </action>-->
 
     <action>
         <name>Financial Assistance</name>
@@ -81,11 +82,11 @@
         <stat>-10, 10, 0, 0</stat>
     </action>
 
-    <action>
+<!--    <action>
         <name>Missionary Landing</name>
         <desc>After sailing in the sea for weeks, you decide to land on this land to promote your faith as the one true and only faith in the world.</desc>
         <stat>5, -2, 0, 0</stat>
-    </action>
+    </action>-->
 
     <action>
         <name>Building religious institutions</name>

@@ -23,7 +23,8 @@ public class Interpreter {
                 receiver.sendPrivateMessage(rec, source, temp[2]);
             }
         }
-        else if (temp[0].equals("action")) {
+        else if (temp[0].equals("sendaction")) {
+            receiver.setAction(input.substring("sendaction#".length()), true);
         } else {
             System.out.println("Received invalid order. " + input);
         }
