@@ -17,11 +17,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
+import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 import southeastasia.loader.ActionsLoader;
 import southeastasia.networking.SoutheastAsiaServerSockets;
@@ -36,9 +39,15 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     private DefaultTableModel countriesTableModel;
     private ChatWindow chat;
     private SoutheastAsiaServerStats stats;
+
+    //for actions
+    private int territoryTargetted; //should be set to -1 every turn, and if the action is changed
+    //secretly sent when sending actions
+
     /** Creates new form SoutheastAsiaClientApp */
     public SoutheastAsiaClientApp() {
         port = 7777;
+        territoryTargetted=-1;
 
         countriesTableModel=new DefaultTableModel();
         countriesTableModel.addColumn("Country");
@@ -62,6 +71,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     javax.swing.JComboBox[] territoryCBs;
     private void setTerritories() //for now, just sets all territory combo boxes to disabled.
     {
+        
         burmaCB.setEnabled(false);
         bruneiCB.setEnabled(false);
         cambodiaCB.setEnabled(false);
@@ -106,6 +116,33 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
             {
                 jcb.addItem(s);
             }
+        }
+
+        class MapListener implements ActionListener
+        {
+            private int territoryCode;
+            private String name;
+            private SoutheastAsiaClientApp app;
+            public MapListener(int territoryCode, String name, SoutheastAsiaClientApp app)
+            {
+                this.territoryCode=territoryCode;
+                this.name=name;
+                this.app=app;
+            }
+            public void actionPerformed(ActionEvent ae)
+            {
+                new TerritoryViewerFrame(name,territoryCode, app).setVisible(true);
+            }
+        }
+
+        JButton jb;
+        int i=0;
+        for(String s:SoutheastAsiaServerStats.TERRITORY_NAME)
+        {
+            jb=new JButton(s);
+            jb.addActionListener(new MapListener(i,s, this));
+            mapPanel.add(jb);
+            i++;
         }
     }
     private ArrayList<SoutheastAsiaAction> actions;
@@ -246,6 +283,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         burmaCB = new javax.swing.JComboBox();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
+        mapPanel = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -375,11 +413,11 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
                             .addComponent(militaryField, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(politicalField, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE))
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -419,6 +457,11 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
         jTextArea1.setName("jTextArea1"); // NOI18N
+        jTextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextArea1KeyTyped(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTextArea1);
 
         jLabel1.setName("jLabel1"); // NOI18N
@@ -480,15 +523,15 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE))
+                        .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, 296, Short.MAX_VALUE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, 423, Short.MAX_VALUE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -538,13 +581,13 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel7))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel8))))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -613,7 +656,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
                     .addComponent(militarySolve, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(politicalSolve, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -663,7 +706,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -833,7 +876,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
                     .addComponent(thailandCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(timorCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(vietnamCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -891,14 +934,19 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel7.TabConstraints.tabTitle"), jPanel7); // NOI18N
 
+        mapPanel.setName("mapPanel"); // NOI18N
+        mapPanel.setLayout(new java.awt.GridLayout(8, 2));
+        jTabbedPane1.addTab(resourceMap.getString("mapPanel.TabConstraints.tabTitle"), mapPanel); // NOI18N
+        mapPanel.getAccessibleContext().setAccessibleName(resourceMap.getString("jPanel9.AccessibleContext.accessibleName")); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(149, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -923,12 +971,12 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(435, Short.MAX_VALUE)
+                .addContainerGap(467, Short.MAX_VALUE)
                 .addComponent(jButton3)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -961,14 +1009,17 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
             try {
                 host = InetAddress.getLocalHost();
             } catch (UnknownHostException ex) {
+                System.err.println(ex.getMessage());
                 Logger.getLogger(SoutheastAsiaClientApp.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 socket = new Socket(host.getHostName(), port);
                 setSocket(socket);
             } catch (UnknownHostException ex) {
+                System.err.println(ex.getMessage());
                 Logger.getLogger(SoutheastAsiaClientApp.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
+                System.err.println(ex.getMessage());
                 Logger.getLogger(SoutheastAsiaClientApp.class.getName()).log(Level.SEVERE, null, ex);
             }
 
@@ -996,6 +1047,14 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         message += jTextField5.getText();
         message += "#";
         message += jTextField6.getText();
+
+        //super secret fields! territory conquered
+        if(territoryTargetted!=-1)
+        {
+            message += "#landing#";
+            message += territoryTargetted;
+        }
+
         sendMessage(message);
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -1004,26 +1063,41 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        territoryTargetted=-1;
+        unlockAction();
         SoutheastAsiaAction a;
         try {
             a = (SoutheastAsiaAction) jComboBox1.getSelectedItem();
+            setActionText(a);
         } catch (java.lang.ClassCastException cce) {
             a = null;
         }
 
+        
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+    public void setActionText(SoutheastAsiaAction a)
+    {
         if (a == null) {
             a = new SoutheastAsiaAction("", "", 0, 0, 0, 0);
         }
+        jComboBox1.setSelectedItem(null);
+        jComboBox1.setEditable(true);
+        jComboBox1.setSelectedItem((Object)a.name);
         jTextArea1.setText(a.description);
         jTextField3.setText(a.statModifiers.cultural + "");
         jTextField4.setText(a.statModifiers.economic + "");
         jTextField5.setText(a.statModifiers.military + "");
         jTextField6.setText(a.statModifiers.political + "");
-    }//GEN-LAST:event_jComboBox1ActionPerformed
 
+        territoryTargetted=a.landing;
+    }
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         chat.setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTextArea1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyTyped
+                // TODO add your handling code here:
+    }//GEN-LAST:event_jTextArea1KeyTyped
 
     /**
      * @param args the command line arguments
@@ -1109,6 +1183,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     private javax.swing.JComboBox kalimantanCB;
     private javax.swing.JComboBox laosCB;
     private javax.swing.JComboBox malayaCB;
+    private javax.swing.JPanel mapPanel;
     private javax.swing.JTextField militaryField;
     private javax.swing.JTextField militaryPenalty;
     private javax.swing.JTextField militarySolve;
@@ -1332,4 +1407,32 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         stats.getStats(player).name=name;
         stats.setCountry(player, country);
     }
+
+    //sets all text areas to uneditable
+    //use this for territory taking and war
+    public void lockAction()
+    {
+        jTextArea1.setEditable(false);
+        jTextField3.setEditable(false);
+        jTextField4.setEditable(false);
+        jTextField5.setEditable(false);
+        jTextField6.setEditable(false);
+    }
+
+    public void unlockAction()
+    {
+
+        jTextArea1.setEditable(true);
+        jTextField3.setEditable(true);
+        jTextField4.setEditable(true);
+        jTextField5.setEditable(true);
+        jTextField6.setEditable(true);
+    }
+
+    public void setTabAtAction()
+    {
+        jTabbedPane1.setSelectedComponent(jPanel3);
+    }
+
+    
 }

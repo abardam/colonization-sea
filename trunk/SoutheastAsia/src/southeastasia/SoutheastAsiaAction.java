@@ -22,6 +22,7 @@ public class SoutheastAsiaAction {
     public String name;
     public String description;
 
+    public int landing;
     //is the action null
     public boolean isNull;
 
@@ -41,8 +42,8 @@ public class SoutheastAsiaAction {
         this.name=name;
         description=desc;
         statModifiers=new CountryVariables("", c, e, m ,p);
+        landing=-1;
     }
-
     /**
      * this method converts the action to a string
      *

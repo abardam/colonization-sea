@@ -37,6 +37,7 @@ public class SoutheastAsiaServerStats {
     //so if countries[0]=1 that means player 0 has country 1 (whatever that is)
     private int[] countries;
 
+
     //each player corresponds to a number (a slot in the arrays)
 
     private int[] territories;
@@ -58,6 +59,8 @@ public class SoutheastAsiaServerStats {
     public static final int TIMOR=14;
     public static final int VIETNAM=15;
     public static final int NUM_TERRITORIES=16;
+
+    public static String[] TERRITORY_NAME;
 
     public SoutheastAsiaServerStats()
     {
@@ -86,6 +89,24 @@ public class SoutheastAsiaServerStats {
         {
             territories[i]=-1;
         }
+
+        TERRITORY_NAME=new String[NUM_TERRITORIES];
+        TERRITORY_NAME[0] = "Burma";
+        TERRITORY_NAME[1] = "Brunei";
+        TERRITORY_NAME[2] = "Cambodia";
+        TERRITORY_NAME[3] = "Java";
+        TERRITORY_NAME[4] = "Kalimantan";
+        TERRITORY_NAME[5] = "Laos";
+        TERRITORY_NAME[6] = "Malaya & Singapore";
+        TERRITORY_NAME[7] = "Papua New Guinea";
+        TERRITORY_NAME[8] = "The Philippines";
+        TERRITORY_NAME[9] = "Sabah";
+        TERRITORY_NAME[10] = "Sarawak";
+        TERRITORY_NAME[11] = "Sulawesi & Moluccas";
+        TERRITORY_NAME[12] = "Sumatra";
+        TERRITORY_NAME[13] = "Thailand";
+        TERRITORY_NAME[14] = "Timor";
+        TERRITORY_NAME[15] = "Vietnam";
     }
 
     //to do: update chatlog method
@@ -191,6 +212,11 @@ public class SoutheastAsiaServerStats {
             {
                 //apply effects of the action
                 actions[i].applyEffect(variables[i]);
+
+                if(actions[i].landing!=-1)
+                {
+                    territories[actions[i].landing]=i;
+                }
             }
 
             approval[i]=false;
@@ -210,6 +236,10 @@ public class SoutheastAsiaServerStats {
                 solved[i]=false;
                 problems[i]=Problem.noProblem();
             }
+
+            //TO DO: landings!
+
+            
         }
 
         //the reason that this is in a separate for loop is so that
@@ -296,7 +326,7 @@ public class SoutheastAsiaServerStats {
 
     public String[] getCountryNames()
     {
-        int count=countSelectedCountries();
+        int count=SoutheastAsiaApp.MAX_PLAYERS;
         String[] a=new String[count];
         for(int i=0;i<count;i++)
         {
@@ -397,5 +427,41 @@ public class SoutheastAsiaServerStats {
     public void setTerritory(int territoryCode, int countryCode)
     {
         territories[territoryCode]=countryCode;
+    }
+
+    public boolean landingConflicts()
+    {
+        //just checks if any two+ countries have the same landing
+
+        boolean[] territorycheck=new boolean[NUM_TERRITORIES];
+        for(int i=0;i<NUM_TERRITORIES;i++)
+        {
+            territorycheck[i]=false;
+        }
+
+        for(int i=0;i<countSelectedCountries();i++)
+        {
+            if(actions[i].landing!=-1)
+            {
+                if(territorycheck[actions[i].landing])
+                {
+                    return true;
+                }
+                else
+                {
+                    territorycheck[actions[i].landing]=true;
+                }
+            }
+
+        }
+
+        return false;
+
+
+    }
+
+
+    public int[] getTerritories() {
+        return territories;
     }
 }

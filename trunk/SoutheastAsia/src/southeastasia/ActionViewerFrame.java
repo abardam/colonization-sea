@@ -84,6 +84,11 @@ public class ActionViewerFrame extends javax.swing.JFrame {
         jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
         jTextArea1.setName("jTextArea1"); // NOI18N
+        jTextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextArea1KeyTyped(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTextArea1);
 
         jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
@@ -309,6 +314,10 @@ public class ActionViewerFrame extends javax.swing.JFrame {
         server.allowActions(playerCode, true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTextArea1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyTyped
+        makeChanges();        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextArea1KeyTyped
 
     /**
     * @param args the command line arguments

@@ -1051,6 +1051,15 @@ public class SoutheastAsiaView extends FrameView {
             jComboBox6.setSelectedIndex(getCountry(5) + 1);
         }
     }
+
+    private void updateTerritoryBoxes()
+    {
+        for(int i=0;i<stats.NUM_TERRITORIES;i++)
+        {
+            territoryCBs[i].setSelectedIndex(stats.getTerritories()[i]+1);
+        }
+    }
+
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         //System.out.println((String)jComboBox1.getSelectedItem());
         //System.out.println(getCountryNumber((String)jComboBox1.getSelectedItem()));
@@ -1270,7 +1279,7 @@ public class SoutheastAsiaView extends FrameView {
         //jTextArea1.append(message+"\n");
         //change this next part, specifically the delimiter
         String[] input = message.split("#");
-
+        System.out.println("FARTZZZZ why are you using this");
         if (input[0].equals("sendaction")) {
             setAction(message.substring("sendaction#".length()), true);
 
@@ -1441,7 +1450,6 @@ public class SoutheastAsiaView extends FrameView {
         boolean overridden = false;
         if (gameStarted) {
 
-            bigPlayerUpdate();
 
 
 
@@ -1456,18 +1464,25 @@ public class SoutheastAsiaView extends FrameView {
                 }
             }
 
-
+            if(stats.landingConflicts())
+            {
+                return 0;
+            }
 
             if (stats.newTurn()) {
                 //game won! now check to see who won and in what category
             } else {
                 updateActionTables();
                 updateCountryTables();
+                updateTerritoryBoxes();
                 for (int i = 0; i < stats.countSelectedCountries(); i++) {
                     allowActions(i, true);
 
                 }
             }
+
+            bigPlayerUpdate();
+
             return 1;
         }
         return 0;
@@ -1624,7 +1639,13 @@ public class SoutheastAsiaView extends FrameView {
     public static SoutheastAsiaAction parseAction(String actionCode) {
         //change the delimiter here
         String[] newaction = actionCode.split("#");
-        return new SoutheastAsiaAction(newaction[1], newaction[2], Integer.parseInt(newaction[3]), Integer.parseInt(newaction[4]), Integer.parseInt(newaction[5]), Integer.parseInt(newaction[6]));
+        SoutheastAsiaAction retval = new SoutheastAsiaAction(newaction[1], newaction[2], Integer.parseInt(newaction[3]), Integer.parseInt(newaction[4]), Integer.parseInt(newaction[5]), Integer.parseInt(newaction[6]));
+        if(newaction.length>7&&newaction[7].equals("landing"))
+        {
+            retval.landing=Integer.parseInt(newaction[8]);
+        }
+
+        return retval;
         //cultural, economic, military, political
     }
 

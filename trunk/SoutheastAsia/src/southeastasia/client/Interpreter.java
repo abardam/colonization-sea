@@ -88,6 +88,10 @@ public class Interpreter {
                 }
             }
         }
+        else if(netcode[0].equals("problem"))
+        {
+            
+        }
     }
 
 }
