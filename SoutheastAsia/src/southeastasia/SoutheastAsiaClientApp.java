@@ -43,9 +43,11 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     //for actions
     private int territoryTargetted; //should be set to -1 every turn, and if the action is changed
     //secretly sent when sending actions
+    public String targetIP;
 
     /** Creates new form SoutheastAsiaClientApp */
-    public SoutheastAsiaClientApp() {
+    public SoutheastAsiaClientApp(String ip) {
+        targetIP=ip;
         port = 7777;
         territoryTargetted=-1;
 
@@ -1019,7 +1021,9 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         if (isConnected == false) {
             System.out.println("Connecting!");
             try {
-                host = InetAddress.getLocalHost();
+                //host = InetAddress.getLocalHost();
+                //host= InetAddress.getByName("169.254.152.205");
+                host= InetAddress.getByName(targetIP);
             } catch (UnknownHostException ex) {
                 System.err.println(ex.getMessage());
                 Logger.getLogger(SoutheastAsiaClientApp.class.getName()).log(Level.SEVERE, null, ex);
@@ -1118,7 +1122,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new SoutheastAsiaClientApp().setVisible(true);
+                //new SoutheastAsiaClientApp().setVisible(true);
             }
         });
     }
