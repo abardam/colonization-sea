@@ -3,6 +3,7 @@
  */
 package southeastasia;
 
+import javax.swing.JOptionPane;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 
@@ -23,18 +24,31 @@ public class SoutheastAsiaApp extends SingleFrameApplication {
      */
     @Override
     protected void startup() {
-        window = new SoutheastAsiaView(this);
-        show(window);
+        
 
         //FakeSockets fs=new FakeSockets(this);
+        Object[] options={"Student", "Teacher"};
+        int optionPicked=JOptionPane.showOptionDialog(null, "You are what kind of player?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 
-        SoutheastAsiaClientApp sac;
 
-        for (int i = 0; i < 1; i++) {
-            sac = new SoutheastAsiaClientApp();
-            sac.setVisible(true);
-            //sac.setFakeSocket(fs); //change this
-            //fs.addClient(sac);
+        if(optionPicked==JOptionPane.NO_OPTION)
+        {
+
+            window = new SoutheastAsiaView(this);
+            show(window);
+        }
+        else
+        {
+            String ip=JOptionPane.showInputDialog("Enter IP Address", "0");
+
+            SoutheastAsiaClientApp sac;
+
+            for (int i = 0; i < 1; i++) {
+                sac = new SoutheastAsiaClientApp(ip);
+                sac.setVisible(true);
+                //sac.setFakeSocket(fs); //change this
+                //fs.addClient(sac);
+            }
         }
 
 
