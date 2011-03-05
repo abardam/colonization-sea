@@ -49,7 +49,7 @@ public class SoutheastAsiaServerStats {
     public static final int BRUNEI=1;
     public static final int CAMBODIA=2;
     public static final int JAVA=3;
-    public static final int KALIMANTAN=4;
+    public static final int BORNEO=4;
     public static final int LAOS=5;
     public static final int MALAYA=6;
     public static final int PAPUA=7;
@@ -59,9 +59,10 @@ public class SoutheastAsiaServerStats {
     public static final int SULAWESI=11;
     public static final int SUMATRA=12;
     public static final int THAILAND=13;
-    public static final int TIMOR=14;
-    public static final int VIETNAM=15;
-    public static final int NUM_TERRITORIES=16;
+    public static final int WTIMOR=14;
+    public static final int ETIMOR=15;
+    public static final int VIETNAM=16;
+    public static final int NUM_TERRITORIES=17;
 
     public static String[] TERRITORY_NAME;
 
@@ -98,7 +99,7 @@ public class SoutheastAsiaServerStats {
         TERRITORY_NAME[1] = "Brunei";
         TERRITORY_NAME[2] = "Cambodia";
         TERRITORY_NAME[3] = "Java";
-        TERRITORY_NAME[4] = "Kalimantan";
+        TERRITORY_NAME[4] = "Borneo";
         TERRITORY_NAME[5] = "Laos";
         TERRITORY_NAME[6] = "Malaya & Singapore";
         TERRITORY_NAME[7] = "Papua New Guinea";
@@ -108,8 +109,9 @@ public class SoutheastAsiaServerStats {
         TERRITORY_NAME[11] = "Sulawesi & Moluccas";
         TERRITORY_NAME[12] = "Sumatra";
         TERRITORY_NAME[13] = "Thailand";
-        TERRITORY_NAME[14] = "Timor";
-        TERRITORY_NAME[15] = "Vietnam";
+        TERRITORY_NAME[14] = "West Timor";
+        TERRITORY_NAME[15] = "East Timor";
+        TERRITORY_NAME[16] = "Vietnam";
     }
 
     //to do: update chatlog method
