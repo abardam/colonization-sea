@@ -10,6 +10,8 @@
  */
 package southeastasia;
 
+import southeastasia.game.SoutheastAsiaAction;
+import southeastasia.game.CountryVariables;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -17,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.awt.CardLayout;
+import java.awt.Polygon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
@@ -26,6 +29,7 @@ import java.net.Socket;
 import java.util.Scanner;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
+import southeastasia.game.ClickablePolygon;
 import southeastasia.loader.ActionsLoader;
 import southeastasia.networking.SoutheastAsiaServerSockets;
 
@@ -65,6 +69,25 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         useFakeSockets = false;
         loadActions();
         stats=new SoutheastAsiaServerStats();
+
+        int testx[]={333,197,101,31, 160,140,269,301,392,377,439,366,401,322,531,396,337,401};
+        int testy[]={42, 151, 301, 459, 678, 748, 736, 688, 975, 1088, 989, 811, 742, 623, 445, 290, 264,184};
+        double mapx=map.getWidth();
+        double origx=3508; //what is the width of the map
+        double mapy=map.getHeight();
+        double origy=2480; //what is the height of the map
+        for(int i=0;i<testx.length;i++)
+        {
+            testx[i]*=mapx;
+            testx[i]/=origx;
+            testy[i]*=mapy;
+            testy[i]/=origy;
+        }
+
+        Polygon testpolygon=new Polygon(testx, testy, testx.length);
+        ClickablePolygon[] p = {new ClickablePolygon(testpolygon, 0)};
+
+        map.addMouseListener(new MapMouseListener(p));
 
         chat = new ChatWindow(this);
 
@@ -286,7 +309,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         mapPanel = new javax.swing.JPanel();
-        jLabel28 = new javax.swing.JLabel();
+        map = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -584,13 +607,13 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel7))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel8))))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -942,9 +965,9 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         jTabbedPane1.addTab(resourceMap.getString("mapPanel.TabConstraints.tabTitle"), mapPanel); // NOI18N
         mapPanel.getAccessibleContext().setAccessibleName(resourceMap.getString("jPanel9.AccessibleContext.accessibleName")); // NOI18N
 
-        jLabel28.setIcon(resourceMap.getIcon("jLabel28.icon")); // NOI18N
-        jLabel28.setText(resourceMap.getString("jLabel28.text")); // NOI18N
-        jLabel28.setName("jLabel28"); // NOI18N
+        map.setIcon(resourceMap.getIcon("map.icon")); // NOI18N
+        map.setText(resourceMap.getString("map.text")); // NOI18N
+        map.setName("map"); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -957,14 +980,14 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel28)))
+                        .addComponent(map)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel28)
+                .addComponent(map)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1162,7 +1185,6 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1200,6 +1222,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     private javax.swing.JComboBox kalimantanCB;
     private javax.swing.JComboBox laosCB;
     private javax.swing.JComboBox malayaCB;
+    private javax.swing.JLabel map;
     private javax.swing.JPanel mapPanel;
     private javax.swing.JTextField militaryField;
     private javax.swing.JTextField militaryPenalty;

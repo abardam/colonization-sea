@@ -144,7 +144,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel28" min="-2" max="-2" attributes="1"/>
+                              <Component id="map" min="-2" max="-2" attributes="1"/>
                           </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
@@ -155,7 +155,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
+                      <Component id="map" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jTabbedPane1" min="-2" pref="297" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
@@ -440,7 +440,7 @@
                                                           <Component id="jTextField5" alignment="3" min="-2" max="-2" attributes="0"/>
                                                           <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                                                       </Group>
-                                                      <EmptySpace pref="10" max="32767" attributes="0"/>
+                                                      <EmptySpace pref="11" max="32767" attributes="0"/>
                                                       <Group type="103" groupAlignment="3" attributes="0">
                                                           <Component id="jTextField6" alignment="3" min="-2" max="-2" attributes="0"/>
                                                           <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -451,9 +451,9 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="30" max="32767" attributes="0"/>
+                              <EmptySpace pref="32" max="32767" attributes="0"/>
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="60" max="32767" attributes="0"/>
+                              <EmptySpace pref="58" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jTextField7" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1279,11 +1279,11 @@
                 </Container>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JLabel" name="jLabel28">
+            <Component class="javax.swing.JLabel" name="map">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" resourceKey="jLabel28.icon"/>
-                <Property name="text" type="java.lang.String" resourceKey="jLabel28.text"/>
-                <Property name="name" type="java.lang.String" value="jLabel28" noResource="true"/>
+                <Property name="icon" type="javax.swing.Icon" resourceKey="map.icon"/>
+                <Property name="text" type="java.lang.String" resourceKey="map.text"/>
+                <Property name="name" type="java.lang.String" value="map" noResource="true"/>
               </Properties>
             </Component>
           </SubComponents>

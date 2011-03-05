@@ -6,6 +6,9 @@
 
 package southeastasia;
 
+import southeastasia.game.SoutheastAsiaAction;
+import southeastasia.game.Problem;
+import southeastasia.game.CountryVariables;
 import java.util.ArrayList;
 
 /**

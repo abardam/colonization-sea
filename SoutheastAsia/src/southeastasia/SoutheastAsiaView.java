@@ -3,6 +3,9 @@
  */
 package southeastasia;
 
+import southeastasia.game.SoutheastAsiaAction;
+import southeastasia.game.Problem;
+import southeastasia.game.CountryVariables;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.ResourceMap;
 import org.jdesktop.application.SingleFrameApplication;
