@@ -11,6 +11,8 @@
 
 package southeastasia;
 
+import southeastasia.game.Problem;
+
 /**
  *
  * @author Enzo

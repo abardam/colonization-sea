@@ -3,7 +3,9 @@
  * and open the template in the editor.
  */
 
-package southeastasia;
+package southeastasia.game;
+
+import southeastasia.game.CountryVariables;
 
 /**
  *

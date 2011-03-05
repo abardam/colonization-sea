@@ -5,7 +5,7 @@
 
 package southeastasia.loader;
 import java.util.ArrayList;
-import southeastasia.Problem;
+import southeastasia.game.Problem;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.*;
