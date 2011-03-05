@@ -1,0 +1,9 @@
+cambodia<Point>97,145</Point>
+<Point>128,149</Point>
+<Point>128,145</Point>
+<Point>141,142</Point>
+<Point>141,161</Point>
+<Point>114,182</Point>
+<Point>98,172</Point>
+<Point>94,153</Point>
+DONE
