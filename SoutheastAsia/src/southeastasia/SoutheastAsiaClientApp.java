@@ -23,6 +23,7 @@ import java.awt.Polygon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
+import java.io.BufferedWriter;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -48,6 +49,8 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     private int territoryTargetted; //should be set to -1 every turn, and if the action is changed
     //secretly sent when sending actions
     public String targetIP;
+
+    private MapMouseListener mapListener;
 
     /** Creates new form SoutheastAsiaClientApp */
     public SoutheastAsiaClientApp(String ip) {
@@ -87,7 +90,8 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         Polygon testpolygon=new Polygon(testx, testy, testx.length);
         ClickablePolygon[] p = {new ClickablePolygon(testpolygon, 0)};
 
-        map.addMouseListener(new MapMouseListener(p));
+        mapListener=new MapMouseListener(p);
+        map.addMouseListener(mapListener);
 
         chat = new ChatWindow(this);
 
@@ -200,6 +204,11 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         cl.show(jPanel4, "game_play");
 
         setTerritories();
+    }
+
+    public void setOutfile(String outfile)
+    {
+        mapListener.setOutfile(outfile);
     }
 
     /*
@@ -1131,7 +1140,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         territoryTargetted=a.landing;
     }
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        chat.setVisible(true);        // TODO add your handling code here:
+        chat.setVisible(true);    
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTextArea1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyTyped
