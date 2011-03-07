@@ -28,14 +28,26 @@ public class SoutheastAsiaAction {
     //is the action null
     public boolean isNull;
 
+    public int item;
+    public static final int ITEM_GAIN=1;
+    public static final int ITEM_TRADE=2;
+
+    public int war;
+    public static final int WAR_ATTACK=1;
+    public static final int WAR_GIVEUP=2;
+
     public SoutheastAsiaAction()
     {
         isNull=false;
+        item=0;
+        war=0;
     }
 
     public SoutheastAsiaAction(boolean isNull)
     {
         this.isNull=isNull;
+        item=0;
+        war=0;
     }
 
     public SoutheastAsiaAction(String name, String desc, int c, int e, int m, int p)
@@ -45,6 +57,8 @@ public class SoutheastAsiaAction {
         description=desc;
         statModifiers=new CountryVariables("", c, e, m ,p);
         landing=-1;
+        item=0;
+        war=0;
     }
     /**
      * this method converts the action to a string

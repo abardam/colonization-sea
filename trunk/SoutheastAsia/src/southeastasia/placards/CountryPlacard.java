@@ -63,14 +63,14 @@ public class CountryPlacard extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(782, Short.MAX_VALUE))
+                .addContainerGap(866, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(441, Short.MAX_VALUE))
+                .addContainerGap(592, Short.MAX_VALUE))
         );
 
         pack();

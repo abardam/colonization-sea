@@ -44,8 +44,35 @@ public class ActionsLoader {
                     Element statElement = (Element) statList.item(0);
                     NodeList stat = statElement.getChildNodes();
                     String[] stats = stat.item(0).getNodeValue().split(",");
-                    if (stats.length > 3) r.add(new SoutheastAsiaAction(name.item(0).getNodeValue(),desc.item(0).getNodeValue(),
-                                                                        Integer.parseInt(stats[0].trim()), Integer.parseInt(stats[1].trim()), Integer.parseInt(stats[2].trim()), Integer.parseInt(stats[3].trim()) ));
+                    if (stats.length > 3) 
+                    {
+                        SoutheastAsiaAction seact=new SoutheastAsiaAction(name.item(0).getNodeValue(), desc.item(0).getNodeValue(),
+                                                                        Integer.parseInt(stats[0].trim()), Integer.parseInt(stats[1].trim()), Integer.parseInt(stats[2].trim()), Integer.parseInt(stats[3].trim()) );
+                        
+                        NodeList warList = first.getElementsByTagName("war");
+                        if(warList.getLength()>0)
+                        {
+                            Element warElement = (Element) warList.item(0);
+                            NodeList war = warElement.getChildNodes();
+                            if(war.item(0).getNodeValue().equals("attack"))
+                                seact.war=SoutheastAsiaAction.WAR_ATTACK;
+                            else if(war.item(0).getNodeValue().equals("surrender"))
+                                seact.war=SoutheastAsiaAction.WAR_GIVEUP;
+                        }
+
+                        NodeList itemList = first.getElementsByTagName("item");
+                        if(itemList.getLength()>0)
+                        {
+                            Element itemElement=(Element)itemList.item(0);
+                            NodeList item=itemElement.getChildNodes();
+                            if(item.item(0).getNodeValue().equals("gain"))
+                                seact.item=SoutheastAsiaAction.ITEM_GAIN;
+                            else if(item.item(0).getNodeValue().equals("trade"))
+                                seact.item=SoutheastAsiaAction.ITEM_TRADE;
+                        }
+
+                        r.add(seact);
+                    }
                 }
             }
         }

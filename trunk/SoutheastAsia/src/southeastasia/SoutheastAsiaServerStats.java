@@ -45,8 +45,12 @@ public class SoutheastAsiaServerStats {
 
 
     //each player corresponds to a number (a slot in the arrays)
-
     private int[] territories;
+
+    //items
+    private ArrayList<ItemDetails>[] items;
+
+
     //each number here corresponds to a territory:
     public static final int BURMA=0;
     public static final int BRUNEI=1;
@@ -102,6 +106,7 @@ public class SoutheastAsiaServerStats {
         countries=new int[SoutheastAsiaApp.MAX_PLAYERS];
         approval=new boolean[SoutheastAsiaApp.MAX_PLAYERS];
         solved=new boolean[SoutheastAsiaApp.MAX_PLAYERS];
+        items=new ArrayList[SoutheastAsiaApp.MAX_PLAYERS];
 
         for(int i=0;i<SoutheastAsiaApp.MAX_PLAYERS;i++)
         {
@@ -111,6 +116,7 @@ public class SoutheastAsiaServerStats {
             countries[i]=-1;
             approval[i]=false;
             solved[i]=false;
+            items[i]=new ArrayList<ItemDetails>();
         }
 
         territories=new int[NUM_TERRITORIES];

@@ -26,12 +26,14 @@
         <name>Invasion</name>
         <desc>You must have at least 5E to execute an invasion. Look at the Battle Chart or your teacher for the result of the battle.</desc>
         <stat>0, -5, 0, 0</stat>
+        <war>attack</war>
     </action>
 
     <action>
         <name>Military Surrender</name>
         <desc>.</desc>
         <stat>2, 0, -2, 0</stat>
+        <war>surrender</war>
     </action>
 
     <action>
@@ -68,12 +70,14 @@
         <name>Gather a resource</name>
         <desc>Look at your resource chart for the available resources on your land or island. For instance, you can start an oil palm plantation or a fishery or a rice field farm. Planting cash crops such as rubber, tea or palm oil over a large piece of land in Southeast Asia is the best choice because the climate here is very suitable for these cash crops.</desc>
         <stat>0, 10, 0, 0</stat>
+        <item>gain</item>
     </action>
 
     <action>
         <name>Trade</name>
         <desc>You must have a resource to trade!You must also have a trade agreement with that country. The trade commodity must be different and lacking in both empires. Establishing trading routes via sea during this period is the way to trade excess goods and resources that you have with goods and resources that you do not have but want badly. Through trade, you get the resource card from your teacher that your trading partner decides to trade with you. </desc>
         <stat>0, 15, 0, 0</stat>
+        <item>trade</item>
     </action>
 
     <action>

@@ -68,6 +68,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
 
 
         initComponents();
+        setSize(842, 630);
         cl = (CardLayout) jPanel4.getLayout();
         isConnected = false;
         useFakeSockets = false;
@@ -119,6 +120,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         portugalbtn.addActionListener(new PlacardListener("Portugal"));
         spainbtn.addActionListener(new PlacardListener("Spain"));
 
+        chat.setVisible(true);    
     }
 
     javax.swing.JComboBox[] territoryCBs;
@@ -227,6 +229,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     public void startGameScreen() {
         cl.show(jPanel4, "game_play");
 
+        setSize(700,760);
         setTerritories();
     }
 
@@ -257,6 +260,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         connect = new javax.swing.JButton();
+        jLabel28 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         portugalbtn = new javax.swing.JButton();
         spainbtn = new javax.swing.JButton();
@@ -351,12 +355,16 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(660, 280));
         setName("Form"); // NOI18N
 
+        jPanel4.setMinimumSize(new java.awt.Dimension(100, 100));
         jPanel4.setName("jPanel4"); // NOI18N
         jPanel4.setLayout(new java.awt.CardLayout());
 
         jPanel1.setName("jPanel1"); // NOI18N
+        jPanel1.setPreferredSize(new java.awt.Dimension(660, 280));
+        jPanel1.setLayout(new java.awt.BorderLayout());
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(southeastasia.SoutheastAsiaApp.class).getContext().getResourceMap(SoutheastAsiaClientApp.class);
         connect.setText(resourceMap.getString("connect.text")); // NOI18N
@@ -366,90 +374,53 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
                 connectActionPerformed(evt);
             }
         });
+        jPanel1.add(connect, java.awt.BorderLayout.SOUTH);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(connect)
-                .addContainerGap(744, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(connect)
-                .addContainerGap(690, Short.MAX_VALUE))
-        );
+        jLabel28.setIcon(resourceMap.getIcon("jLabel28.icon")); // NOI18N
+        jLabel28.setText(resourceMap.getString("jLabel28.text")); // NOI18N
+        jLabel28.setName("jLabel28"); // NOI18N
+        jPanel1.add(jLabel28, java.awt.BorderLayout.CENTER);
 
         jPanel4.add(jPanel1, "country_select");
 
         jPanel9.setName("jPanel9"); // NOI18N
+        jPanel9.setPreferredSize(new java.awt.Dimension(660, 280));
+        jPanel9.setLayout(new java.awt.GridLayout(2, 3));
 
         portugalbtn.setIcon(resourceMap.getIcon("portugalbtn.icon")); // NOI18N
         portugalbtn.setText(resourceMap.getString("portugalbtn.text")); // NOI18N
         portugalbtn.setName("portugalbtn"); // NOI18N
+        jPanel9.add(portugalbtn);
 
         spainbtn.setIcon(resourceMap.getIcon("spainbtn.icon")); // NOI18N
         spainbtn.setText(resourceMap.getString("spainbtn.text")); // NOI18N
         spainbtn.setName("spainbtn"); // NOI18N
+        jPanel9.add(spainbtn);
 
         britainbtn.setIcon(resourceMap.getIcon("britainbtn.icon")); // NOI18N
         britainbtn.setText(resourceMap.getString("britainbtn.text")); // NOI18N
         britainbtn.setName("britainbtn"); // NOI18N
+        jPanel9.add(britainbtn);
 
         dutchbtn.setIcon(resourceMap.getIcon("dutchbtn.icon")); // NOI18N
         dutchbtn.setText(resourceMap.getString("dutchbtn.text")); // NOI18N
         dutchbtn.setName("dutchbtn"); // NOI18N
+        jPanel9.add(dutchbtn);
 
         frenchbtn.setIcon(resourceMap.getIcon("frenchbtn.icon")); // NOI18N
         frenchbtn.setText(resourceMap.getString("frenchbtn.text")); // NOI18N
         frenchbtn.setName("frenchbtn"); // NOI18N
+        jPanel9.add(frenchbtn);
 
         usbtn.setIcon(resourceMap.getIcon("usbtn.icon")); // NOI18N
         usbtn.setText(resourceMap.getString("usbtn.text")); // NOI18N
         usbtn.setName("usbtn"); // NOI18N
-
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(dutchbtn, javax.swing.GroupLayout.Alignment.TRAILING, 0, 0, Short.MAX_VALUE)
-                    .addComponent(portugalbtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 222, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(frenchbtn, javax.swing.GroupLayout.Alignment.TRAILING, 0, 0, Short.MAX_VALUE)
-                    .addComponent(spainbtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 218, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(usbtn, 0, 0, Short.MAX_VALUE)
-                    .addComponent(britainbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 220, Short.MAX_VALUE))
-                .addContainerGap(145, Short.MAX_VALUE))
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(britainbtn, 0, 0, Short.MAX_VALUE)
-                    .addComponent(spainbtn, 0, 0, Short.MAX_VALUE)
-                    .addComponent(portugalbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 143, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(usbtn, 0, 0, Short.MAX_VALUE)
-                    .addComponent(frenchbtn, 0, 0, Short.MAX_VALUE)
-                    .addComponent(dutchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 136, Short.MAX_VALUE))
-                .addContainerGap(428, Short.MAX_VALUE))
-        );
+        jPanel9.add(usbtn);
 
         jPanel4.add(jPanel9, "countryselect");
 
         jPanel2.setName("jPanel2"); // NOI18N
+        jPanel2.setPreferredSize(new java.awt.Dimension(660, 280));
 
         jTabbedPane1.setName("jTabbedPane1"); // NOI18N
 
@@ -689,9 +660,9 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel8))))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1059,7 +1030,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(map)))
-                .addContainerGap(228, Short.MAX_VALUE))
+                .addContainerGap(246, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1073,6 +1044,8 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
 
         jPanel4.add(jPanel2, "game_play");
 
+        getContentPane().add(jPanel4, java.awt.BorderLayout.CENTER);
+
         jButton3.setText(resourceMap.getString("jButton3.text")); // NOI18N
         jButton3.setName("jButton3"); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -1080,27 +1053,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(748, Short.MAX_VALUE)
-                        .addComponent(jButton3))
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 827, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
-                .addContainerGap())
-        );
+        getContentPane().add(jButton3, java.awt.BorderLayout.SOUTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1126,6 +1079,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
                 setSocket(socket);
 
                 cl.show(jPanel4, "countryselect");
+                setSize(660,300);
             } catch (UnknownHostException ex) {
                 System.err.println(ex.getMessage());
                 Logger.getLogger(SoutheastAsiaClientApp.class.getName()).log(Level.SEVERE, null, ex);
@@ -1259,6 +1213,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
