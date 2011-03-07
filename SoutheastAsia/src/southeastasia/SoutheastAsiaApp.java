@@ -27,8 +27,8 @@ public class SoutheastAsiaApp extends SingleFrameApplication {
         
 
         //FakeSockets fs=new FakeSockets(this);
-        Object[] options={"Student", "Teacher", "Debug"};
-        int optionPicked=JOptionPane.showOptionDialog(null, "You are what kind of player?", "", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        Object[] options={"Student", "Teacher"};//, "Debug"};
+        int optionPicked=JOptionPane.showOptionDialog(null, "You are what kind of player?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 
 
         if(optionPicked==JOptionPane.NO_OPTION)
@@ -50,14 +50,15 @@ public class SoutheastAsiaApp extends SingleFrameApplication {
                 //fs.addClient(sac);
             }
         }
-        else
-        {
+        else if(optionPicked==JOptionPane.CANCEL_OPTION)
+        {/*
             SoutheastAsiaClientApp sac=new SoutheastAsiaClientApp("0");
             sac.setVisible(true);
             sac.startGameScreen();
-            sac.setOutfile("map.txt");
+            sac.setOutfile("map.txt");*/
         }
-
+        else{
+        }
 
         //window.setFakeSockets(fs); //remove this after fakesockets
     }
