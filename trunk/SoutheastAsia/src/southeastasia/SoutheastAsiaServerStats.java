@@ -10,6 +10,9 @@ import southeastasia.game.SoutheastAsiaAction;
 import southeastasia.game.Problem;
 import southeastasia.game.CountryVariables;
 import java.util.ArrayList;
+import southeastasia.game.ItemDetails;
+import southeastasia.game.TerritoryDetails;
+import southeastasia.game.TerritoryDetailsFactory;
 
 /**
  *
@@ -64,8 +67,31 @@ public class SoutheastAsiaServerStats {
     public static final int VIETNAM=16;
     public static final int NUM_TERRITORIES=17;
 
-    public static String[] TERRITORY_NAME;
+    /*
+    public static final int NUTMEG=0;
+    public static final int TIMBER=1;
+    public static final int RICE=2;
+    public static final int PALMOIL=3;
+    public static final int FISH=4;
+    public static final int SUGARCANE=5;
+    public static final int TEA=6;
+    public static final int COCONUT=7;
+    public static final int PEPPER=8;
+    public static final int CLOVE=9;
+    public static final int SANDALWOOD=10;
+    public static final int GINGER=11;
+    public static final int COPPER=12;
+    public static final int GOLD=13;
+    public static final int TIN=14;
+    public static final int SILVER=15;
+    public static final int OIL=16;
+    public static final int NUM_RESOURCES=17;*/
 
+    public static String[] TERRITORY_NAME;
+    //public static String[] RESOURCE_NAME;
+    //public static int[][] COUNTRY_RESOURCES;
+
+    
     public SoutheastAsiaServerStats()
     {
         //initialize arrays
@@ -112,6 +138,28 @@ public class SoutheastAsiaServerStats {
         TERRITORY_NAME[14] = "West Timor";
         TERRITORY_NAME[15] = "East Timor";
         TERRITORY_NAME[16] = "Vietnam";
+
+        /*
+        RESOURCE_NAME=new String[NUM_RESOURCES];
+        RESOURCE_NAME[0]="Nutmeg";
+        RESOURCE_NAME[1]="Timber";
+        RESOURCE_NAME[2]="Rice";
+        RESOURCE_NAME[3]="Palm oil";
+        RESOURCE_NAME[4]="Fish";
+        RESOURCE_NAME[5]="Sugarcane";
+        RESOURCE_NAME[6]="Tea";
+        RESOURCE_NAME[7]="Coconut";
+        RESOURCE_NAME[8]="Pepper";
+        RESOURCE_NAME[9]="Clove";
+        RESOURCE_NAME[10]="Sandalwood";
+        RESOURCE_NAME[11]="Ginger";
+        RESOURCE_NAME[12]="Copper";
+        RESOURCE_NAME[13]="Gold";
+        RESOURCE_NAME[14]="Tin";
+        RESOURCE_NAME[15]="Silver";
+        RESOURCE_NAME[16]="Oil";
+        */
+
     }
 
     //to do: update chatlog method
@@ -468,5 +516,25 @@ public class SoutheastAsiaServerStats {
 
     public int[] getTerritories() {
         return territories;
+    }
+
+    public ArrayList<TerritoryDetails> getTerritoriesOf(int countryCode){
+        ArrayList<TerritoryDetails> td=new ArrayList<TerritoryDetails>();
+        for(int t:territories)
+        {
+            if(t==countryCode)
+                td.add(TerritoryDetailsFactory.getTerritoryDetails(t));
+        }
+        return td;
+    }
+
+    public ArrayList<ItemDetails> getPossibleItemListOf(int countryCode)
+    {
+        ArrayList<ItemDetails> id=new ArrayList<ItemDetails>();
+        for(TerritoryDetails td:getTerritoriesOf(countryCode))
+        {
+            id.addAll(td.getItems());
+        }
+        return id;
     }
 }
