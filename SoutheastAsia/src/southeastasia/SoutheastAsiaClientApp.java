@@ -19,11 +19,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.awt.CardLayout;
-import java.awt.Polygon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
-import java.io.BufferedWriter;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -32,6 +30,7 @@ import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 import southeastasia.game.ClickablePolygon;
 import southeastasia.loader.ActionsLoader;
+import southeastasia.loader.ClickablePolygonLoader;
 import southeastasia.networking.SoutheastAsiaServerSockets;
 
 /**
@@ -41,6 +40,7 @@ import southeastasia.networking.SoutheastAsiaServerSockets;
 public class SoutheastAsiaClientApp extends javax.swing.JFrame {
 
     public static final String ACTIONSPATH = "src\\southeastasia\\resources\\actions.xml";
+    public static final String MAP_AREAS="src\\southeastasia\\resources\\poly.xml";
     private DefaultTableModel countriesTableModel;
     private ChatWindow chat;
     private SoutheastAsiaServerStats stats;
@@ -73,6 +73,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         loadActions();
         stats=new SoutheastAsiaServerStats();
 
+        /*
         int testx[]={333,197,101,31, 160,140,269,301,392,377,439,366,401,322,531,396,337,401};
         int testy[]={42, 151, 301, 459, 678, 748, 736, 688, 975, 1088, 989, 811, 742, 623, 445, 290, 264,184};
         double mapx=map.getWidth();
@@ -88,9 +89,12 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         }
 
         Polygon testpolygon=new Polygon(testx, testy, testx.length);
-        ClickablePolygon[] p = {new ClickablePolygon(testpolygon, 0)};
+        ClickablePolygon[] p = {new ClickablePolygon(testpolygon, 0)};*/
 
-        mapListener=new MapMouseListener(p);
+        ArrayList<ClickablePolygon> p = ClickablePolygonLoader.load(MAP_AREAS);
+        ClickablePolygon[] c=new ClickablePolygon[SoutheastAsiaServerStats.NUM_TERRITORIES];
+        p.toArray(c);
+        mapListener=new MapMouseListener(c, this);
         map.addMouseListener(mapListener);
 
         chat = new ChatWindow(this);

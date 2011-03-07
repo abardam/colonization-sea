@@ -21,9 +21,11 @@ public class MapMouseListener implements MouseListener{
 
     private ClickablePolygon[] clickableArea;
     private BufferedWriter debugWriter;
-    public MapMouseListener(ClickablePolygon[] targets)
+    private SoutheastAsiaClientApp app;
+    public MapMouseListener(ClickablePolygon[] targets, SoutheastAsiaClientApp app)
     {
         clickableArea=targets;
+        this.app=app;
     }
     public void mouseClicked(MouseEvent e) {
         //System.out.println(e.getX()+" "+e.getY());
@@ -34,7 +36,8 @@ public class MapMouseListener implements MouseListener{
             {
                 if(clickableArea[i].contains(e.getPoint()))
                 {
-                    System.out.println("clicked on "+clickableArea[i].getTargetCountry());
+                    //System.out.println("clicked on "+clickableArea[i].getTargetCountry());
+                    new TerritoryViewerFrame(SoutheastAsiaServerStats.TERRITORY_NAME[clickableArea[i].getTargetCountry()], clickableArea[i].getTargetCountry(), app).setVisible(true);
                 }
             }
         }
