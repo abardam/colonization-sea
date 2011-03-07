@@ -26,10 +26,10 @@
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace pref="530" max="32767" attributes="0"/>
+                      <EmptySpace pref="748" max="32767" attributes="0"/>
                       <Component id="jButton3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jPanel4" alignment="0" pref="609" max="32767" attributes="0"/>
+                  <Component id="jPanel4" alignment="0" pref="827" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -67,51 +67,24 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTextField1" alignment="0" min="-2" pref="318" max="-2" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jButton1" alignment="0" max="32767" attributes="1"/>
-                              <Component id="connect" alignment="0" min="-2" max="-2" attributes="1"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="connect" min="-2" max="-2" attributes="1"/>
+                      <EmptySpace pref="744" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="connect" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace pref="690" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JTextField" name="jTextField1">
-              <Properties>
-                <Property name="name" type="java.lang.String" value="jTextField1" noResource="true"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
-              <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="jButton1.text"/>
-                <Property name="name" type="java.lang.String" value="jButton1" noResource="true"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JButton" name="connect">
               <Properties>
                 <Property name="text" type="java.lang.String" resourceKey="connect.text"/>
@@ -120,6 +93,104 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="connectActionPerformed"/>
               </Events>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="jPanel9">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="jPanel9" noResource="true"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+              <CardConstraints cardName="countryselect"/>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="dutchbtn" alignment="1" min="0" pref="0" max="32767" attributes="1"/>
+                          <Component id="portugalbtn" alignment="1" pref="222" max="32767" attributes="1"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="frenchbtn" alignment="1" min="0" pref="0" max="32767" attributes="1"/>
+                          <Component id="spainbtn" alignment="1" pref="218" max="32767" attributes="1"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="usbtn" min="0" pref="0" max="32767" attributes="1"/>
+                          <Component id="britainbtn" alignment="0" pref="220" max="32767" attributes="1"/>
+                      </Group>
+                      <EmptySpace pref="145" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="britainbtn" min="0" pref="0" max="32767" attributes="1"/>
+                          <Component id="spainbtn" alignment="0" min="0" pref="0" max="32767" attributes="1"/>
+                          <Component id="portugalbtn" alignment="0" pref="143" max="32767" attributes="1"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="usbtn" min="0" pref="0" max="32767" attributes="1"/>
+                          <Component id="frenchbtn" alignment="0" min="0" pref="0" max="32767" attributes="1"/>
+                          <Component id="dutchbtn" alignment="0" pref="136" max="32767" attributes="1"/>
+                      </Group>
+                      <EmptySpace pref="428" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JButton" name="portugalbtn">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" resourceKey="portugalbtn.icon"/>
+                <Property name="text" type="java.lang.String" resourceKey="portugalbtn.text"/>
+                <Property name="name" type="java.lang.String" value="portugalbtn" noResource="true"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="spainbtn">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" resourceKey="spainbtn.icon"/>
+                <Property name="text" type="java.lang.String" resourceKey="spainbtn.text"/>
+                <Property name="name" type="java.lang.String" value="spainbtn" noResource="true"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="britainbtn">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" resourceKey="britainbtn.icon"/>
+                <Property name="text" type="java.lang.String" resourceKey="britainbtn.text"/>
+                <Property name="name" type="java.lang.String" value="britainbtn" noResource="true"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="dutchbtn">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" resourceKey="dutchbtn.icon"/>
+                <Property name="text" type="java.lang.String" resourceKey="dutchbtn.text"/>
+                <Property name="name" type="java.lang.String" value="dutchbtn" noResource="true"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="frenchbtn">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" resourceKey="frenchbtn.icon"/>
+                <Property name="text" type="java.lang.String" resourceKey="frenchbtn.text"/>
+                <Property name="name" type="java.lang.String" value="frenchbtn" noResource="true"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="usbtn">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" resourceKey="usbtn.icon"/>
+                <Property name="text" type="java.lang.String" resourceKey="usbtn.text"/>
+                <Property name="name" type="java.lang.String" value="usbtn" noResource="true"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -147,7 +218,7 @@
                               <Component id="map" min="-2" max="-2" attributes="1"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="228" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -453,7 +524,7 @@
                               </Group>
                               <EmptySpace pref="33" max="32767" attributes="0"/>
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="59" max="32767" attributes="0"/>
+                              <EmptySpace pref="57" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jTextField7" alignment="3" min="-2" max="-2" attributes="0"/>
