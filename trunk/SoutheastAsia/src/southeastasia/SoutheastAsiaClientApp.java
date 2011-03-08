@@ -26,9 +26,11 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
-import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import southeastasia.game.ClickablePolygon;
+import southeastasia.game.ItemDetails;
+import southeastasia.game.ItemDetailsFactory;
 import southeastasia.loader.ActionsLoader;
 import southeastasia.loader.ClickablePolygonLoader;
 import southeastasia.networking.SoutheastAsiaServerSockets;
@@ -41,25 +43,31 @@ import southeastasia.placards.CountryPlacard;
 public class SoutheastAsiaClientApp extends javax.swing.JFrame {
 
     public static final String ACTIONSPATH = "src\\southeastasia\\resources\\actions.xml";
-    public static final String MAP_AREAS="src\\southeastasia\\resources\\poly.xml";
+    public static final String MAP_AREAS = "src\\southeastasia\\resources\\poly.xml";
     private DefaultTableModel countriesTableModel;
     private ChatWindow chat;
     private SoutheastAsiaServerStats stats;
-
     //for actions
     private int territoryTargetted; //should be set to -1 every turn, and if the action is changed
     //secretly sent when sending actions
+    private String productTargetted; //should be set to -1 every turn
+    private boolean tradeOrGain; //true: trade, false: gain
+    private boolean actionLock;
+    private boolean invasionDeclared;
     public String targetIP;
-
     private MapMouseListener mapListener;
+    private ItemPanel itemPanel;
 
     /** Creates new form SoutheastAsiaClientApp */
     public SoutheastAsiaClientApp(String ip) {
-        targetIP=ip;
+        targetIP = ip;
         port = 7777;
-        territoryTargetted=-1;
+        territoryTargetted = -1;
+        productTargetted = "";
+        actionLock = false;
+        invasionDeclared = false;
 
-        countriesTableModel=new DefaultTableModel();
+        countriesTableModel = new DefaultTableModel();
         countriesTableModel.addColumn("Country");
         countriesTableModel.addColumn("Cultural");
         countriesTableModel.addColumn("Economic");
@@ -69,11 +77,13 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
 
         initComponents();
         setSize(842, 630);
+        itemPanel=new ItemPanel();
+        //jPanel6.add(itemPanel); replaced for now by a text box
         cl = (CardLayout) jPanel4.getLayout();
         isConnected = false;
         useFakeSockets = false;
         loadActions();
-        stats=new SoutheastAsiaServerStats();
+        stats = new SoutheastAsiaServerStats();
 
         /*
         int testx[]={333,197,101,31, 160,140,269,301,392,377,439,366,401,322,531,396,337,401};
@@ -84,34 +94,34 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         double origy=2480; //what is the height of the map
         for(int i=0;i<testx.length;i++)
         {
-            testx[i]*=mapx;
-            testx[i]/=origx;
-            testy[i]*=mapy;
-            testy[i]/=origy;
+        testx[i]*=mapx;
+        testx[i]/=origx;
+        testy[i]*=mapy;
+        testy[i]/=origy;
         }
 
         Polygon testpolygon=new Polygon(testx, testy, testx.length);
         ClickablePolygon[] p = {new ClickablePolygon(testpolygon, 0)};*/
 
         ArrayList<ClickablePolygon> p = ClickablePolygonLoader.load(MAP_AREAS);
-        ClickablePolygon[] c=new ClickablePolygon[SoutheastAsiaServerStats.NUM_TERRITORIES];
+        ClickablePolygon[] c = new ClickablePolygon[SoutheastAsiaServerStats.NUM_TERRITORIES];
         p.toArray(c);
-        mapListener=new MapMouseListener(c, this);
+        mapListener = new MapMouseListener(c, this);
         map.addMouseListener(mapListener);
 
         chat = new ChatWindow(this);
 
-        class PlacardListener implements ActionListener
-        {
+        class PlacardListener implements ActionListener {
+
             private String countryName;
-            public PlacardListener(String countryName)
-            {
-                this.countryName=countryName;
+
+            public PlacardListener(String countryName) {
+                this.countryName = countryName;
             }
+
             public void actionPerformed(ActionEvent e) {
                 new CountryPlacard(countryName).setVisible(true);
             }
-
         }
         usbtn.addActionListener(new PlacardListener("Americans"));
         britainbtn.addActionListener(new PlacardListener("British"));
@@ -120,13 +130,13 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         portugalbtn.addActionListener(new PlacardListener("Portugal"));
         spainbtn.addActionListener(new PlacardListener("Spain"));
 
-        chat.setVisible(true);    
+        chat.setVisible(true);
     }
-
     javax.swing.JComboBox[] territoryCBs;
+
     private void setTerritories() //for now, just sets all territory combo boxes to disabled.
     {
-        
+
         burmaCB.setEnabled(false);
         bruneiCB.setEnabled(false);
         cambodiaCB.setEnabled(false);
@@ -141,63 +151,53 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         sulawesiCB.setEnabled(false);
         sumatraCB.setEnabled(false);
         thailandCB.setEnabled(false);
-        timorCB.setEnabled(false);
+        etimorCB.setEnabled(false);
+        wtimorCB.setEnabled(false);
         vietnamCB.setEnabled(false);
 
-        territoryCBs=new javax.swing.JComboBox[SoutheastAsiaServerStats.NUM_TERRITORIES];
-        territoryCBs[0]=burmaCB;
-        territoryCBs[1]=bruneiCB;
-        territoryCBs[2]=cambodiaCB;
-        territoryCBs[3]=(javaCB);
-        territoryCBs[4]=(kalimantanCB);
-        territoryCBs[5]=(laosCB);
-        territoryCBs[6]=(malayaCB);
-        territoryCBs[7]=(papuaCB);
-        territoryCBs[8]=(philippinesCB);
-        territoryCBs[9]=(sabahCB);
-        territoryCBs[10]=(sarawakCB);
-        territoryCBs[11]=(sulawesiCB);
-        territoryCBs[12]=(sumatraCB);
-        territoryCBs[13]=(thailandCB);
-        territoryCBs[14]=(timorCB);
-        territoryCBs[15]=(vietnamCB);
+        territoryCBs = new javax.swing.JComboBox[SoutheastAsiaServerStats.NUM_TERRITORIES];
+        territoryCBs[0] = burmaCB;
+        territoryCBs[1] = bruneiCB;
+        territoryCBs[2] = cambodiaCB;
+        territoryCBs[3] = (javaCB);
+        territoryCBs[4] = (kalimantanCB);
+        territoryCBs[5] = (laosCB);
+        territoryCBs[6] = (malayaCB);
+        territoryCBs[7] = (papuaCB);
+        territoryCBs[8] = (philippinesCB);
+        territoryCBs[9] = (sabahCB);
+        territoryCBs[10] = (sarawakCB);
+        territoryCBs[11] = (sulawesiCB);
+        territoryCBs[12] = (sumatraCB);
+        territoryCBs[13] = (thailandCB);
+        territoryCBs[14] = (etimorCB);
+        territoryCBs[15] = (wtimorCB);
+        territoryCBs[16] = vietnamCB;
 
-        for(javax.swing.JComboBox jcb:territoryCBs)
-        {
+        for (javax.swing.JComboBox jcb : territoryCBs) {
             jcb.removeAllItems();
 
             jcb.addItem("---");
-            for(String s:stats.getCountryNames())
-            {
+            for (String s : stats.getCountryNames()) {
                 jcb.addItem(s);
             }
         }
 
-        class MapListener implements ActionListener
-        {
+        class MapListener implements ActionListener {
+
             private int territoryCode;
             private String name;
             private SoutheastAsiaClientApp app;
-            public MapListener(int territoryCode, String name, SoutheastAsiaClientApp app)
-            {
-                this.territoryCode=territoryCode;
-                this.name=name;
-                this.app=app;
-            }
-            public void actionPerformed(ActionEvent ae)
-            {
-                new TerritoryViewerFrame(name,territoryCode, app).setVisible(true);
-            }
-        }
 
-        JButton jb;
-        int i=0;
-        for(String s:SoutheastAsiaServerStats.TERRITORY_NAME)
-        {
-            jb=new JButton(s);
-            jb.addActionListener(new MapListener(i,s, this));
-            mapPanel.add(jb);
-            i++;
+            public MapListener(int territoryCode, String name, SoutheastAsiaClientApp app) {
+                this.territoryCode = territoryCode;
+                this.name = name;
+                this.app = app;
+            }
+
+            public void actionPerformed(ActionEvent ae) {
+                new TerritoryViewerFrame(name, territoryCode, app).setVisible(true);
+            }
         }
     }
     private ArrayList<SoutheastAsiaAction> actions;
@@ -229,12 +229,11 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     public void startGameScreen() {
         cl.show(jPanel4, "game_play");
 
-        setSize(700,760);
+        setSize(700, 760);
         setTerritories();
     }
 
-    public void setOutfile(String outfile)
-    {
+    public void setOutfile(String outfile) {
         mapListener.setOutfile(outfile);
     }
 
@@ -316,11 +315,11 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         politicalSolve = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
+        itemArea = new javax.swing.JTextArea();
         jPanel7 = new javax.swing.JPanel();
-        vietnamCB = new javax.swing.JComboBox();
+        wtimorCB = new javax.swing.JComboBox();
         thailandCB = new javax.swing.JComboBox();
-        timorCB = new javax.swing.JComboBox();
+        etimorCB = new javax.swing.JComboBox();
         sulawesiCB = new javax.swing.JComboBox();
         sumatraCB = new javax.swing.JComboBox();
         sarawakCB = new javax.swing.JComboBox();
@@ -350,7 +349,8 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         burmaCB = new javax.swing.JComboBox();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
-        mapPanel = new javax.swing.JPanel();
+        jLabel29 = new javax.swing.JLabel();
+        vietnamCB = new javax.swing.JComboBox();
         map = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
 
@@ -362,11 +362,12 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         jPanel4.setName("jPanel4"); // NOI18N
         jPanel4.setLayout(new java.awt.CardLayout());
 
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(southeastasia.SoutheastAsiaApp.class).getContext().getResourceMap(SoutheastAsiaClientApp.class);
+        jPanel1.setBackground(resourceMap.getColor("jPanel1.background")); // NOI18N
         jPanel1.setName("jPanel1"); // NOI18N
         jPanel1.setPreferredSize(new java.awt.Dimension(660, 280));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(southeastasia.SoutheastAsiaApp.class).getContext().getResourceMap(SoutheastAsiaClientApp.class);
         connect.setText(resourceMap.getString("connect.text")); // NOI18N
         connect.setName("connect"); // NOI18N
         connect.addActionListener(new java.awt.event.ActionListener() {
@@ -376,6 +377,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         });
         jPanel1.add(connect, java.awt.BorderLayout.SOUTH);
 
+        jLabel28.setBackground(resourceMap.getColor("jLabel28.background")); // NOI18N
         jLabel28.setIcon(resourceMap.getIcon("jLabel28.icon")); // NOI18N
         jLabel28.setText(resourceMap.getString("jLabel28.text")); // NOI18N
         jLabel28.setName("jLabel28"); // NOI18N
@@ -419,6 +421,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
 
         jPanel4.add(jPanel9, "countryselect");
 
+        jPanel2.setBackground(resourceMap.getColor("jPanel2.background")); // NOI18N
         jPanel2.setName("jPanel2"); // NOI18N
         jPanel2.setPreferredSize(new java.awt.Dimension(660, 280));
 
@@ -660,9 +663,9 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel8))))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -770,10 +773,11 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
 
         jScrollPane3.setName("jScrollPane3"); // NOI18N
 
-        jTextArea3.setColumns(20);
-        jTextArea3.setRows(5);
-        jTextArea3.setName("jTextArea3"); // NOI18N
-        jScrollPane3.setViewportView(jTextArea3);
+        itemArea.setColumns(20);
+        itemArea.setEditable(false);
+        itemArea.setRows(5);
+        itemArea.setName("itemArea"); // NOI18N
+        jScrollPane3.setViewportView(itemArea);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -788,22 +792,23 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(100, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel6.TabConstraints.tabTitle"), jPanel6); // NOI18N
 
+        jPanel7.setBackground(resourceMap.getColor("jPanel7.background")); // NOI18N
         jPanel7.setName("jPanel7"); // NOI18N
 
-        vietnamCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        vietnamCB.setName("vietnamCB"); // NOI18N
+        wtimorCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        wtimorCB.setName("wtimorCB"); // NOI18N
 
         thailandCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         thailandCB.setName("thailandCB"); // NOI18N
 
-        timorCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        timorCB.setName("timorCB"); // NOI18N
+        etimorCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        etimorCB.setName("etimorCB"); // NOI18N
 
         sulawesiCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         sulawesiCB.setName("sulawesiCB"); // NOI18N
@@ -892,6 +897,12 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         jLabel26.setText(resourceMap.getString("jLabel26.text")); // NOI18N
         jLabel26.setName("jLabel26"); // NOI18N
 
+        jLabel29.setText(resourceMap.getString("jLabel29.text")); // NOI18N
+        jLabel29.setName("jLabel29"); // NOI18N
+
+        vietnamCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        vietnamCB.setName("vietnamCB"); // NOI18N
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -940,17 +951,19 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
                     .addComponent(jLabel19)
                     .addComponent(jLabel20)
                     .addComponent(jLabel21)
-                    .addComponent(jLabel22))
+                    .addComponent(jLabel22)
+                    .addComponent(jLabel29))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(vietnamCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(philippinesCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sabahCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sarawakCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sulawesiCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sumatraCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(thailandCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(timorCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(vietnamCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(etimorCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(wtimorCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(194, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -997,22 +1010,21 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
                     .addComponent(jLabel26)
                     .addComponent(malayaCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21)
-                    .addComponent(timorCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(etimorCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)
                     .addComponent(papuaCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel22)
+                    .addComponent(wtimorCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel29)
                     .addComponent(vietnamCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel7.TabConstraints.tabTitle"), jPanel7); // NOI18N
-
-        mapPanel.setName("mapPanel"); // NOI18N
-        mapPanel.setLayout(new java.awt.GridLayout(8, 2));
-        jTabbedPane1.addTab(resourceMap.getString("mapPanel.TabConstraints.tabTitle"), mapPanel); // NOI18N
-        mapPanel.getAccessibleContext().setAccessibleName(resourceMap.getString("jPanel9.AccessibleContext.accessibleName")); // NOI18N
 
         map.setIcon(resourceMap.getIcon("map.icon")); // NOI18N
         map.setText(resourceMap.getString("map.text")); // NOI18N
@@ -1023,14 +1035,11 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(map)))
-                .addContainerGap(246, Short.MAX_VALUE))
+                .addGap(127, 127, 127)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(map)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1060,16 +1069,15 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
 
     /*
     public void tempMessage(String message) {
-        jTextField1.setText(message);
+    jTextField1.setText(message);
     }*/
-
     private void connectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectActionPerformed
         if (isConnected == false) {
             System.out.println("Connecting!");
             try {
                 //host = InetAddress.getLocalHost();
                 //host= InetAddress.getByName("169.254.152.205");
-                host= InetAddress.getByName(targetIP);
+                host = InetAddress.getByName(targetIP);
             } catch (UnknownHostException ex) {
                 System.err.println(ex.getMessage());
                 Logger.getLogger(SoutheastAsiaClientApp.class.getName()).log(Level.SEVERE, null, ex);
@@ -1079,7 +1087,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
                 setSocket(socket);
 
                 cl.show(jPanel4, "countryselect");
-                setSize(660,300);
+                setSize(660, 300);
             } catch (UnknownHostException ex) {
                 System.err.println(ex.getMessage());
                 Logger.getLogger(SoutheastAsiaClientApp.class.getName()).log(Level.SEVERE, null, ex);
@@ -1097,72 +1105,123 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
 
     }//GEN-LAST:event_connectActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String message = "sendaction#";
-        message += getClientCode();
-        message += "#";
-        message += jComboBox1.getSelectedItem().toString();
-        message += "#";
-        message += jTextArea1.getText();
-        message += "#";
-        message += jTextField3.getText();
-        message += "#";
-        message += jTextField4.getText();
-        message += "#";
-        message += jTextField5.getText();
-        message += "#";
-        message += jTextField6.getText();
+    /**
+     * locks sending of actions while choosing items etc
+     * @param lock if true, action cannot be sent
+     */
+    public void setActionLock(boolean lock) {
+        actionLock = lock;
+    }
 
-        //super secret fields! territory conquered
-        if(territoryTargetted!=-1)
-        {
-            message += "#landing#";
-            message += territoryTargetted;
-        }
-
-        sendMessage(message);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        territoryTargetted=-1;
-        unlockAction();
-        SoutheastAsiaAction a;
-        try {
-            a = (SoutheastAsiaAction) jComboBox1.getSelectedItem();
-            setActionText(a);
-        } catch (java.lang.ClassCastException cce) {
-            a = null;
-        }
-
-        
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-    public void setActionText(SoutheastAsiaAction a)
-    {
+    public void setProductTargetted(String productTargetted) {
+        this.productTargetted = productTargetted;
+    }
+    public void setActionText(SoutheastAsiaAction a) {
         if (a == null) {
             a = new SoutheastAsiaAction("", "", 0, 0, 0, 0);
         }
         jComboBox1.setSelectedItem(null);
         jComboBox1.setEditable(true);
-        jComboBox1.setSelectedItem((Object)a.name);
+        jComboBox1.setSelectedItem((Object) a.name);
         jTextArea1.setText(a.description);
         jTextField3.setText(a.statModifiers.cultural + "");
         jTextField4.setText(a.statModifiers.economic + "");
         jTextField5.setText(a.statModifiers.military + "");
         jTextField6.setText(a.statModifiers.political + "");
 
-        territoryTargetted=a.landing;
+        territoryTargetted = a.landing;
     }
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        chat.setVisible(true);    
+        chat.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        territoryTargetted = -1;
+        productTargetted = "";
+        invasionDeclared = false;
+        unlockAction();
+        SoutheastAsiaAction a;
+        try {
+            a = (SoutheastAsiaAction) jComboBox1.getSelectedItem();
+            setActionText(a);
+            if (a.item == SoutheastAsiaAction.ITEM_GAIN) {
+                setActionLock(true);
+                //popup box
+                new ItemWindow(stats.getPossibleItemListOf(clientCode), this).setVisible(true);
+                tradeOrGain = false;
+            } else if (a.item == SoutheastAsiaAction.ITEM_TRADE) {
+                setActionLock(true);
+                new ItemWindow(stats.getItemsOf(clientCode), this).setVisible(true);
+                tradeOrGain = true;
+            } else if (a.war == SoutheastAsiaAction.WAR_ATTACK) {
+                //probably should not be here; should be chosen from the map
+            } else if (a.war == SoutheastAsiaAction.WAR_GIVEUP) {
+            } else {
+                setActionLock(false);
+            }
+        } catch (java.lang.ClassCastException cce) {
+            a = null;
+        } catch (java.lang.NullPointerException npe) {
+        }
+
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (!actionLock) {
+
+            String message = "sendaction#";
+            message += getClientCode();
+            message += "#";
+            message += jComboBox1.getSelectedItem().toString();
+            message += "#";
+            message += jTextArea1.getText();
+            message += "#";
+            message += jTextField3.getText();
+            message += "#";
+            message += jTextField4.getText();
+            message += "#";
+            message += jTextField5.getText();
+            message += "#";
+            message += jTextField6.getText();
+
+            //super secret fields! territory conquered
+            if (invasionDeclared) {
+                if (territoryTargetted != -1) {
+                    //war!
+                    message += "#invasion#";
+                    message += territoryTargetted;
+                }
+            } else if (territoryTargetted != -1) {
+                message += "#landing#";
+                message += territoryTargetted;
+            }
+
+            if (!productTargetted.isEmpty()) {
+                //target!
+                if (tradeOrGain) {
+                    //trade!
+                    message += "#trade#";
+                } else {
+                    //gain!
+                    message += "#gather#";
+                }
+                message += productTargetted;
+
+            }
+
+            sendMessage(message);
+        } else {
+            JOptionPane.showMessageDialog(null, "Error! Action incomplete, please reselect action");
+        }
+}//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+}//GEN-LAST:event_jTextField3ActionPerformed
+
     private void jTextArea1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyTyped
-                // TODO add your handling code here:
-    }//GEN-LAST:event_jTextArea1KeyTyped
+        // TODO add your handling code here:
+}//GEN-LAST:event_jTextArea1KeyTyped
 
     /**
      * @param args the command line arguments
@@ -1189,7 +1248,9 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     private javax.swing.JTextField economicField;
     private javax.swing.JTextField economicPenalty;
     private javax.swing.JTextField economicSolve;
+    private javax.swing.JComboBox etimorCB;
     private javax.swing.JButton frenchbtn;
+    private javax.swing.JTextArea itemArea;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JComboBox jComboBox1;
@@ -1214,6 +1275,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1239,7 +1301,6 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextArea jTextArea4;
     private javax.swing.JTextArea jTextArea5;
     private javax.swing.JTextField jTextField3;
@@ -1252,7 +1313,6 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     private javax.swing.JComboBox laosCB;
     private javax.swing.JComboBox malayaCB;
     private javax.swing.JLabel map;
-    private javax.swing.JPanel mapPanel;
     private javax.swing.JTextField militaryField;
     private javax.swing.JTextField militaryPenalty;
     private javax.swing.JTextField militarySolve;
@@ -1269,9 +1329,9 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     private javax.swing.JComboBox sulawesiCB;
     private javax.swing.JComboBox sumatraCB;
     private javax.swing.JComboBox thailandCB;
-    private javax.swing.JComboBox timorCB;
     private javax.swing.JButton usbtn;
     private javax.swing.JComboBox vietnamCB;
+    private javax.swing.JComboBox wtimorCB;
     // End of variables declaration//GEN-END:variables
     //i tried to combine app and client starting here:
     private boolean useFakeSockets;
@@ -1322,8 +1382,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         return clientCode;
     }
 
-    public void recieveMessage(String message)
-    {
+    public void recieveMessage(String message) {
         //this will be replaced by Interpreter
         //System.out.println(message);
         southeastasia.client.Interpreter.interpret(this, message);
@@ -1333,25 +1392,25 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
 
         if(splitMessage[0].equals("verified"))
         {
-            isConnected = true;
-            //System.out.println("yoyoyo"+message);
-            clientCode = Integer.parseInt(splitMessage[1]);
-            System.out.println(message);
-            System.out.println("Connection established.");
+        isConnected = true;
+        //System.out.println("yoyoyo"+message);
+        clientCode = Integer.parseInt(splitMessage[1]);
+        System.out.println(message);
+        System.out.println("Connection established.");
         }
         else if(splitMessage[0].equalsIgnoreCase("warn"))
         {
-            new AlertWindow(message.substring(5)).setVisible(true);
+        new AlertWindow(message.substring(5)).setVisible(true);
         }
         else
         {
-            if(message.equals("startgame"))
-            {
-                startGameScreen();
-                //switch screen
-            }
-            else
-                tempMessage(message);
+        if(message.equals("startgame"))
+        {
+        startGameScreen();
+        //switch screen
+        }
+        else
+        tempMessage(message);
         }*/
     }
 
@@ -1409,81 +1468,90 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         startGameScreen();
     }
 
-    public void updateTerritories(int[] territories)
-    {
-        for(int i=0;i<territories.length;i++)
-        {
-            territoryCBs[i].setSelectedIndex(territories[i]+1);
+    public void updateTerritories(int[] territories) {
+        for (int i = 0; i < territories.length; i++) {
+            territoryCBs[i].setSelectedIndex(territories[i] + 1);
+            stats.setTerritory(i, territories[i]);
         }
     }
 
-    public void receiveVerify(int clientCode)
-    {
+    public void receiveVerify(int clientCode) {
         isConnected = true;
         this.clientCode = clientCode;
         System.out.println("Connection established.");
-        getStats().name="Player "+clientCode;
+        getStats(clientCode).name = "Player " + clientCode;
     }
 
-    public void updateStats(int playerCode, int c, int e, int m, int p)
-    {
-        getStats().cultural=c;
-        getStats().economic=e;
-        getStats().military=m;
-        getStats().political=p;
-
+    public void updateStats(int playerCode, int c, int e, int m, int p) {
+        getStats(playerCode).cultural = c;
+        getStats(playerCode).economic = e;
+        getStats(playerCode).military = m;
+        getStats(playerCode).political = p;
         //update gui!!!
         updateGUI();
     }
 
-    public void updateGUI()
+    public void updateItems(int playerCode, String[] items)
     {
-        CountryVariables vars=getStats();
+        if(playerCode==clientCode)
+        {//itemPanel.initButtonsLogo(stats.getItemsOf(playerCode));
+            itemArea.setText("");
+            for(String s:items)
+            {
+                itemArea.append(s+"\n");
+            }
+        }
+
+
+        ArrayList<ItemDetails> c=new ArrayList<ItemDetails>();
+        for(String s:items)
+        {
+            c.add(ItemDetailsFactory.getItem(s));
+        }
+        stats.setItems(c, clientCode);
+    }
+
+    public void updateGUI() {
+        CountryVariables vars = getStats(clientCode);
         countryField.setText(vars.name);
-        culturalField.setText(""+vars.cultural);
-        economicField.setText(""+vars.economic);
-        militaryField.setText(""+vars.military);
-        politicalField.setText(""+vars.political);
+        culturalField.setText("" + vars.cultural);
+        economicField.setText("" + vars.economic);
+        militaryField.setText("" + vars.military);
+        politicalField.setText("" + vars.political);
 
 
-        int numCountries=stats.countSelectedCountries();
+        int numCountries = stats.countSelectedCountries();
 
         countriesTableModel.setRowCount(numCountries);
 
-        for(int i=0;i<numCountries;i++)
-        {
+        for (int i = 0; i < numCountries; i++) {
 
-            vars=stats.getStats(i);
+            vars = stats.getStats(i);
             countriesTableModel.setValueAt(vars.name, i, 0);
             countriesTableModel.setValueAt(vars.cultural, i, 1);
             countriesTableModel.setValueAt(vars.economic, i, 2);
             countriesTableModel.setValueAt(vars.political, i, 3);
             countriesTableModel.setValueAt(vars.military, i, 4);
         }
-        
+
     }
 
-    public SoutheastAsiaServerStats getServerStats()
-    {
+    public SoutheastAsiaServerStats getServerStats() {
         return stats;
     }
 
-    public CountryVariables getStats()
-    {
-        return stats.getStats(clientCode);
+    public CountryVariables getStats(int playerCode) {
+        return stats.getStats(playerCode);
     }
 
-
-    public void updatePlayerCountry(int player, int country, String name)
-    {
-        stats.getStats(player).name=name;
+    public void updatePlayerCountry(int player, int country, String name) {
+        stats.getStats(player).name = name;
         stats.setCountry(player, country);
     }
 
     //sets all text areas to uneditable
     //use this for territory taking and war
-    public void lockAction()
-    {
+    public void lockAction() {
         jTextArea1.setEditable(false);
         jTextField3.setEditable(false);
         jTextField4.setEditable(false);
@@ -1491,8 +1559,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         jTextField6.setEditable(false);
     }
 
-    public void unlockAction()
-    {
+    public void unlockAction() {
 
         jTextArea1.setEditable(true);
         jTextField3.setEditable(true);
@@ -1501,10 +1568,11 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         jTextField6.setEditable(true);
     }
 
-    public void setTabAtAction()
-    {
+    public void setTabAtAction() {
         jTabbedPane1.setSelectedComponent(jPanel3);
     }
 
-    
+    public void setInvasion() {
+        invasionDeclared = true;
+    }
 }

@@ -92,6 +92,15 @@ public class Interpreter {
         {
             
         }
+        else if(netcode[0].equals("item"))
+        {
+            String[] additems=new String[netcode.length-2];
+            for(int i=2;i<netcode.length;i++)
+            {
+                additems[i-2]=netcode[i];
+            }
+            
+        }
     }
 
 }
