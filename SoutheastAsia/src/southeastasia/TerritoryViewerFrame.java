@@ -44,6 +44,7 @@ public class TerritoryViewerFrame extends javax.swing.JFrame {
         militaryButton = new javax.swing.JButton();
         economicButton = new javax.swing.JButton();
         missionaryButton = new javax.swing.JButton();
+        invasionBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Form"); // NOI18N
@@ -76,20 +77,33 @@ public class TerritoryViewerFrame extends javax.swing.JFrame {
             }
         });
 
+        invasionBtn.setText(resourceMap.getString("invasionBtn.text")); // NOI18N
+        invasionBtn.setName("invasionBtn"); // NOI18N
+        invasionBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                invasionBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(countryLabel)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(156, 156, 156)
+                        .addComponent(countryLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(militaryButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(economicButton)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(missionaryButton)
+                        .addComponent(economicButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(missionaryButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(144, 144, 144)
+                        .addComponent(invasionBtn)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -102,6 +116,8 @@ public class TerritoryViewerFrame extends javax.swing.JFrame {
                     .addComponent(militaryButton)
                     .addComponent(economicButton)
                     .addComponent(missionaryButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(invasionBtn)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -151,11 +167,26 @@ public class TerritoryViewerFrame extends javax.swing.JFrame {
         doLanding(new SoutheastAsiaAction(name, desc, c, e, m, p));
     }//GEN-LAST:event_missionaryButtonActionPerformed
 
+    private void invasionBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invasionBtnActionPerformed
+        String name="Invasion";
+        String desc="You must have at least 5E to execute an invasion. Results of the battle are based on your and the defending country's Military stat.";
+        int c=0;
+        int e=-5;
+        int m=0;
+        int p=0;
+
+        SoutheastAsiaAction seact=new SoutheastAsiaAction(name, desc, c, e, m, p);
+        seact.war=SoutheastAsiaAction.WAR_ATTACK;
+        app.setInvasion();
+        doLanding(seact);
+    }//GEN-LAST:event_invasionBtnActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel countryLabel;
     private javax.swing.JButton economicButton;
+    private javax.swing.JButton invasionBtn;
     private javax.swing.JButton militaryButton;
     private javax.swing.JButton missionaryButton;
     // End of variables declaration//GEN-END:variables

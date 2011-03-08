@@ -5,8 +5,6 @@
 
 package southeastasia.game;
 
-import southeastasia.game.CountryVariables;
-
 /**
  *
  * @author Enzo
@@ -31,16 +29,21 @@ public class SoutheastAsiaAction {
     public int item;
     public static final int ITEM_GAIN=1;
     public static final int ITEM_TRADE=2;
+    public String targetItem;
 
     public int war;
     public static final int WAR_ATTACK=1;
     public static final int WAR_GIVEUP=2;
+
+    public int targetCountry; //for trade or war
 
     public SoutheastAsiaAction()
     {
         isNull=false;
         item=0;
         war=0;
+        targetItem="";
+        targetCountry=-1;
     }
 
     public SoutheastAsiaAction(boolean isNull)
@@ -48,6 +51,8 @@ public class SoutheastAsiaAction {
         this.isNull=isNull;
         item=0;
         war=0;
+        targetItem="";
+        targetCountry=-1;
     }
 
     public SoutheastAsiaAction(String name, String desc, int c, int e, int m, int p)
@@ -59,6 +64,8 @@ public class SoutheastAsiaAction {
         landing=-1;
         item=0;
         war=0;
+        targetItem="";
+        targetCountry=-1;
     }
     /**
      * this method converts the action to a string

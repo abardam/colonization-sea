@@ -21,13 +21,13 @@
         <desc>This exercise demonstrates your military's offensive and defensive capabilities for the world to see, while providing training for your forces at the same time. Your people are jubilant to be protected by a strong military force, while the other world leaders are aware of your military might. The only downside is the cost involved.</desc>
         <stat>3, -5, 5, 0</stat>
     </action>
-
-    <action> <!-- i guess this should also be taken out in the future -->
+<!--
+    <action> 
         <name>Invasion</name>
         <desc>You must have at least 5E to execute an invasion. Look at the Battle Chart or your teacher for the result of the battle.</desc>
         <stat>0, -5, 0, 0</stat>
         <war>attack</war>
-    </action>
+    </action> -->
 
     <action>
         <name>Military Surrender</name>
