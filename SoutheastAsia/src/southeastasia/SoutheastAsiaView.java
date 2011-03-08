@@ -1735,6 +1735,18 @@ public class SoutheastAsiaView extends FrameView {
             terrupdate += "#" + (territoryCBs[j].getSelectedIndex() - 1);
         }
 
+        String itemupdate;
+        for(int k=0;k<countPlayers();k++)
+        {
+            itemupdate="items#";
+            itemupdate+=""+k;
+            for(int j=0;j<stats.getItemsOf(k).size();j++)
+            {
+                itemupdate+="#"+stats.getItemsOf(k).get(j).getName();
+            }
+            ss.sendToAll(itemupdate);
+        }
+
         String s;
         for (int i = 0; i < countPlayers(); i++) {
             s = "stats#";
@@ -1753,6 +1765,7 @@ public class SoutheastAsiaView extends FrameView {
             ss.sendToAll(s);
 
             ss.sendToAll(terrupdate);
+
 
         }
 

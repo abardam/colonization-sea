@@ -59,26 +59,26 @@ public class ItemPanel extends javax.swing.JPanel {
                 parent.dispose();
             }
         }
-        jPanel1.removeAll();
-        jPanel1.setLayout(new GridLayout(id.size()/3+1,3));
-        jPanel1.setSize(300, (id.size()/3+1)*100);
+        jPanel2.removeAll();
+        jPanel2.setLayout(new GridLayout((id.size()/3)+1,3));
+        jPanel2.setSize(300, ((id.size()/3)+1)*100);
         JButton itb;
         for (ItemDetails i : id) {
             itb=new JButton(i.getName());
-            jPanel1.add(itb);
+            jPanel2.add(itb);
             itb.addActionListener(new ItemButtonListener(seacp, i, parent));
         }
     }
 
     public void initButtonsLogo(Collection<ItemDetails> id)
     {
-        jPanel1.removeAll();
-        jPanel1.setLayout(new GridLayout(id.size()/3+1,3));
-        jPanel1.setSize(300, (id.size()/3+1)*100);
+        jPanel2.removeAll();
+        jPanel2.setLayout(new GridLayout(id.size()/3+1,3));
+        jPanel2.setSize(300, (id.size()/3+1)*100);
         JLabel itb;
         for (ItemDetails i : id) {
             itb=new JLabel(i.getName());
-            jPanel1.add(itb);
+            jPanel2.add(itb);
         }
     }
 
@@ -93,6 +93,7 @@ public class ItemPanel extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
 
         setName("Form"); // NOI18N
 
@@ -100,15 +101,34 @@ public class ItemPanel extends javax.swing.JPanel {
 
         jPanel1.setName("jPanel1"); // NOI18N
 
+        jPanel2.setName("jPanel2"); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 361, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 275, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 378, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 276, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -132,6 +152,7 @@ public class ItemPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

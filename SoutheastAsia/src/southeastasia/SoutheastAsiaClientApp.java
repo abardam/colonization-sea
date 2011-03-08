@@ -1495,6 +1495,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     {
         if(playerCode==clientCode)
         {//itemPanel.initButtonsLogo(stats.getItemsOf(playerCode));
+            
             itemArea.setText("");
             for(String s:items)
             {

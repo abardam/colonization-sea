@@ -144,7 +144,7 @@ public class ChatWindow extends javax.swing.JFrame {
         if(jTextField1.getText().length()>0)
         {
             if(type==CLIENT)
-                client.sendMessage("chat#"+client.getStats().name+"#"+jTextField1.getText());
+                client.sendMessage("chat#"+client.getStats(client.getClientCode()).name+"#"+jTextField1.getText());
             else if(type==SERVER)
             {
                 server.sendMessage("chat#SERVER#"+jTextField1.getText());

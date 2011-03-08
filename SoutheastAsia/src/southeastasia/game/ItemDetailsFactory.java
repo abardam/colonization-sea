@@ -32,6 +32,8 @@ public class ItemDetailsFactory {
         items.add(new ItemDetails("Tin"));
         items.add(new ItemDetails("Silver"));
         items.add(new ItemDetails("Oil"));
+        items.add(new ItemDetails("Spices"));
+        items.add(new ItemDetails("Ginger"));
 
     }
 
