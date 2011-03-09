@@ -64,7 +64,8 @@ public class ItemPanel extends javax.swing.JPanel {
         jPanel2.setSize(300, ((id.size()/3)+1)*100);
         JButton itb;
         for (ItemDetails i : id) {
-            itb=new JButton(i.getName());
+            itb=new JButton();
+            itb.setIcon(i.getIcon());
             jPanel2.add(itb);
             itb.addActionListener(new ItemButtonListener(seacp, i, parent));
         }
@@ -77,7 +78,8 @@ public class ItemPanel extends javax.swing.JPanel {
         jPanel2.setSize(300, (id.size()/3+1)*100);
         JLabel itb;
         for (ItemDetails i : id) {
-            itb=new JLabel(i.getName());
+            itb=new JLabel();
+            itb.setIcon(i.getIcon());
             jPanel2.add(itb);
         }
     }
