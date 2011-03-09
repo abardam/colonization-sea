@@ -39,6 +39,7 @@ public class SoutheastAsiaAction {
 
     public SoutheastAsiaAction()
     {
+        landing=-1;
         isNull=false;
         item=0;
         war=0;
@@ -48,6 +49,7 @@ public class SoutheastAsiaAction {
 
     public SoutheastAsiaAction(boolean isNull)
     {
+        landing=-1;
         this.isNull=isNull;
         item=0;
         war=0;

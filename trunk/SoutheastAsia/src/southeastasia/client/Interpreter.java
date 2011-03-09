@@ -88,9 +88,9 @@ public class Interpreter {
                 }
             }
         }
-        else if(netcode[0].equals("problem"))
+        else if(netcode[0].equals("prob"))
         {
-            
+            receiver.receiveProblem(netcode);
         }
         else if(netcode[0].equals("items"))
         {

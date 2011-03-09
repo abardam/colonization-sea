@@ -31,6 +31,7 @@ import javax.swing.table.DefaultTableModel;
 import southeastasia.game.ClickablePolygon;
 import southeastasia.game.ItemDetails;
 import southeastasia.game.ItemDetailsFactory;
+import southeastasia.game.Problem;
 import southeastasia.loader.ActionsLoader;
 import southeastasia.loader.ClickablePolygonLoader;
 import southeastasia.networking.SoutheastAsiaServerSockets;
@@ -1535,6 +1536,22 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
             countriesTableModel.setValueAt(vars.military, i, 4);
         }
 
+        Problem p=stats.getProblemData(clientCode);
+
+        if(!p.isNull)
+        {
+            problemField.setText(p.description);
+            culturalPenalty.setText(""+p.statModifiers.cultural);
+            militaryPenalty.setText(""+p.statModifiers.military);
+            economicPenalty.setText(""+p.statModifiers.economic);
+            politicalPenalty.setText(""+p.statModifiers.political);
+
+            culturalSolve.setText(""+p.solveModifiers.cultural);
+            militarySolve.setText(""+p.solveModifiers.military);
+            economicSolve.setText(""+p.solveModifiers.economic);
+            politicalSolve.setText(""+p.solveModifiers.political);
+        }
+
     }
 
     public SoutheastAsiaServerStats getServerStats() {
@@ -1575,5 +1592,15 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
 
     public void setInvasion() {
         invasionDeclared = true;
+    }
+    public void receiveProblem(String netcode[])
+    {
+        Problem p = new Problem(netcode[1], netcode[2], Integer.parseInt(netcode[3]),
+                Integer.parseInt(netcode[4]), Integer.parseInt(netcode[5]),
+                Integer.parseInt(netcode[6]), Integer.parseInt(netcode[7]),
+                Integer.parseInt(netcode[8]), Integer.parseInt(netcode[9]), Integer.parseInt(netcode[10]));
+
+        stats.setProblem(p, clientCode);
+
     }
 }
