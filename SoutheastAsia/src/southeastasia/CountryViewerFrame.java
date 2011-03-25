@@ -55,14 +55,11 @@ public class CountryViewerFrame extends javax.swing.JFrame {
         agreementArea = new javax.swing.JTextArea();
         saveButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Form"); // NOI18N
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(southeastasia.SoutheastAsiaApp.class).getContext().getResourceMap(CountryViewerFrame.class);
-        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 
-        cultural.setText(resourceMap.getString("cultural.text")); // NOI18N
         cultural.setName("cultural"); // NOI18N
         cultural.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,10 +72,8 @@ public class CountryViewerFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
         jLabel2.setName("jLabel2"); // NOI18N
 
-        economic.setText(resourceMap.getString("economic.text")); // NOI18N
         economic.setName("economic"); // NOI18N
         economic.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -86,10 +81,8 @@ public class CountryViewerFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText(resourceMap.getString("jLabel3.text")); // NOI18N
         jLabel3.setName("jLabel3"); // NOI18N
 
-        military.setText(resourceMap.getString("military.text")); // NOI18N
         military.setName("military"); // NOI18N
         military.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -97,10 +90,8 @@ public class CountryViewerFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText(resourceMap.getString("jLabel4.text")); // NOI18N
         jLabel4.setName("jLabel4"); // NOI18N
 
-        political.setText(resourceMap.getString("political.text")); // NOI18N
         political.setName("political"); // NOI18N
         political.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -108,14 +99,10 @@ public class CountryViewerFrame extends javax.swing.JFrame {
             }
         });
 
-        unsaved.setForeground(resourceMap.getColor("unsaved.foreground")); // NOI18N
-        unsaved.setText(resourceMap.getString("unsaved.text")); // NOI18N
         unsaved.setName("unsaved"); // NOI18N
 
-        jLabel5.setText(resourceMap.getString("jLabel5.text")); // NOI18N
         jLabel5.setName("jLabel5"); // NOI18N
 
-        jLabel6.setText(resourceMap.getString("jLabel6.text")); // NOI18N
         jLabel6.setName("jLabel6"); // NOI18N
 
         jScrollPane3.setName("jScrollPane3"); // NOI18N
@@ -142,7 +129,6 @@ public class CountryViewerFrame extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(agreementArea);
 
-        saveButton.setText(resourceMap.getString("saveButton.text")); // NOI18N
         saveButton.setName("saveButton"); // NOI18N
         saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,8 +148,7 @@ public class CountryViewerFrame extends javax.swing.JFrame {
                                 .addContainerGap()
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(71, 71, 71)
                                 .addComponent(jLabel5)
@@ -308,8 +293,6 @@ public class CountryViewerFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField military;

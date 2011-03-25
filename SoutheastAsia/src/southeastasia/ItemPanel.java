@@ -71,6 +71,38 @@ public class ItemPanel extends javax.swing.JPanel {
         }
     }
 
+    public void initButtonTrade(Collection<ItemDetails> id, SoutheastAsiaServerStats stats, JFrame parent)
+    {
+
+        class ItemButtonListener implements ActionListener
+        {
+            private SoutheastAsiaServerStats stats;
+            private ItemDetails target;
+            private JFrame parent;
+            public ItemButtonListener(SoutheastAsiaServerStats seacp, ItemDetails id, JFrame parent)
+            {
+                stats=seacp;
+                target=id;
+                this.parent=parent;
+            }
+            public void actionPerformed(ActionEvent e)
+            {
+                new CountryChooserFrame(stats, target).setVisible(true);
+                parent.dispose();
+            }
+        }
+        jPanel2.removeAll();
+        jPanel2.setLayout(new GridLayout((id.size()/3)+1,3));
+        jPanel2.setSize(300, ((id.size()/3)+1)*100);
+        JButton itb;
+        for (ItemDetails i : id) {
+            itb=new JButton();
+            itb.setIcon(i.getIcon());
+            jPanel2.add(itb);
+            itb.addActionListener(new ItemButtonListener(stats, i, parent));
+        }
+    }
+
     public void initButtonsLogo(Collection<ItemDetails> id)
     {
         jPanel2.removeAll();

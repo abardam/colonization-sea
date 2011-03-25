@@ -22,12 +22,29 @@ import southeastasia.game.ItemDetails;
 public class ItemWindow extends javax.swing.JFrame {
 
     /** Creates new form ItemWindow */
-    public ItemWindow(Collection<ItemDetails> id, SoutheastAsiaClientApp seacapp) {
+    public ItemWindow() {
         initComponents();
+        
+        setSize(350, 350);
+    }
+    public void setListenersGather(Collection<ItemDetails> id, SoutheastAsiaClientApp seacapp)
+    {
         ItemPanel ip=new ItemPanel();
         ip.initButtonsAction(id, seacapp, this);
         add(ip, BorderLayout.CENTER);
-        setSize(350, 350);
+    }
+    public void setItemDisplay(Collection<ItemDetails> id)
+    {
+        ItemPanel ip=new ItemPanel();
+        ip.initButtonsLogo(id);
+        add(ip, BorderLayout.CENTER);
+    }
+
+    public void setItemTraded(Collection<ItemDetails> id, SoutheastAsiaServerStats stats)
+    {
+        ItemPanel ip=new ItemPanel();
+        ip.initButtonTrade(id, stats, this);
+        add(ip,BorderLayout.CENTER);
     }
 
     /** This method is called from within the constructor to
