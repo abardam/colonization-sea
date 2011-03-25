@@ -2,7 +2,7 @@
 
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
   </Properties>
   <SyntheticProperties>
@@ -120,13 +120,11 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" resourceKey="jLabel1.text"/>
         <Property name="name" type="java.lang.String" value="jLabel1" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="cultural">
       <Properties>
-        <Property name="text" type="java.lang.String" resourceKey="cultural.text"/>
         <Property name="name" type="java.lang.String" value="cultural" noResource="true"/>
       </Properties>
       <Events>
@@ -136,13 +134,11 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" resourceKey="jLabel2.text"/>
         <Property name="name" type="java.lang.String" value="jLabel2" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="economic">
       <Properties>
-        <Property name="text" type="java.lang.String" resourceKey="economic.text"/>
         <Property name="name" type="java.lang.String" value="economic" noResource="true"/>
       </Properties>
       <Events>
@@ -151,13 +147,11 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" resourceKey="jLabel3.text"/>
         <Property name="name" type="java.lang.String" value="jLabel3" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="military">
       <Properties>
-        <Property name="text" type="java.lang.String" resourceKey="military.text"/>
         <Property name="name" type="java.lang.String" value="military" noResource="true"/>
       </Properties>
       <Events>
@@ -166,13 +160,11 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" resourceKey="jLabel4.text"/>
         <Property name="name" type="java.lang.String" value="jLabel4" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="political">
       <Properties>
-        <Property name="text" type="java.lang.String" resourceKey="political.text"/>
         <Property name="name" type="java.lang.String" value="political" noResource="true"/>
       </Properties>
       <Events>
@@ -181,20 +173,16 @@
     </Component>
     <Component class="javax.swing.JLabel" name="unsaved">
       <Properties>
-        <Property name="foreground" type="java.awt.Color" resourceKey="unsaved.foreground"/>
-        <Property name="text" type="java.lang.String" resourceKey="unsaved.text"/>
         <Property name="name" type="java.lang.String" value="unsaved" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" resourceKey="jLabel5.text"/>
         <Property name="name" type="java.lang.String" value="jLabel5" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="text" type="java.lang.String" resourceKey="jLabel6.text"/>
         <Property name="name" type="java.lang.String" value="jLabel6" noResource="true"/>
       </Properties>
     </Component>
@@ -238,7 +226,6 @@
     </Container>
     <Component class="javax.swing.JButton" name="saveButton">
       <Properties>
-        <Property name="text" type="java.lang.String" resourceKey="saveButton.text"/>
         <Property name="name" type="java.lang.String" value="saveButton" noResource="true"/>
       </Properties>
       <Events>

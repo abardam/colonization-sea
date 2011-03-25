@@ -11,6 +11,10 @@
 
 package southeastasia;
 
+import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.Set;
+
 /**
  *
  * @author Enzo
@@ -23,6 +27,7 @@ public class ChatWindow extends javax.swing.JFrame {
     private int type;
     private SoutheastAsiaClientApp client;
     private SoutheastAsiaView server;
+    private HashMap<String, String> players;
 
     /*
     public ChatWindow() {
@@ -35,6 +40,7 @@ public class ChatWindow extends javax.swing.JFrame {
         initComponents();
         this.client=client;
         type=CLIENT;
+        players=new HashMap<String,String>();
     }
 
     public ChatWindow(SoutheastAsiaView server)
@@ -42,6 +48,7 @@ public class ChatWindow extends javax.swing.JFrame {
         initComponents();
         this.server=server;
         type=SERVER;
+        players=new HashMap<String,String>();
     }
 
     /** This method is called from within the constructor to
@@ -85,8 +92,6 @@ public class ChatWindow extends javax.swing.JFrame {
 
         jSplitPane1.setRightComponent(jScrollPane2);
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(southeastasia.SoutheastAsiaApp.class).getContext().getResourceMap(ChatWindow.class);
-        jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
         jButton1.setName("jButton1"); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,7 +99,6 @@ public class ChatWindow extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setText(resourceMap.getString("jTextField1.text")); // NOI18N
         jTextField1.setName("jTextField1"); // NOI18N
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,6 +182,30 @@ public class ChatWindow extends javax.swing.JFrame {
     public void addMessage(String message)
     {
         jTextArea2.append(message+"\n");
+    }
+
+    public void addPlayer(String player, String country)
+    {
+        for(String p:players.keySet())
+        {
+            if(p.equalsIgnoreCase(player))
+            {
+                players.put(p, country);
+                return;
+            }
+        }
+
+        players.put(player, country);
+        updatePlayers();
+    }
+
+    public void updatePlayers()
+    {
+        jTextArea1.setText("");
+        for(Entry<String,String> s:players.entrySet())
+        {
+            jTextArea1.append(s.getKey()+"-"+s.getValue()+"\n");
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
