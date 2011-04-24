@@ -106,12 +106,14 @@ public class SoutheastAsiaServerSockets {
         int i;
         int max;
         SoutheastAsiaServerSockets ss;
+        private PlayRunner[] playRunner;
 
         public Accepter(SoutheastAsiaServerSockets ss) {
             i = 0;
             max = SoutheastAsiaApp.MAX_PLAYERS;
             //max = 1;
             this.ss = ss;
+            playRunner=new PlayRunner[max];
         }
 
         @Override
@@ -121,19 +123,42 @@ public class SoutheastAsiaServerSockets {
                 System.out.println("Waiting for player " + (i + 1) + "...");
 
                 try {
-                    players[i] = server.accept();
-                    sender[i] = new PrintWriter(players[i].getOutputStream(), true);
-                    PlayRunner g = new PlayRunner(players[i], ss, i);
-                    g.start();
-                    sendToOne("verified#" + i, i);
+                    Socket s=server.accept();
+                    PlayRunner clone=findSocketClone(s);
+                    if(clone==null)
+                    {
+                        players[i] = s;
+                        sender[i] = new PrintWriter(players[i].getOutputStream(), true);
+                        playRunner[i] = new PlayRunner(players[i], ss, i);
+                        playRunner[i].start();
+                        sendToOne("verified#" + i, i);
+                        i++;
+                    }
+                    else
+                    {
+                        int oldNum=clone.setSocket(s);
+                        players[oldNum]=s;
+                        sender[oldNum]=new PrintWriter(s.getOutputStream(), true);
+                        sendToOne("verified#"+oldNum, oldNum);
+                        seaApp.sendBigUpdate(oldNum);
+                    }
                 } catch (IOException ex) {
                     Logger.getLogger(SoutheastAsiaServerSockets.class.getName()).log(Level.SEVERE, null, ex);
                     System.out.println("Jumping Javabeans, Batman, something happened!");
                 }
-
-                i++;
             }
             System.out.println("Slots full. Ceasing to accept.");
+        }
+
+        private PlayRunner findSocketClone(Socket s) {
+            for(PlayRunner pr:playRunner)
+            {
+                if(pr!=null&&pr.socketEquals(s))
+                {
+                    return pr;
+                }
+            }
+            return null;
         }
     }
 
@@ -170,6 +195,15 @@ public class SoutheastAsiaServerSockets {
             }
 
 
+        }
+
+        private boolean socketEquals(Socket s) {
+            return(socket.getInetAddress().equals(s.getInetAddress()));
+        }
+
+        private int setSocket(Socket s) {
+            socket=s;
+            return i;
         }
     }
 }
