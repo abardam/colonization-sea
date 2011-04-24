@@ -573,4 +573,15 @@ public class SoutheastAsiaServerStats {
     {
         items[countryCode]=new ArrayList<ItemDetails>(id);
     }
+
+    public Collection<ItemDetails> getItemsTraded()
+    {
+        return itemsTraded;
+    }
+
+    public void tradeItem(ItemDetails id, int countryCode)
+    {
+        itemsTraded.remove(id);
+        items[countryCode].add(id);
+    }
 }
