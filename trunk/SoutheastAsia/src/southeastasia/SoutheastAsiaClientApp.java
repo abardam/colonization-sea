@@ -1148,11 +1148,16 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
             if (a.item == SoutheastAsiaAction.ITEM_GAIN) {
                 setActionLock(true);
                 //popup box
-                new ItemWindow(stats.getPossibleItemListOf(clientCode), this).setVisible(true);
+                ItemWindow iw=new ItemWindow();
+                iw.setListenersGather(stats.getPossibleItemListOf(clientCode), this);
+                iw.setVisible(true);
+
                 tradeOrGain = false;
             } else if (a.item == SoutheastAsiaAction.ITEM_TRADE) {
                 setActionLock(true);
-                new ItemWindow(stats.getItemsOf(clientCode), this).setVisible(true);
+                ItemWindow iw=new ItemWindow();
+                iw.setListenersGather(stats.getItemsOf(clientCode), this);
+                iw.setVisible(true);
                 tradeOrGain = true;
             } else if (a.war == SoutheastAsiaAction.WAR_ATTACK) {
                 //probably should not be here; should be chosen from the map
@@ -1164,7 +1169,6 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
             a = null;
         } catch (java.lang.NullPointerException npe) {
         }
-
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
