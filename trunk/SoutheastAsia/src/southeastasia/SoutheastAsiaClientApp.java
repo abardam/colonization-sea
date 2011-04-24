@@ -58,9 +58,11 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     public String targetIP;
     private MapMouseListener mapListener;
     private ItemPanel itemPanel;
+    private boolean gameStarted;
 
     /** Creates new form SoutheastAsiaClientApp */
     public SoutheastAsiaClientApp(String ip) {
+        gameStarted=false;
         targetIP = ip;
         port = 7777;
         territoryTargetted = -1;
@@ -228,6 +230,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
      * client switches to the game screen.
      */
     public void startGameScreen() {
+        gameStarted=true;
         cl.show(jPanel4, "game_play");
 
         setSize(700, 760);
@@ -1470,7 +1473,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
 
     //startgamescreen implemented above.
     public void receiveStart() {
-        startGameScreen();
+        if(!gameStarted)        startGameScreen();
     }
 
     public void updateTerritories(int[] territories) {

@@ -95,4 +95,8 @@ public class SoutheastAsiaApp extends SingleFrameApplication {
     public void receive(int source, String message) {
         southeastasia.server.Interpreter.interpret(window, source, message);
     }
+
+    public void sendBigUpdate(int oldNum) {
+        window.bigPlayerUpdate();
+    }
 }

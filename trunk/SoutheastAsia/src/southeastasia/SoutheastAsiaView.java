@@ -1737,6 +1737,11 @@ public class SoutheastAsiaView extends FrameView {
     }
 
     public void bigPlayerUpdate() {
+        if(gameStarted)
+        {
+            sendClientMessage(-1, "startgame");
+        }
+
         String playerCountryUpdate = "player";
         for (int k = 0; k < countPlayers(); k++) {
             playerCountryUpdate += "#" + k + "#" + stats.getCountry(k) + "#" + stats.getStats(k).name;
