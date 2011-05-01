@@ -4,6 +4,7 @@
  */
 package southeastasia;
 
+import java.awt.Component;
 import southeastasia.game.SoutheastAsiaAction;
 import southeastasia.game.Problem;
 import southeastasia.game.CountryVariables;
@@ -239,7 +240,7 @@ public class SoutheastAsiaServerStats {
      *
      * @return true if there is a winner false otherwise
      */
-    public boolean newTurn() {
+    public boolean newTurn(SoutheastAsiaView view) {
         wars.clear();
         boolean[] giveUp = new boolean[SoutheastAsiaApp.MAX_PLAYERS];
         for (int i = 0; i < SoutheastAsiaApp.MAX_PLAYERS; i++) {
@@ -286,73 +287,87 @@ public class SoutheastAsiaServerStats {
                 problems[i] = Problem.noProblem();
             }
 
-            for (War w : wars) {
-                int targetCountry = territories[w.getTerritory()];
-                if (giveUp[targetCountry]) {
-                    //give up na sila
-                    this.setCountry(w.getAttacker(), w.getTerritory());
+            
+
+
+        }
+
+        for (War w : wars) {
+            int targetCountry = territories[w.getTerritory()];
+            if (giveUp[targetCountry]) {
+                //give up na sila
+                this.setCountry(w.getAttacker(), w.getTerritory());
+            } else {
+                //war!
+                int difference = variables[w.getAttacker()].military - variables[targetCountry].military;
+                int ap, dp;
+                double percentChance;
+                if (difference >= 60) {
+                    percentChance = 1;
+                    ap=diceRoll(1,4,-1);
+                    dp=diceRoll(3,6,0);
+                } else if (difference >= 30) {
+                    percentChance = 5.0 / 6;
+                    ap=diceRoll(1,4,0);
+                    dp=diceRoll(2,6,0);
+                } else if (difference >= 10) {
+                    ap=diceRoll(1,4,0);
+                    dp=diceRoll(2,6,0);
+                    percentChance = 4.0 / 6;
+                } else if (difference >= 1) {
+                    percentChance = 3.0 / 6;
+                    ap=diceRoll(1,6,0);
+                    dp=diceRoll(1,6,0);
+                } else if (difference >= 0) {
+                    percentChance = -1;
+                    this.setCountry(-1, w.getTerritory());
+                    ap=diceRoll(1,6,0);
+                    dp=diceRoll(1,6,0);
+                } else if (difference >= -9) {
+                    percentChance = -1;
+                    ap=diceRoll(2,6,0);
+                    dp=diceRoll(1,4,0);
+                } else if (difference >= -29) {
+                    percentChance = -1;
+                    ap=diceRoll(2,6,0);
+                    dp=diceRoll(1,4,0);
+                } else if (difference >= -59) {
+                    percentChance = -1;
+                    ap=diceRoll(3,6,0);
+                    dp=diceRoll(1,4,-1);
                 } else {
-                    //war!
-                    int difference = variables[w.getAttacker()].military - variables[targetCountry].military;
-                    int ap, dp;
-                    double percentChance;
-                    if (difference >= 60) {
-                        percentChance = 1;
-                        ap=diceRoll(1,4,-1);
-                        dp=diceRoll(3,6,0);
-                    } else if (difference >= 30) {
-                        percentChance = 5.0 / 6;
-                        ap=diceRoll(1,4,0);
-                        dp=diceRoll(2,6,0);
-                    } else if (difference >= 10) {
-                        ap=diceRoll(1,4,0);
-                        dp=diceRoll(2,6,0);
-                        percentChance = 4.0 / 6;
-                    } else if (difference >= 1) {
-                        percentChance = 3.0 / 6;
-                        ap=diceRoll(1,6,0);
-                        dp=diceRoll(1,6,0);
-                    } else if (difference >= 0) {
-                        percentChance = -1;
-                        this.setCountry(-1, w.getTerritory());
-                        ap=diceRoll(1,6,0);
-                        dp=diceRoll(1,6,0);
-                    } else if (difference >= -9) {
-                        percentChance = -1;
-                        ap=diceRoll(2,6,0);
-                        dp=diceRoll(1,4,0);
-                    } else if (difference >= -29) {
-                        percentChance = -1;
-                        ap=diceRoll(2,6,0);
-                        dp=diceRoll(1,4,0);
-                    } else if (difference >= -59) {
-                        percentChance = -1;
-                        ap=diceRoll(3,6,0);
-                        dp=diceRoll(1,4,-1);
-                    } else {
-                        percentChance = -1;
-                        ap=diceRoll(3,6,0);
-                        dp=diceRoll(1,4,-1);
-                    }
-
-                    if (percentChance > 0) {
-                        if (Math.random() < percentChance) {
-
-                            this.setCountry(-1, w.getTerritory());
-                    JOptionPane.showMessageDialog(null, this.variables[w.getAttacker()].name+" has taken "+this.TERRITORY_NAME[w.getTerritory()]);
-                        }
-                        else
-                        {
-                            JOptionPane.showMessageDialog(null, variables[targetCountry]+" defends successfully!");
-                        }
-                    }
-                    variables[w.getAttacker()].military-=ap;
-                    variables[targetCountry].military-=dp;
-
+                    percentChance = -1;
+                    ap=diceRoll(3,6,0);
+                    dp=diceRoll(1,4,-1);
                 }
+                String out="";
+
+                if (percentChance > 0) {
+
+                    if (Math.random() < percentChance) {
+
+                        this.setCountry(-1, w.getTerritory());
+                        out=variables[w.getAttacker()].name+" has taken "+SoutheastAsiaServerStats.TERRITORY_NAME[w.getTerritory()];
+                    }
+                    else
+                    {
+                        out=variables[targetCountry].name+" defends successfully!";
+                    }
+                }
+                else
+                {
+                    out=variables[targetCountry].name+" defends successfully!";
+                }
+
+
+                JOptionPane.showMessageDialog(view.getComponent(), out);
+                view.sendClientMessage(w.getAttacker(), "warn#"+out);
+                view.sendClientMessage(targetCountry, "warn#"+out);
+
+                variables[w.getAttacker()].military-=ap;
+                variables[targetCountry].military-=dp;
+
             }
-
-
         }
 
         //the reason that this is in a separate for loop is so that

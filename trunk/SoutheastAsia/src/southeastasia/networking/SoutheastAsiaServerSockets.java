@@ -155,8 +155,7 @@ public class SoutheastAsiaServerSockets {
             {
                 if(pr!=null&&pr.socketEquals(s))
                 {
-//                    return pr;
-                    return null;
+                    return pr;
                 }
             }
             return null;

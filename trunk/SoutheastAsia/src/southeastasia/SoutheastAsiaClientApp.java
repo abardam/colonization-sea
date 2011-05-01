@@ -1136,6 +1136,8 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         jTextField6.setText(a.statModifiers.political + "");
 
         territoryTargetted = a.landing;
+        if(a.war==SoutheastAsiaAction.WAR_ATTACK)
+            invasionDeclared=true;
     }
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         chat.setVisible(true);
@@ -1600,9 +1602,6 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         jTabbedPane1.setSelectedComponent(jPanel3);
     }
 
-    public void setInvasion() {
-        invasionDeclared = true;
-    }
     public void receiveProblem(String netcode[])
     {
         Problem p = new Problem(netcode[1], netcode[2], Integer.parseInt(netcode[3]),

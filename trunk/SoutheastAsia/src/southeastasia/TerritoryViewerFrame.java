@@ -178,7 +178,6 @@ public class TerritoryViewerFrame extends javax.swing.JFrame {
 
         SoutheastAsiaAction seact=new SoutheastAsiaAction(name, desc, c, e, m, p);
         seact.war=SoutheastAsiaAction.WAR_ATTACK;
-        app.setInvasion();
         doLanding(seact);
     }//GEN-LAST:event_invasionBtnActionPerformed
 

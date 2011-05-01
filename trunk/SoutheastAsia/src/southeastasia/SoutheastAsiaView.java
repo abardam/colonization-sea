@@ -1450,7 +1450,7 @@ public class SoutheastAsiaView extends FrameView {
                 return 0;
             }
 
-            if (stats.newTurn()) {
+            if (stats.newTurn(this)) {
                 //game won! now check to see who won and in what category
             } else {
                 updateActionTables();
@@ -1663,11 +1663,11 @@ public class SoutheastAsiaView extends FrameView {
         playerCode = Integer.parseInt(parsedCode[0]);
 
         if (allowActions[playerCode]) {
+            sendClientMessage(playerCode, "warn#Action received!");
 
             if (stats.hasAction(playerCode)) {
                 //if(override) not using override any more, instead allowActions
                 if (true) {
-                    sendClientMessage(playerCode, "warn#Action received!");
                     //parse actioncode, turn it into an action
                     stats.setAction(parseAction(actionCode), playerCode);
                     allowActions(playerCode, false);
