@@ -59,9 +59,10 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
     private MapMouseListener mapListener;
     private ItemPanel itemPanel;
     private boolean gameStarted;
-
+    private String playerName;
+            
     /** Creates new form SoutheastAsiaClientApp */
-    public SoutheastAsiaClientApp(String ip) {
+    public SoutheastAsiaClientApp(String ip, String playerName) {
         gameStarted=false;
         targetIP = ip;
         port = 7777;
@@ -69,6 +70,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         productTargetted = "";
         actionLock = false;
         invasionDeclared = false;
+        this.playerName = playerName;
 
         countriesTableModel = new DefaultTableModel();
         countriesTableModel.addColumn("Country");
@@ -1488,6 +1490,7 @@ public class SoutheastAsiaClientApp extends javax.swing.JFrame {
         this.clientCode = clientCode;
         System.out.println("Connection established.");
         getStats(clientCode).name = "Player " + clientCode;
+        getStats(clientCode).playerName = this.playerName;
     }
 
     public void updateStats(int playerCode, int c, int e, int m, int p) {

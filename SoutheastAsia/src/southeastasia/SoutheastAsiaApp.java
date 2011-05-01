@@ -33,18 +33,18 @@ public class SoutheastAsiaApp extends SingleFrameApplication {
 
         if(optionPicked==JOptionPane.NO_OPTION)
         {
-
             window = new SoutheastAsiaView(this);
             show(window);
         }
         else if(optionPicked==JOptionPane.YES_OPTION)
         {
             String ip=JOptionPane.showInputDialog("Enter IP Address", "0");
+            String name = JOptionPane.showInputDialog("Welcome, player! \n\nPlease enter your name.", "");
 
             SoutheastAsiaClientApp sac;
 
             for (int i = 0; i < 1; i++) {
-                sac = new SoutheastAsiaClientApp(ip);
+                sac = new SoutheastAsiaClientApp(ip, name);
                 sac.setVisible(true);
                 //sac.setFakeSocket(fs); //change this
                 //fs.addClient(sac);

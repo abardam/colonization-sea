@@ -92,6 +92,8 @@ public class ChatWindow extends javax.swing.JFrame {
 
         jSplitPane1.setRightComponent(jScrollPane2);
 
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(southeastasia.SoutheastAsiaApp.class).getContext().getResourceMap(ChatWindow.class);
+        jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
         jButton1.setName("jButton1"); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,7 +150,10 @@ public class ChatWindow extends javax.swing.JFrame {
         if(jTextField1.getText().length()>0)
         {
             if(type==CLIENT)
-                client.sendMessage("chat#"+client.getStats(client.getClientCode()).name+"#"+jTextField1.getText());
+            {
+                client.sendMessage("chat#"+client.getStats(client.getClientCode()).name+"#"+client.getStats(client.getClientCode()).playerName+"#"+jTextField1.getText());
+            }
+                
             else if(type==SERVER)
             {
                 server.sendMessage("chat#SERVER#"+jTextField1.getText());

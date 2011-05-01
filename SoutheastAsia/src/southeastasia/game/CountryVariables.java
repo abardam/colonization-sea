@@ -13,6 +13,7 @@ package southeastasia.game;
  */
 public class CountryVariables {
     public String name;
+    public String playerName;
     public int political;
     public int cultural;
     public int military;
@@ -26,6 +27,7 @@ public class CountryVariables {
         cultural=0;
         military=0;
         economic=0;
+        playerName = "DefaultName";
         this.name=name;
         inventory="";
         agreements="";
@@ -40,6 +42,19 @@ public class CountryVariables {
         this.name=name;
         inventory="";
         agreements="";
+        playerName = "DefaultName";
+    }
+
+    public CountryVariables(String name, int c, int e, int m, int p, String playerName)
+    {
+        political=p;
+        cultural=c;
+        military=m;
+        economic=e;
+        this.name=name;
+        inventory="";
+        agreements="";
+        this.playerName = playerName;
     }
 
     /**
