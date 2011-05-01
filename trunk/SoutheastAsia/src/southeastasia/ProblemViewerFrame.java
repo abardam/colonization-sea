@@ -369,11 +369,13 @@ public class ProblemViewerFrame extends javax.swing.JFrame {
 
     private void solvedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solvedButtonActionPerformed
         server.setSolved(true, playerCode);
+        server.sendClientMessage(playerCode, "warn#Your problem was solved!");
         server.updateActionTables();
 }//GEN-LAST:event_solvedButtonActionPerformed
 
     private void notSolvedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_notSolvedButtonActionPerformed
         server.setSolved(false, playerCode);
+        server.sendClientMessage(playerCode, "warn#Your problem was not solved!");
         server.updateActionTables();
 }//GEN-LAST:event_notSolvedButtonActionPerformed
 

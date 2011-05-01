@@ -1137,7 +1137,7 @@ public class SoutheastAsiaView extends FrameView {
      *
      * @param playerCode -1 if sending to all
      */
-    private void sendClientMessage(int playerCode, String message) {
+    public void sendClientMessage(int playerCode, String message) {
         if (playerCode == -1) {
             ss.sendToAll(message);
         } else {
@@ -1458,6 +1458,7 @@ public class SoutheastAsiaView extends FrameView {
                 updateTerritoryBoxes();
                 for (int i = 0; i < stats.countSelectedCountries(); i++) {
                     allowActions(i, true);
+                    sendClientMessage(i, "warn#New turn started!");
 
                 }
             }
@@ -1666,6 +1667,7 @@ public class SoutheastAsiaView extends FrameView {
             if (stats.hasAction(playerCode)) {
                 //if(override) not using override any more, instead allowActions
                 if (true) {
+                    sendClientMessage(playerCode, "warn#Action received!");
                     //parse actioncode, turn it into an action
                     stats.setAction(parseAction(actionCode), playerCode);
                     allowActions(playerCode, false);
@@ -1695,7 +1697,7 @@ public class SoutheastAsiaView extends FrameView {
         } else {
             //send a message back to the player saying that actions
             //not allowed yet
-            sendClientMessage(playerCode, "warn#action not allowed");
+            sendClientMessage(playerCode, "warn#Action not allowed! You still have a pending action.");
             return 0;
         }
     }

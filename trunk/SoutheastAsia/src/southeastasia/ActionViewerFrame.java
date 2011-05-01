@@ -283,6 +283,7 @@ public class ActionViewerFrame extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         server.setApproval(true, playerCode);
+        server.sendClientMessage(playerCode, "warn#Your action was approved!");
         server.updateActionTables();
 }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -314,6 +315,7 @@ public class ActionViewerFrame extends javax.swing.JFrame {
         server.setApproval(false, playerCode);
         server.updateActionTables();
         server.allowActions(playerCode, true);
+        server.sendClientMessage(playerCode, "warn#Sorry, your course of action has been disapproved. Please choose a different one.");
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
