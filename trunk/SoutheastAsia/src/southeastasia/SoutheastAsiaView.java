@@ -1819,8 +1819,8 @@ public class SoutheastAsiaView extends FrameView {
     }
 
     //temporarily going to change this
-    public void sendChat(int source, String name, String message) {
-        sendMessage("chat#" +/*defaults[source].*/ name + "#" + message);
-        chat.addMessage(name + ": " + message);
+    public void sendChat(int source, String name, String playerName, String message) {
+        sendMessage("chat#" +/*defaults[source].*/ playerName + " (" +name + ")#" + message);
+        chat.addMessage(playerName + " (" + name + "): " + message);
     }
 }

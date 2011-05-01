@@ -75,7 +75,7 @@ public class SoutheastAsiaServerSockets {
 
     public void interpret(String order, int player) {
         seaApp.receive(player, order); // ... nirefactor ko na lang. pwede pala na nasa asia view.
-        System.out.println("Yo - ServerSockets has received input from Player " + player);
+//        System.out.println("Yo - ServerSockets has received input from Player " + player);
     }
 
     /*public void interpret(String order) {
@@ -155,7 +155,8 @@ public class SoutheastAsiaServerSockets {
             {
                 if(pr!=null&&pr.socketEquals(s))
                 {
-                    return pr;
+//                    return pr;
+                    return null;
                 }
             }
             return null;
