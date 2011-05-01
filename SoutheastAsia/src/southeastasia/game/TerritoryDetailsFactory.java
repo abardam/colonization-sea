@@ -47,7 +47,7 @@ public class TerritoryDetailsFactory {
         territoryDetails.add(new TerritoryDetails(SoutheastAsiaServerStats.BRUNEI,"Brunei","Timber", "Oil", "Fish"));
         territoryDetails.add(new TerritoryDetails(SoutheastAsiaServerStats.SUMATRA,"Sumatra","Timber", "Rice", "Palm Oil", "Nutmeg", "Fish", "Pepper", "Ginger"));
         territoryDetails.add(new TerritoryDetails(SoutheastAsiaServerStats.JAVA,"Java","Timber", "Fish", "Nutmeg", "Coconut", "Pepper", "Ginger", "Copper", "Tin", "Silver"));
-        territoryDetails.add(new TerritoryDetails(SoutheastAsiaServerStats.SULAWESI,"Sulawesi","Timber", "Nutmeg", "Pepper", "Nutmeg", "Clove", "Fish"));
+        territoryDetails.add(new TerritoryDetails(SoutheastAsiaServerStats.SULAWESI,"Sulawesi","Timber", "Nutmeg", "Pepper", "Nutmeg", "Fish"));
         territoryDetails.add(new TerritoryDetails(SoutheastAsiaServerStats.PAPUA,"Papua New Guinea","Timber", "Fish"));
         territoryDetails.add(new TerritoryDetails(SoutheastAsiaServerStats.PHILIPPINES,"Philippines","Sugar Cane", "Rice", "Timber", "Coconut", "Ginger", "Fish", "Gold"));
         territoryDetails.add(new TerritoryDetails(SoutheastAsiaServerStats.THAILAND,"Thailand","Rice", "Fish", "Pepper", "Ginger", "Fish", "Gold"));

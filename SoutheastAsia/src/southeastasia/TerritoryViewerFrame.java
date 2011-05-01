@@ -129,6 +129,7 @@ public class TerritoryViewerFrame extends javax.swing.JFrame {
         action.landing=territoryCode;
         app.setActionText(action);
         app.setTabAtAction();
+        app.setActionLock(false);
         app.lockAction();
         this.dispose();
     }

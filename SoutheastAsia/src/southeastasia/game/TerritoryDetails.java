@@ -6,6 +6,7 @@
 package southeastasia.game;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * 
@@ -21,10 +22,7 @@ public class TerritoryDetails {
         this.territoryCode=territoryCode;
         this.name=name;
         this.items=new ArrayList<ItemDetails>();
-        for(ItemDetails id:items)
-        {
-            this.items.add(id);
-        }
+        this.items.addAll(Arrays.asList(items));
     }
 
     public TerritoryDetails(int territoryCode, String name, String... items)
